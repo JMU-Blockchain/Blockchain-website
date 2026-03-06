@@ -80,3 +80,23 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); c
     .nav-logo { height: 80px !important; }
     .section-padding { padding: 100px 0; }
 }
+/* ANALYST FEED STYLES */
+.analyst-feed { margin-top: 4rem; }
+.feed-item { 
+    background: #fff; 
+    padding: 3rem; 
+    border-radius: 24px; 
+    border-left: 6px solid var(--jmu-purple); 
+    margin-bottom: 2rem; 
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+}
+.feed-meta { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; color: var(--jmu-gold); margin-bottom: 1rem; }
+
+/* ROADMAP STYLES */
+.roadmap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 4rem; }
+.roadmap-item { background: rgba(255,255,255,0.03); padding: 3rem; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); }
+.roadmap-item .step { color: var(--jmu-gold); font-weight: 800; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 1rem; }
+.roadmap-item h4 { color: white; margin-bottom: 1rem; }
+
+.project-card.light { background: white; border: 1px solid #eee; padding: 3.5rem; border-radius: 35px; }
+.card-footer { margin-top: 2rem; font-size: 0.8rem; font-weight: 700; color: #999; border-top: 1px solid #eee; padding-top: 1rem; }
