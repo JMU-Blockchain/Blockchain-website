@@ -83,55 +83,83 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fafafa; color:
     .pillar-grid, .team-grid, .analyst-row { grid-template-columns: 1fr; }
     .section-padding { padding: 80px 0; }
 }
-/* PERCEPTION SECTION */
+/* PROFESSIONAL PERCEPTION SECTION */
 .perception-section {
     padding: var(--gap) 0;
-    background: #ffffff;
+    background: radial-gradient(circle at center, #ffffff 0%, #f9f9fb 100%);
+}
+
+.section-header h2 span {
+    color: var(--jmu-gold);
+}
+
+.section-desc {
+    max-width: 600px;
+    margin: 1rem auto 0;
+    color: var(--text-muted);
+    font-size: 1.1rem;
 }
 
 .truth-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 4rem;
+    gap: 3rem;
+    margin-top: 5rem;
 }
 
 .truth-card {
-    padding: 4rem;
-    border-radius: 40px;
+    padding: 5rem 4rem;
+    border-radius: 30px;
     position: relative;
-    transition: 0.4s ease;
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+    overflow: hidden;
 }
 
-/* The 'Stigma' side looks dull/muted */
-.truth-card.perception {
-    background: #f4f4f4;
-    color: #666;
+/* STIGMA CARD: Subtle & Professional */
+.truth-card.stigma {
+    background: #ffffff;
+    border: 1px solid #eee;
+    color: #888;
 }
 
-/* The 'Reality' side is Dark & Fancy */
+/* REALITY CARD: Deep JMU Purple with Gold Accents */
 .truth-card.reality {
     background: var(--dark);
     color: white;
-    box-shadow: 0 30px 60px rgba(69, 44, 99, 0.3);
+    box-shadow: 0 40px 80px rgba(69, 44, 99, 0.25);
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
 .truth-card.reality h4 {
-    color: var(--jmu-gold);
-    font-size: 1.8rem;
+    background: linear-gradient(to right, #ffffff, var(--jmu-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-size: 2.2rem;
+    font-weight: 800;
     margin: 1.5rem 0;
 }
 
-.truth-card .tag {
-    font-size: 0.7rem;
+.card-status {
+    font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    margin-bottom: 1rem;
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    border-radius: 50px;
 }
 
-.truth-card.reality .tag {
-    color: var(--jmu-purple);
-    background: rgba(255,255,255,0.1);
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
+.stigma .card-status { background: #f0f0f0; color: #999; }
+.reality .card-status { background: rgba(203, 182, 119, 0.2); color: var(--jmu-gold); }
+
+/* Decorative Icons */
+.stigma-icon, .reality-icon {
+    position: absolute;
+    bottom: -20px;
+    right: -10px;
+    font-size: 10rem;
+    font-weight: 900;
+    opacity: 0.03;
 }
+.reality-icon { opacity: 0.1; color: var(--jmu-gold); }
