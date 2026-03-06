@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JMU Blockchain | Home</title>
+    <title>JMU Blockchain | Dismantling Stigmas</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
     <link rel="stylesheet" href="style.css">
@@ -12,42 +12,55 @@
 
     <nav class="navbar">
         <div class="container nav-flex">
-            <a href="index.html"><img src="assets/blockchain.png" class="nav-logo"></a>
+            <a href="index.html" class="logo-link">
+                <img src="assets/blockchain.png" alt="JMU Blockchain Club" class="nav-logo">
+            </a>
             <div class="nav-right">
                 <ul class="nav-links">
                     <li><a href="index.html" class="active">Home</a></li>
                     <li><a href="projects.html">Projects</a></li>
                     <li><a href="#team">Leadership</a></li>
                 </ul>
-                <a href="https://beinvolved.jmu.edu" class="nav-btn">Join Club</a>
+                <a href="https://beinvolved.jmu.edu" class="nav-btn">Join the Movement</a>
             </div>
         </div>
     </nav>
 
     <header class="hero">
         <div class="container" data-aos="fade-up">
-            <h1>Dismantling <br><span>Stigmas.</span></h1>
-            <p>Moving beyond the hype to provide a deep, technical, and ethical understanding of decentralized systems.</p>
+            <div class="hero-content">
+                <div class="badge">James Madison University · Est. 2026</div>
+                <h1>Dismantling <br><span>Stigmas.</span></h1>
+                <p>We provide a deep, technical, and ethical understanding of decentralized systems, bridging the gap between student curiosity and industry reality.</p>
+                <div class="hero-btns">
+                    <a href="#pillars" class="btn primary">View Pillars</a>
+                    <a href="projects.html" class="btn outline">Recent Projects</a>
+                </div>
+            </div>
         </div>
     </header>
 
     <section id="pillars" class="section-padding">
         <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <p class="sub-label">The Foundation</p>
+                <h2>The Three Pillars</h2>
+            </div>
             <div class="pillar-grid">
                 <div class="pillar-card" data-aos="zoom-in">
                     <div class="pillar-icon">🌐</div>
                     <h4>Decentralization</h4>
-                    <p>Shifting power from central entities to a distributed network.</p>
+                    <p>Shifting power from central entities to a distributed, fair network where every node has a voice.</p>
                 </div>
                 <div class="pillar-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="pillar-icon">🛡️</div>
                     <h4>Security</h4>
-                    <p>Advanced cryptography ensuring data integrity and user safety.</p>
+                    <p>Utilizing high-level cryptography to ensure data integrity and user safety across the ledger.</p>
                 </div>
                 <div class="pillar-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="pillar-icon">💎</div>
                     <h4>Transparency</h4>
-                    <p>A public ledger where every transaction is verifiable by all.</p>
+                    <p>An immutable, public record where every single transaction is verifiable by the community.</p>
                 </div>
             </div>
         </div>
@@ -55,28 +68,53 @@
 
     <section id="team" class="section-padding bg-dark">
         <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <p class="sub-label">The Executive Board</p>
+                <h2 class="text-white">Leadership Team</h2>
+            </div>
+            
             <div class="team-grid">
-                <div class="member-card president" data-aos="fade-up">
+                <div class="member-card president" data-aos="zoom-in">
                     <div class="avatar">CM</div>
                     <h4>Charles Monfort</h4>
-                    <p>President & Founder</p>
+                    <p class="role">President & Founder</p>
                 </div>
-                <div class="member-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="member-card" data-aos="zoom-in" data-aos-delay="100">
                     <div class="avatar">EA</div>
                     <h4>Erik Anderson</h4>
-                    <p>Vice President</p>
+                    <p class="role">Vice President</p>
                 </div>
-                <div class="member-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="member-card" data-aos="zoom-in" data-aos-delay="200">
                     <div class="avatar">OW</div>
                     <h4>Owen Winters</h4>
-                    <p>Treasurer</p>
+                    <p class="role">Treasurer</p>
+                </div>
+            </div>
+
+            <div class="team-grid analyst-row">
+                <div class="member-card" data-aos="fade-up" data-aos-delay="300">
+                    <div class="avatar">RK</div>
+                    <h4>Robbie Karas</h4>
+                    <p class="role">Secretary</p>
+                </div>
+                <div class="member-card analyst" data-aos="fade-up" data-aos-delay="400">
+                    <div class="avatar">CA</div>
+                    <h4>Connor Adams</h4>
+                    <p class="role">News Analyst</p>
+                </div>
+                <div class="member-card analyst" data-aos="fade-up" data-aos-delay="500">
+                    <div class="avatar">LJ</div>
+                    <h4>Lucas Johnson</h4>
+                    <p class="role">Market Analyst</p>
                 </div>
             </div>
         </div>
     </section>
 
     <footer class="footer">
-        <p>&copy; 2026 JMU Blockchain Club | Harrisonburg, VA</p>
+        <div class="container">
+            <p>&copy; 2026 JMU Blockchain Club. Designed & Developed by Charles Monfort.</p>
+        </div>
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
