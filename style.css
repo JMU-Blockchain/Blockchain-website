@@ -4,87 +4,57 @@
     --dark: #0f0f12;
     --white: #ffffff;
     --gray: #f9f9fb;
-    --gap: 160px;
+    --glass: rgba(255, 255, 255, 0.03);
+    --gap: 140px;
 }
 
-/* BASE RESET */
+/* BASE & TYPOGRAPHY */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); color: var(--dark); line-height: 1.7; -webkit-font-smoothing: antialiased; }
 .container { max-width: 1200px; margin: auto; padding: 0 2rem; }
 
-/* NAVBAR */
-.navbar { 
-    background: rgba(255, 255, 255, 0.98); 
-    position: sticky; top: 0; z-index: 1000;
-    border-bottom: 1px solid #eee;
-    padding: 0.8rem 0;
-}
+/* NAVIGATION - SHARED ACROSS PAGES */
+.navbar { background: rgba(255, 255, 255, 0.98); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #eee; padding: 0.8rem 0; }
 .nav-flex { display: flex; justify-content: space-between; align-items: center; }
-.nav-logo { height: 110px !important; width: auto; transition: 0.3s; }
+.nav-logo { height: 100px !important; width: auto; transition: 0.3s; }
 .nav-right { display: flex; align-items: center; gap: 3rem; }
-.nav-links { display: flex; list-style: none; gap: 2.5rem; }
+.nav-links { display: flex; list-style: none; gap: 2rem; }
 .nav-links a { text-decoration: none; color: var(--dark); font-weight: 800; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
-.nav-links a:hover { color: var(--jmu-purple); }
-.nav-btn { background: var(--jmu-purple); color: white !important; padding: 0.8rem 1.6rem; border-radius: 6px; text-decoration: none; font-weight: 800; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
-.nav-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(69, 44, 99, 0.2); }
+.nav-links a.active { color: var(--jmu-purple); border-bottom: 2px solid var(--jmu-gold); padding-bottom: 5px; }
 
-/* HERO */
-.hero { 
-    padding: 14rem 0; 
-    background: radial-gradient(circle at top right, #452c6310, transparent),
-                radial-gradient(circle at bottom left, #cbb67710, transparent);
-}
-.hero h1 { font-size: clamp(3.5rem, 9vw, 6.5rem); font-weight: 800; letter-spacing: -4px; line-height: 0.85; margin-bottom: 2rem; }
-.hero h1 span { 
-    background: linear-gradient(to right, var(--jmu-purple), var(--jmu-gold));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.hero p { font-size: 1.25rem; color: #555; max-width: 650px; margin-bottom: 3rem; }
-.btn { padding: 1.2rem 2.5rem; border-radius: 8px; text-decoration: none; font-weight: 800; transition: 0.4s; display: inline-block; }
-.btn.primary { background: var(--dark); color: white; margin-right: 1.5rem; }
-.btn.outline { border: 2px solid #eee; color: var(--dark); }
-.btn:hover { transform: translateY(-5px); }
+/* HERO SECTIONS */
+.hero { padding: 12rem 0; background: radial-gradient(circle at top right, #452c6310, transparent), radial-gradient(circle at bottom left, #cbb67710, transparent); }
+.hero h1 { font-size: clamp(3.5rem, 8vw, 6rem); font-weight: 800; letter-spacing: -4px; line-height: 0.9; margin-bottom: 2rem; }
+.hero h1 span { background: linear-gradient(to right, var(--jmu-purple), var(--jmu-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-/* PILLARS & IMPACT */
+/* PILLAR CARDS WITH ICONS */
 .section-padding { padding: var(--gap) 0; }
-.section-header { text-align: center; margin-bottom: 6rem; }
-.sub-label { color: var(--jmu-purple); font-weight: 800; text-transform: uppercase; letter-spacing: 3px; font-size: 0.8rem; margin-bottom: 1rem; }
-.pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; }
-.pillar-card { background: white; padding: 5rem 3.5rem; border-radius: 40px; box-shadow: 0 30px 60px rgba(0,0,0,0.04); border: 1px solid #f0f0f0; transition: 0.4s; }
-.pillar-card:hover { transform: translateY(-15px); border-color: var(--jmu-purple); }
-.pillar-num { font-size: 4rem; font-weight: 800; color: #f4f4f4; display: block; margin-bottom: 1rem; }
+.pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
+.pillar-card { background: white; padding: 4rem 3rem; border-radius: 35px; border: 1px solid #f0f0f0; transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); position: relative; overflow: hidden; }
+.pillar-card:hover { transform: translateY(-15px); border-color: var(--jmu-purple); box-shadow: 0 30px 60px rgba(69, 44, 99, 0.08); }
+.pillar-icon { font-size: 3rem; margin-bottom: 1.5rem; display: block; color: var(--jmu-purple); }
 
-.impact-section { padding: var(--gap) 0; background: #fafafa; }
-.impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
-.impact-card { padding: 4rem; border-radius: 40px; transition: 0.4s; }
-.impact-card.light { background: white; border: 1px solid #eee; }
-.impact-card.dark { background: var(--dark); color: white; }
-.impact-list { list-style: none; margin-top: 2rem; }
-.impact-list li { margin-bottom: 1rem; padding-left: 1.5rem; position: relative; font-weight: 700; }
-.impact-list li::before { content: '→'; position: absolute; left: 0; color: var(--jmu-gold); }
+/* IMPACT & PROJECTS GRID */
+.impact-grid, .project-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; margin-top: 4rem; }
+.impact-card, .project-card { padding: 3.5rem; border-radius: 35px; transition: 0.4s; }
+.impact-card.dark, .project-card.dark { background: var(--dark); color: white; }
+.tag { display: inline-block; padding: 0.4rem 1rem; border-radius: 50px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1.5rem; background: rgba(203, 182, 119, 0.15); color: var(--jmu-gold); }
 
 /* TEAM SECTION */
-.bg-dark { background: var(--dark); color: white; border-radius: 80px 80px 0 0; }
-.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem; margin-top: 4rem; }
-.member-card { text-align: center; background: rgba(255,255,255,0.03); padding: 4rem 2rem; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); transition: 0.4s; }
+.bg-dark { background: var(--dark); color: white; border-radius: 60px 60px 0 0; }
+.team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem; margin-top: 4rem; }
+.member-card { text-align: center; background: rgba(255,255,255,0.03); padding: 3.5rem 2rem; border-radius: 30px; border: 1px solid rgba(255,255,255,0.08); transition: 0.4s; }
 .member-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); }
-.avatar { width: 120px; height: 120px; border-radius: 50%; background: linear-gradient(45deg, var(--jmu-purple), var(--jmu-gold)); margin: 0 auto 2rem; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.8rem; box-shadow: 0 10px 30px rgba(69, 44, 99, 0.4); }
-.president { border: 2px solid var(--jmu-gold) !important; box-shadow: 0 0 30px rgba(203, 182, 119, 0.15); }
+.avatar { width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(45deg, var(--jmu-purple), var(--jmu-gold)); margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.5rem; }
+.president { border: 2px solid var(--jmu-gold) !important; box-shadow: 0 0 40px rgba(203, 182, 119, 0.1); }
 
 /* FOOTER */
-.footer { padding: 8rem 0 4rem; border-top: 1px solid #eee; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 6rem; margin-bottom: 4rem; }
-.logo-footer { font-weight: 800; font-size: 1.5rem; margin-bottom: 1.5rem; }
-.logo-footer span { color: var(--jmu-purple); }
-.footer-bottom { border-top: 1px solid #eee; padding-top: 3rem; text-align: center; color: #888; font-size: 0.9rem; }
+.footer { padding: 6rem 0 3rem; text-align: center; border-top: 1px solid #eee; }
 
-/* MOBILE */
+/* RESPONSIVE */
 @media (max-width: 992px) {
-    .nav-logo { height: 75px !important; }
+    .pillar-grid, .impact-grid, .project-grid, .team-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
-    .hero { padding: 10rem 0; }
-    .pillar-grid, .impact-grid, .team-grid, .footer-grid { grid-template-columns: 1fr; }
-    .section-padding { padding: 80px 0; }
+    .nav-logo { height: 70px !important; }
 }
