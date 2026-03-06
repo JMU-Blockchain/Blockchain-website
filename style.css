@@ -1,26 +1,60 @@
-/* MOBILE & LOGO STYLING */
-.nav-logo {
-    height: 60px; /* Adjust this until it looks perfect */
-    width: auto;
-    display: block;
+/* ROOT VARIABLES - The 'Secret' to a Pro Site */
+:root {
+    --primary: #452c63; 
+    --gold: #cbb677;
+    --dark: #1a1a1a;
+    --gray: #f9f9f9;
+    --white: #ffffff;
 }
 
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--white); }
+
+/* NAVBAR - Fixed at the top like Madison AI */
+.navbar { 
+    padding: 1rem 0; 
+    background: var(--white); 
+    border-bottom: 1px solid #eee; 
+    position: sticky; 
+    top: 0; 
+    z-index: 100; 
+}
+.navbar .container { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    max-width: 1200px; 
+    margin: auto; 
+    padding: 0 2rem; 
+}
+.nav-logo { height: 60px; width: auto; }
+.nav-links { display: flex; list-style: none; gap: 2rem; }
+.nav-links a { text-decoration: none; color: var(--dark); font-weight: 600; }
+
+/* HERO - The Big Impression */
+.hero { padding: 8rem 0; }
+.hero-split { 
+    display: grid; 
+    grid-template-columns: 1fr 1fr; 
+    gap: 4rem; 
+    max-width: 1200px; 
+    margin: auto; 
+    padding: 0 2rem; 
+}
+.hero h2 { font-size: 3.5rem; font-weight: 800; line-height: 1.1; }
+.hero h2 span { color: var(--primary); }
+.btn.primary { 
+    background: var(--primary); 
+    color: white; 
+    padding: 1rem 2rem; 
+    text-decoration: none; 
+    border-radius: 5px; 
+    display: inline-block; 
+    margin-top: 1rem; 
+}
+
+/* MOBILE FIX */
 @media (max-width: 768px) {
-    /* Stacks columns on top of each other for phones */
-    .hero-split, .section-grid, .footer-grid {
-        grid-template-columns: 1fr;
-        text-align: center;
-    }
-
-    .nav-links {
-        display: none; /* Simplifies the top bar for mobile */
-    }
-
-    .hero h2 {
-        font-size: 2.5rem;
-    }
-    
-    .nav-logo {
-        height: 45px; /* Smaller logo for mobile screens */
-    }
+    .hero-split { grid-template-columns: 1fr; text-align: center; }
+    .nav-links { display: none; }
 }
