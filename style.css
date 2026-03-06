@@ -83,3 +83,55 @@ body { font-family: 'Plus Jakarta Sans', sans-serif; background: #fafafa; color:
     .pillar-grid, .team-grid, .analyst-row { grid-template-columns: 1fr; }
     .section-padding { padding: 80px 0; }
 }
+/* PERCEPTION SECTION */
+.perception-section {
+    padding: var(--gap) 0;
+    background: #ffffff;
+}
+
+.truth-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 4rem;
+}
+
+.truth-card {
+    padding: 4rem;
+    border-radius: 40px;
+    position: relative;
+    transition: 0.4s ease;
+}
+
+/* The 'Stigma' side looks dull/muted */
+.truth-card.perception {
+    background: #f4f4f4;
+    color: #666;
+}
+
+/* The 'Reality' side is Dark & Fancy */
+.truth-card.reality {
+    background: var(--dark);
+    color: white;
+    box-shadow: 0 30px 60px rgba(69, 44, 99, 0.3);
+}
+
+.truth-card.reality h4 {
+    color: var(--jmu-gold);
+    font-size: 1.8rem;
+    margin: 1.5rem 0;
+}
+
+.truth-card .tag {
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.truth-card.reality .tag {
+    color: var(--jmu-purple);
+    background: rgba(255,255,255,0.1);
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+}
