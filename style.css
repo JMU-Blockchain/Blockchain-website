@@ -3,7 +3,9 @@
     --jmu-gold: #cbb677;
     --dark: #0f0f12;
     --white: #ffffff;
-    --gap: 160px; /* Massive spacing to avoid clumping */
+    --glass: rgba(255, 255, 255, 0.7);
+    --gradient: linear-gradient(135deg, var(--jmu-purple), var(--jmu-gold));
+    --gap: 160px;
 }
 
 /* BASE RESET */
