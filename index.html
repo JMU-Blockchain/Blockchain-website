@@ -47,17 +47,17 @@
                 <h2>The Three Pillars</h2>
             </div>
             <div class="pillar-grid">
-                <div class="pillar-card" data-aos="zoom-in">
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="pillar-icon">🌐</div>
                     <h4>Decentralization</h4>
                     <p>Shifting power from central entities to a distributed, fair network where every node has a voice.</p>
                 </div>
-                <div class="pillar-card" data-aos="zoom-in" data-aos-delay="100">
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="pillar-icon">🛡️</div>
                     <h4>Security</h4>
                     <p>Utilizing high-level cryptography to ensure data integrity and user safety across the ledger.</p>
                 </div>
-                <div class="pillar-card" data-aos="zoom-in" data-aos-delay="200">
+                <div class="pillar-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="pillar-icon">💎</div>
                     <h4>Transparency</h4>
                     <p>An immutable, public record where every single transaction is verifiable by the community.</p>
@@ -66,7 +66,7 @@
         </div>
     </section>
 
-    <section class="impact-section" id="vision">
+    <section class="impact-section">
         <div class="container">
             <div class="impact-grid">
                 <div class="impact-card light" data-aos="fade-right">
@@ -109,22 +109,22 @@
             </div>
 
             <div class="team-grid analyst-row">
-                <div class="member-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="member-card" data-aos="fade-up" data-aos-delay="100">
                     <div class="avatar">S</div>
                     <h4>Robbie Karas</h4>
                     <p class="role">Secretary</p>
                 </div>
-                <div class="member-card" data-aos="fade-up" data-aos-delay="400">
+                <div class="member-card" data-aos="fade-up" data-aos-delay="200">
                     <div class="avatar">NA</div>
                     <h4>Connor Adams</h4>
                     <p class="role">News Analyst</p>
                 </div>
-                <div class="member-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="member-card" data-aos="fade-up" data-aos-delay="300">
                     <div class="avatar">MA</div>
                     <h4>Lucas Johnson</h4>
                     <p class="role">Market Analyst</p>
                 </div>
-                <div class="member-card" data-aos="fade-up" data-aos-delay="500">
+                <div class="member-card" data-aos="fade-up" data-aos-delay="400">
                     <div class="avatar">PR</div>
                     <h4>Sean Hallett</h4>
                     <p class="role">Professional Relations</p>
@@ -140,6 +140,13 @@
     </footer>
 
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-    <script>AOS.init({ duration: 1000, once: true });</script>
+    <script>
+        AOS.init({ 
+            duration: 800, 
+            once: true,
+            offset: 50, /* Trigger earlier to reduce "dead" white space feel */
+            easing: 'ease-out-quart'
+        });
+    </script>
 </body>
 </html>
