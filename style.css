@@ -3,10 +3,9 @@
     --jmu-gold: #cbb677;
     --dark: #0a0a0c;
     --white: #ffffff;
-    --gap: 70px; /* Reduced gap for denser, professional feel */
+    --gap: 70px;
 }
 
-/* BASE RESET */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
 body { 
@@ -58,24 +57,20 @@ body {
 .impact-card.dark { background: var(--dark); color: white; }
 .tag { color: var(--jmu-gold); font-weight: 800; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 1rem; display: block; }
 
-/* TEAM */
+/* TEAM & LINKS */
 .bg-dark { background: var(--dark); color: white; border-radius: 60px 60px 0 0; }
 .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 3.5rem; }
 .analyst-row { grid-template-columns: repeat(4, 1fr); margin-top: 3rem; }
-.member-card { text-align: center; background: rgba(255,255,255,0.02); padding: 3.5rem 1.5rem; border-radius: 35px; border: 1px solid rgba(255,255,255,0.08); transition: 0.4s; }
+.member-link { text-decoration: none; color: inherit; display: block; }
+.member-card { text-align: center; background: rgba(255,255,255,0.02); padding: 3.5rem 1.5rem; border-radius: 35px; border: 1px solid rgba(255,255,255,0.08); transition: 0.4s; cursor: pointer; }
+.member-card:hover { transform: translateY(-10px); background: rgba(255,255,255,0.05); border-color: var(--jmu-gold); }
 .avatar { width: 100px; height: 100px; border-radius: 50%; background: linear-gradient(135deg, var(--jmu-purple), var(--jmu-gold)); margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.4rem; }
 .role { color: var(--jmu-gold); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-top: 0.5rem; }
 .president { border: 2px solid var(--jmu-gold) !important; box-shadow: 0 0 40px rgba(203, 182, 119, 0.1); }
 
 .footer { padding: 5rem 0; text-align: center; font-size: 0.85rem; color: #888; border-top: 1px solid #eee; }
 
-/* MOBILE */
 @media (max-width: 992px) {
     .pillar-grid, .team-grid, .analyst-row, .impact-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
-}
-.member-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
 }
