@@ -6,6 +6,16 @@
     --gap: 80px;
 }
 
+/* 1. ANIMATION ENGINE (CSS ONLY) */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.reveal {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
 /* BASE RESET */
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -47,31 +57,28 @@ body {
 .btn.outline { border: 2px solid #ddd; color: var(--dark); }
 .btn:hover { transform: translateY(-5px); }
 
-/* SECTIONS */
+/* PILLARS */
 .section-padding { padding: var(--gap) 0; }
 .section-header { text-align: center; margin-bottom: 3.5rem; }
 .sub-label { color: var(--jmu-purple); font-weight: 800; text-transform: uppercase; letter-spacing: 4px; font-size: 0.8rem; margin-bottom: 0.5rem; display: block; }
-
-/* CARDS & HOVER */
 .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; }
-.pillar-card, .member-card, .impact-card { transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
-.pillar-card { background: white; padding: 4rem 3rem; border-radius: 40px; border: 1px solid #f0f0f0; }
+.pillar-card { background: white; padding: 4rem 3rem; border-radius: 40px; border: 1px solid #f0f0f0; transition: 0.4s; }
 .pillar-card:hover { transform: translateY(-12px); border-color: var(--jmu-purple); box-shadow: 0 25px 50px rgba(0,0,0,0.04); }
 .pillar-icon { font-size: 3.5rem; margin-bottom: 1.5rem; display: block; }
 
-/* IMPACT (The two blocks) */
+/* IMPACT STYLES */
 .impact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; padding-bottom: var(--gap); }
 .impact-card { padding: 4rem; border-radius: 40px; }
 .impact-card.light { background: #f9f9fb; border: 1px solid #eee; }
 .impact-card.dark { background: var(--dark); color: white; }
 .tag { color: var(--jmu-gold); font-weight: 800; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; margin-bottom: 1.5rem; display: block; }
 
-/* LEADERSHIP */
+/* TEAM STYLES */
 .bg-dark { background: var(--dark); color: white; border-radius: 60px 60px 0 0; }
 .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2.5rem; margin-top: 3.5rem; }
 .analyst-row { grid-template-columns: repeat(4, 1fr); margin-top: 3rem; }
 .member-link { text-decoration: none; color: inherit; display: block; }
-.member-card { text-align: center; background: rgba(255,255,255,0.02); padding: 4rem 2rem; border-radius: 40px; border: 1px solid rgba(255,255,255,0.08); }
+.member-card { text-align: center; background: rgba(255,255,255,0.02); padding: 4rem 2rem; border-radius: 40px; border: 1px solid rgba(255,255,255,0.08); transition: 0.4s; }
 .member-card:hover { transform: translateY(-10px); border-color: var(--jmu-gold); background: rgba(255,255,255,0.05); }
 .avatar { width: 110px; height: 110px; border-radius: 50%; background: linear-gradient(135deg, var(--jmu-purple), var(--jmu-gold)); margin: 0 auto 1.5rem; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.6rem; color: white; }
 .role { color: var(--jmu-gold); font-weight: 700; font-size: 0.85rem; text-transform: uppercase; margin-top: 0.5rem; }
@@ -79,7 +86,6 @@ body {
 
 .footer { padding: 5rem 0; text-align: center; font-size: 0.85rem; color: #888; border-top: 1px solid #eee; }
 
-/* MOBILE */
 @media (max-width: 992px) {
     .pillar-grid, .team-grid, .analyst-row, .impact-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
