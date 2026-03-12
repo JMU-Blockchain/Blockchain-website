@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 <body>
 
     <nav class="navbar">
@@ -151,6 +152,14 @@
             <p>&copy; 2026 JMU Blockchain Club. Designed & Developed by Charles Monfort.</p>
         </div>
     </footer>
-
+<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script>
+    AOS.init({ 
+        duration: 800, 
+        once: true, 
+        offset: 50,
+        easing: 'ease-out-quart'
+    });
+</script>
 </body>
 </html>
