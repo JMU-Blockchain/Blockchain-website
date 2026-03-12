@@ -98,3 +98,19 @@ body {
     .hero { padding: 6rem 0; text-align: center; }
     .hero p { margin: 0 auto 3rem; }
 }
+/* Smooth Hover Transitions */
+.pillar-card, .member-card, .impact-card {
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.pillar-card:hover, .member-card:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(69, 44, 99, 0.08);
+    border-color: var(--jmu-purple);
+}
+
+/* Glassmorphism for the cards */
+.member-card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(5px);
+}
