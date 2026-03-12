@@ -74,3 +74,8 @@ body {
     .pillar-grid, .team-grid, .analyst-row, .impact-grid { grid-template-columns: 1fr; }
     .nav-links { display: none; }
 }
+.member-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
