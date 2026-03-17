@@ -1,7 +1,110 @@
-const address = await sdk.wallet.getAddress();
-const balance = await contract.erc1155.balanceOf(address, 0);
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Members Only | JMU Blockchain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Hidden by default until blockchain confirms NFT */
+        #protected-content { display: none; }
+        .auth-screen { 
+            height: 80vh; display: flex; flex-direction: column; 
+            justify-content: center; align-items: center; text-align: center; 
+        }
+        .loader {
+            border: 4px solid #f3f3f3; border-top: 4px solid var(--jmu-purple);
+            border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
 
-if (balance.toNumber() === 0) {
-    alert("Access Denied: You do not hold a JMU Blockchain Membership NFT.");
-    window.location.href = "index.html";
-}
+    <nav class="navbar">
+        <div class="container nav-flex">
+            <a href="index.html"><img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo"></a>
+            <a href="index.html" class="btn outline">Back to Home</a>
+        </div>
+    </nav>
+
+    <div id="auth-screen" class="container auth-screen">
+        <div class="loader"></div>
+        <h2 id="status-text">Connecting to Ledger...</h2>
+        <p>Checking for JMU Membership NFT</p>
+    </div>
+
+    <main id="protected-content" class="section-padding">
+        <div class="container">
+            <div class="section-header">
+                <p class="sub-label">Verified Member</p>
+                <h1>Internal <span>Portal.</span></h1>
+            </div>
+            
+            <div class="impact-grid">
+                <div class="impact-card dark">
+                    <div class="tag">Workshop Files</div>
+                    <h4>Q1 Research & Data</h4>
+                    <p>Access the private Google Drive for board-only research papers and technical audits.</p>
+                    <a href="#" class="btn primary">Open Drive</a>
+                </div>
+                <div class="impact-card light">
+                    <div class="tag">Next Meeting</div>
+                    <h4>Board Strategy Session</h4>
+                    <p>April 4th, 2026 @ 6:00 PM | Showker Hall Rm 102</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://unpkg.com/@thirdweb-dev/sdk/dist/thirdweb-sdk.umd.js"></script>
+    <script>
+        async function verifyMembership() {
+            const statusText = document.getElementById("status-text");
+            const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS_HERE"; // Paste your deployed address
+            const CLIENT_ID = "YOUR_CLIENT_ID_HERE"; // Paste your Client ID
+
+            try {
+                // 1. Check if MetaMask/Wallet is installed
+                if (!window.ethereum) {
+                    statusText.innerText = "Wallet Not Found";
+                    alert("Please install MetaMask or a web3 wallet to enter.");
+                    return;
+                }
+
+                // 2. Initialize SDK
+                const sdk = new window.ThirdwebSDK("base", { clientId: CLIENT_ID });
+                
+                // 3. Request Wallet Address
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const walletAddress = accounts[0];
+                statusText.innerText = "Verifying Credentials...";
+
+                // 4. Check NFT Balance (Using ERC-721 logic since you deployed an NFT Collection)
+                const contract = await sdk.getContract(CONTRACT_ADDRESS);
+                const balance = await contract.erc721.balanceOf(walletAddress);
+
+                if (balance.toNumber() > 0) {
+                    // SUCCESS
+                    document.getElementById("auth-screen").style.display = "none";
+                    document.getElementById("protected-content").style.display = "block";
+                } else {
+                    // FAIL
+                    alert("Access Denied: You do not hold a JMU Blockchain Membership NFT.");
+                    window.location.href = "index.html";
+                }
+
+            } catch (error) {
+                console.error(error);
+                statusText.innerText = "Error Connecting to Wallet";
+            }
+        }
+
+        // Run when page loads
+        window.onload = verifyMembership;
+    </script>
+
+</body>
+</html>
