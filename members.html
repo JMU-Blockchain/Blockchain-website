@@ -1,0 +1,7 @@
+const address = await sdk.wallet.getAddress();
+const balance = await contract.erc1155.balanceOf(address, 0);
+
+if (balance.toNumber() === 0) {
+    alert("Access Denied: You do not hold a JMU Blockchain Membership NFT.");
+    window.location.href = "index.html";
+}
