@@ -3,7 +3,7 @@
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { Show, UserButton } from "@clerk/nextjs"
+import { SignedIn, SignedOut, UserButton } from "@clerk/nextjs"
 import { Menu, X } from "lucide-react"
 import { useState } from "react"
 
@@ -50,15 +50,15 @@ export function Header() {
             </nav>
 
             {/* Auth Buttons */}
-            <Show when="signed-out">
+            <SignedOut>
               <Button 
                 asChild 
                 className="bg-primary text-primary-foreground px-6 py-5 rounded-full font-extrabold text-xs uppercase shadow-lg shadow-primary/15 hover:shadow-xl hover:shadow-primary/25 hover:-translate-y-0.5 transition-all"
               >
                 <Link href="/sign-up">Join Club</Link>
               </Button>
-            </Show>
-            <Show when="signed-in">
+            </SignedOut>
+            <SignedIn>
               <div className="flex items-center gap-4">
                 <Button 
                   asChild 
@@ -75,12 +75,12 @@ export function Header() {
                   }}
                 />
               </div>
-            </Show>
+            </SignedIn>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="flex md:hidden items-center gap-3">
-            <Show when="signed-in">
+            <SignedIn>
               <UserButton 
                 afterSignOutUrl="/"
                 appearance={{
@@ -89,7 +89,7 @@ export function Header() {
                   }
                 }}
               />
-            </Show>
+            </SignedIn>
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="p-2 text-foreground"
@@ -124,7 +124,7 @@ export function Header() {
               >
                 Leadership
               </Link>
-              <Show when="signed-out">
+              <SignedOut>
                 <Link 
                   href="/sign-up" 
                   onClick={() => setMobileMenuOpen(false)}
@@ -132,7 +132,7 @@ export function Header() {
                 >
                   Join Club
                 </Link>
-              </Show>
+</SignedOut>
             </nav>
           </div>
         )}
