@@ -3,82 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resources & Research | JMU Blockchain</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Protocol Hub | JMU Blockchain</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        :root { --jmu-purple: #450084; }
+        :root {
+            --jmu-purple: #450084;
+            --jmu-gold: #C2A14D;
+            --bg-deep: #050507;
+            --card-glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --neon-purple: #a855f7;
+        }
+
+        body { 
+            background-color: var(--bg-deep); 
+            color: #f0f0f0; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0; line-height: 1.6;
+        }
+
+        /* Animated Grid Background */
+        .grid-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: linear-gradient(var(--border-glass) 1px, transparent 1px), 
+                              linear-gradient(90deg, var(--border-glass) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%);
+        }
+
+        .navbar { background: rgba(5, 5, 7, 0.9) !important; backdrop-filter: blur(15px); border-bottom: 1px solid var(--border-glass) !important; }
         #enter-portal { display: none; }
-        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+
+        /* DASHBOARD STATS */
+        .stats-banner {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
+            padding: 20px;
+            background: var(--card-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 20px;
+        }
+
+        .stat-item { text-align: center; border-right: 1px solid var(--border-glass); }
+        .stat-item:last-child { border-right: none; }
+        .stat-value { font-family: 'JetBrains Mono', monospace; font-size: 1.5rem; color: var(--jmu-gold); display: block; }
+        .stat-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; color: #888; }
+
+        /* HEADER */
+        .header-main { padding: 120px 0 60px; text-align: left; }
+        .header-main h1 { font-size: 4rem; line-height: 1.1; margin-bottom: 20px; }
+        .header-main h1 span { background: linear-gradient(90deg, var(--jmu-purple), var(--jmu-gold)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+
+        /* GLOWING CARDS */
+        .concept-card {
+            background: var(--card-glass);
+            border: 1px solid var(--border-glass);
+            padding: 35px;
+            border-radius: 24px;
+            transition: 0.4s;
+            position: relative;
+        }
+
+        .concept-card:hover {
+            border-color: var(--neon-purple);
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.15);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* PILLS/TAGS */
+        .tag { font-size: 0.65rem; font-weight: 800; padding: 4px 10px; border-radius: 6px; background: var(--jmu-purple); color: #fff; margin-bottom: 15px; display: inline-block; }
+
+        /* SCROLL ANIMATION */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        
-        .research-section { padding: 80px 0; border-bottom: 1px solid #f0f0f0; }
-        .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .concept-card { background: #fff; padding: 30px; border-radius: 20px; border: 1px solid #eee; }
-        .concept-card h5 { color: var(--jmu-purple); margin-bottom: 10px; font-size: 1.2rem; }
+
+        /* LIVE PULSE */
+        .pulse { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; display: inline-block; margin-right: 8px; box-shadow: 0 0 10px #22c55e; animation: blink 2s infinite; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
     </style>
 </head>
 <body>
 
-    <nav class="navbar" style="background: white; border-bottom: 1px solid #eee; padding: 15px 0; position: sticky; top: 0; z-index: 1000;">
+    <div class="grid-overlay"></div>
+
+    <nav class="navbar" style="padding: 15px 0; position: sticky; top: 0; z-index: 1000;">
         <div class="container" style="display: flex; align-items: center; width: 100%;">
-            <a href="index.html"><img src="assets/blockchain.png" alt="Logo" style="height: 45px;"></a>
+            <a href="index.html"><img src="assets/blockchain.png" alt="Logo" style="height: 40px; filter: brightness(0) invert(1);"></a>
             <div style="margin-left: auto; display: flex; align-items: center; gap: 30px;">
-                <div class="nav-links" style="display: flex; gap: 20px; align-items: center;">
-                    <a href="index.html" style="text-decoration: none; color: #333; font-weight: 600;">Home</a>
-                    <a href="projects.html" style="text-decoration: none; color: #333; font-weight: 600;">Projects</a>
-                    <a href="resources.html" style="text-decoration: none; color: var(--jmu-purple); font-weight: 800;">Resources</a>
-                    <a href="index.html#team" style="text-decoration: none; color: #333; font-weight: 600;">Leadership</a>
-                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" style="text-decoration: none; color: #333; font-weight: 600;">Join the Club</a>
+                <div class="nav-links" style="display: flex; gap: 20px;">
+                    <a href="index.html" class="nav-item">Home</a>
+                    <a href="projects.html" class="nav-item">Projects</a>
+                    <a href="resources.html" class="nav-item" style="color: var(--jmu-gold) !important;">Resources</a>
+                    <a href="index.html#team" class="nav-item">Leadership</a>
                 </div>
-                <div style="display: flex; align-items: center; gap: 12px; border-left: 1px solid #eee; padding-left: 20px;">
-                    <button id="connect-btn" class="btn primary" onclick="connectWallet()" style="padding: 10px 18px; border-radius: 8px; border: none; background: var(--jmu-purple); color: white; cursor: pointer; font-weight: 800;">Member Login</button>
-                    <a href="members.html" id="enter-portal" class="btn outline" style="padding: 10px 18px; border-radius: 8px; border: 2px solid var(--jmu-purple); color: var(--jmu-purple); text-decoration: none; font-weight: 800;">Enter Portal →</a>
+                <div style="display: flex; gap: 10px; border-left: 1px solid var(--border-glass); padding-left: 20px;">
+                    <button id="connect-btn" class="btn primary" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: 800; cursor: pointer;">Member Login</button>
+                    <a href="members.html" id="enter-portal" class="btn outline" style="border: 1px solid var(--jmu-gold); color: var(--jmu-gold); padding: 10px 20px; border-radius: 8px; text-decoration: none;">Portal →</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <main class="container">
-        <header style="padding: 100px 0 60px; text-align: center;" class="reveal">
-            <div class="badge">Knowledge Base</div>
-            <h1 style="font-size: 3.5rem;">Club <span>Research.</span></h1>
-            <p style="max-width: 700px; margin: 20px auto; color: #666; font-size: 1.1rem;">A repository of our explorations into the intersection of decentralized technology and business logic.</p>
+        
+        <header class="header-main reveal">
+            <div style="display: flex; align-items: center; margin-bottom: 10px;">
+                <span class="pulse"></span>
+                <span style="font-size: 0.7rem; font-weight: 800; letter-spacing: 2px; color: #22c55e;">BASE MAINNET CONNECTED</span>
+            </div>
+            <h1>The Technical <span>Knowledge Base.</span></h1>
+            <p style="max-width: 650px; color: #888; font-size: 1.1rem;">Engineering the next generation of decentralized commerce. Access our proprietary research into chain-based logic and protocol efficiency.</p>
         </header>
 
-        <section id="academic" class="research-section reveal">
-            <h2>Academic <span>Literacy</span></h2>
-            <p style="color: #666; margin-bottom: 30px;">Analyzing core blockchain primitives and their economic implications.</p>
+        <div class="stats-banner reveal">
+            <div class="stat-item">
+                <span class="stat-value">2.4s</span>
+                <span class="stat-label">Avg. Block Time</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">$0.002</span>
+                <span class="stat-label">Gas Target (Base)</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">ERC-721</span>
+                <span class="stat-label">Auth Standard</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-value">124</span>
+                <span class="stat-label">Total Researched</span>
+            </div>
+        </div>
+
+        <section id="academic" style="padding: 60px 0;">
+            <div style="margin-bottom: 40px;" class="reveal">
+                <h2 style="font-size: 2.5rem; margin-bottom: 5px;">01. Protocol <span>Architecture</span></h2>
+                <div style="height: 2px; width: 60px; background: var(--jmu-gold);"></div>
+            </div>
+
             <div class="concept-grid">
-                <div class="concept-card">
-                    <h5>Chain-Based Businesses</h5>
-                    <p>Researching how traditional business models (SaaS, Supply Chain) pivot when moved to a decentralized ledger.</p>
+                <div class="concept-card reveal">
+                    <span class="tag">MACRO-ECONOMICS</span>
+                    <h5>Chain-Based Business</h5>
+                    <p>Research into <strong>Hyper-Structures</strong>: protocols that run indefinitely without maintenance, commission, or intermediaries. We apply this to local Harrisonburg commerce models.</p>
                 </div>
-                <div class="concept-card">
-                    <h5>Tokenomics Design</h5>
-                    <p>Evaluating the mathematical models behind sustainable ecosystem rewards and deflationary mechanics.</p>
+                <div class="concept-card reveal">
+                    <span class="tag">INFRASTRUCTURE</span>
+                    <h5>Layer 2 Settlement</h5>
+                    <p>Comparative analysis of Optimistic vs. Zero-Knowledge rollups. Understanding the economic finality of the Base sequencer.</p>
+                </div>
+                <div class="concept-card reveal">
+                    <span class="tag">GAME THEORY</span>
+                    <h5>Governance Staking</h5>
+                    <p>Studying the "Vote Escrow" model (veTokenomics) to prevent governance attacks and align long-term student incentives.</p>
                 </div>
             </div>
         </section>
 
-        <section id="industry" class="research-section reveal">
-            <h2>Industry <span>Readiness</span></h2>
-            <p style="color: #666; margin-bottom: 30px;">Mapping technical skills to the evolving Web3 job market.</p>
-            <div class="concept-grid">
-                <div class="concept-card">
-                    <h5>Smart Contract Security</h5>
-                    <p>Internal documentation on preventing reentrancy attacks and optimizing gas efficiency in Solidity.</p>
+        <div class="reveal" style="margin: 80px 0; background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1639322537228-f710d846310a?q=80&w=2832&auto=format&fit=crop'); height: 350px; border-radius: 30px; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border-glass);">
+            <div style="text-align: center;">
+                <h3 style="font-size: 2rem;">DECENTRALIZED LOGIC</h3>
+                <p style="color: var(--jmu-gold); font-weight: 800;">Visualizing the Ledger Ecosystem</p>
+            </div>
+        </div>
+        
+
+        <section id="industry" style="padding: 60px 0;">
+            <div style="margin-bottom: 40px;" class="reveal">
+                <h2 style="font-size: 2.5rem; margin-bottom: 5px;">02. Skill <span>Pipeline</span></h2>
+                <div style="height: 2px; width: 60px; background: var(--jmu-gold);"></div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-top: 40px;" class="reveal">
+                <div style="background: rgba(255,255,255,0.02); padding: 30px; border-radius: 20px; border-left: 4px solid var(--jmu-purple);">
+                    <h4 style="color: var(--jmu-gold);">Technical Stack</h4>
+                    <ul style="list-style: none; padding: 0; color: #aaa;">
+                        <li style="margin-bottom: 10px;">• <strong>Languages:</strong> Solidity, TypeScript, Rust</li>
+                        <li style="margin-bottom: 10px;">• <strong>Tools:</strong> Foundry, Hardhat, Thirdweb</li>
+                        <li>• <strong>Frameworks:</strong> Ethers.js, Viem, Wagmi</li>
+                    </ul>
                 </div>
-                <div class="concept-card">
-                    <h5>Market Analysis</h5>
-                    <p>Quantitative research on the correlation between Layer 2 adoption and Ethereum mainnet activity.</p>
+                <div style="background: rgba(255,255,255,0.02); padding: 30px; border-radius: 20px; border-left: 4px solid var(--jmu-gold);">
+                    <h4 style="color: var(--jmu-purple);">Career Verticals</h4>
+                    <ul style="list-style: none; padding: 0; color: #aaa;">
+                        <li style="margin-bottom: 10px;">• Protocol Engineering</li>
+                        <li style="margin-bottom: 10px;">• Quantitative Token Analysis</li>
+                        <li>• Smart Contract Auditing</li>
+                    </ul>
                 </div>
             </div>
         </section>
+
     </main>
 
-    <footer class="footer" style="text-align: center; padding: 60px 0; border-top: 1px solid #eee;">
-        <p>&copy; 2026 JMU Blockchain Club. Designed by Charles Monfort.</p>
+    <footer style="text-align: center; padding: 100px 0; border-top: 1px solid var(--border-glass);">
+        <p style="color: #444; font-size: 0.8rem;">JMU BLOCKCHAIN CLUB RESEARCH DIVISION // 2026 // EST. CHARLES MONFORT</p>
     </footer>
 
     <script>
@@ -88,11 +210,10 @@
             if (window.ethereum) {
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    btn.innerText = "Connected";
-                    btn.style.background = "#eee"; btn.style.color = "#666"; btn.disabled = true;
+                    btn.innerText = "VERIFIED"; btn.style.background = "#22c55e"; btn.disabled = true;
                     portal.style.display = "inline-block";
                 } catch (err) { console.error(err); }
-            } else { alert("MetaMask not found."); }
+            }
         }
 
         const observer = new IntersectionObserver((entries) => {
