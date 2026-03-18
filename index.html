@@ -9,20 +9,30 @@
 </head>
 <body>
     
-<nav class="navbar">
-    <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
-        <a href="index.html">
-            <img src="assets/blockchain.png" alt="JMU Blockchain" style="height: 50px; width: auto;">
-        </a>
-
-        <div style="display: flex; gap: 15px; align-items: center;">
-            <a href="index.html" class="nav-link" style="text-decoration: none; font-weight: 600;">Home</a>
+<nav class="navbar" style="background: white; border-bottom: 1px solid #eee; padding: 15px 0;">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+        
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <a href="index.html">
+                <img src="assets/blockchain.png" alt="JMU Blockchain" style="height: 45px; width: auto;">
+            </a>
             
-            <button id="connect-btn" class="btn primary" onclick="connectWallet()">
+            <div class="nav-links" style="display: flex; gap: 20px;">
+                <a href="index.html" class="nav-item" style="text-decoration: none; color: #333; font-weight: 600;">Home</a>
+                <a href="#about" class="nav-item" style="text-decoration: none; color: #333; font-weight: 600;">About</a>
+                <a href="#research" class="nav-item" style="text-decoration: none; color: #333; font-weight: 600;">Research</a>
+                <a href="#events" class="nav-item" style="text-decoration: none; color: #333; font-weight: 600;">Events</a>
+            </div>
+        </div>
+
+        <div style="display: flex; align-items: center; gap: 10px;">
+            <button id="connect-btn" class="btn primary" onclick="connectWallet()" 
+                    style="padding: 10px 20px; border-radius: 8px; border: none; background: #450084; color: white; cursor: pointer; font-weight: 800;">
                 Member Login
             </button>
-
-            <a href="members.html" id="enter-portal" class="btn outline" style="display: none;">
+            
+            <a href="members.html" id="enter-portal" class="btn outline" 
+               style="display: none; padding: 10px 20px; border-radius: 8px; border: 2px solid #450084; color: #450084; text-decoration: none; font-weight: 800;">
                 Enter Portal →
             </a>
         </div>
