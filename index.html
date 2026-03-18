@@ -159,39 +159,60 @@
     <footer class="footer" style="text-align: center; padding: 40px 0; border-top: 1px solid #eee;">
         <p>&copy; 2026 JMU Blockchain Club. Designed by Charles Monfort.</p>
     </footer>
+<script src="https://unpkg.com/@thirdweb-dev/sdk/dist/thirdweb-sdk.umd.js"></script>
+<script>
+    // FILL THESE IN FROM YOUR THIRDWEB DASHBOARD
+    const CONTRACT_ADDRESS = "0xYOUR_CONTRACT_ADDRESS_HERE"; 
+    const CLIENT_ID = "YOUR_CLIENT_ID_HERE"; 
 
-    <script>
-        async function connectWallet() {
-            const btn = document.getElementById('connect-btn');
-            const portal = document.getElementById('enter-portal');
+    async function connectWallet() {
+        const btn = document.getElementById('connect-btn');
+        const portal = document.getElementById('enter-portal');
 
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    btn.innerText = "Connected";
-                    btn.style.background = "#e0e0e0";
-                    btn.style.color = "#666";
+        if (window.ethereum) {
+            try {
+                // 1. Request Wallet Connection
+                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                const walletAddress = accounts[0];
+                
+                // 2. Initialize Thirdweb SDK on Base
+                const sdk = new window.ThirdwebSDK("base", { clientId: CLIENT_ID });
+                const contract = await sdk.getContract(CONTRACT_ADDRESS);
+
+                // 3. Check NFT Balance
+                const balance = await contract.erc721.balanceOf(walletAddress);
+
+                if (balance.toNumber() > 0) {
+                    // SUCCESS: User owns a JMU Blockchain NFT
+                    btn.innerText = "Verified Member";
+                    btn.style.background = "#4caf50"; // Turn Green for Success
                     btn.disabled = true;
                     portal.style.display = "inline-block";
-                } catch (err) {
-                    console.error("Wallet connection failed.");
+                } else {
+                    // FAIL: Connected, but no NFT found
+                    btn.innerText = "No NFT Found";
+                    btn.style.background = "#f44336"; // Turn Red
+                    alert("Access Denied: You must hold a JMU Blockchain NFT to enter the portal.");
                 }
-            } else {
-                alert("MetaMask not found.");
+            } catch (err) {
+                console.error("Auth failed:", err);
+                alert("Connection failed. Please check MetaMask.");
             }
+        } else {
+            alert("Please install MetaMask to login.");
         }
+    }
 
-        window.addEventListener('scroll', () => {
-            const reveals = document.querySelectorAll('.reveal');
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
-                }
+    // Preserve your scroll animations
+    window.addEventListener('scroll', () => {
+        const reveals = document.querySelectorAll('.reveal');
+        reveals.forEach(el => {
+            if (el.getBoundingClientRect().top < window.innerHeight - 150) {
+                el.classList.add('active');
             }
         });
-    </script>
+    });
+</script>
+   
 </body>
 </html>
