@@ -3,89 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JMU Blockchain | Resources</title>
+    <title>Resources & Research | JMU Blockchain</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        :root { --jmu-purple: #450084; }
+        #enter-portal { display: none; }
+        .reveal { opacity: 0; transform: translateY(20px); transition: 0.6s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+        
+        .research-section { padding: 80px 0; border-bottom: 1px solid #f0f0f0; }
+        .concept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
+        .concept-card { background: #fff; padding: 30px; border-radius: 20px; border: 1px solid #eee; }
+        .concept-card h5 { color: var(--jmu-purple); margin-bottom: 10px; font-size: 1.2rem; }
+    </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container nav-flex">
-            <a href="index.html"><img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo"></a>
-            <div class="nav-right">
-                <ul class="nav-links">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="projects.html">Projects</a></li>
-                    <li><a href="resources.html" class="active">Resources</a></li>
-                </ul>
-                <a href="index.html#team" class="btn outline">Leadership</a>
+    <nav class="navbar" style="background: white; border-bottom: 1px solid #eee; padding: 15px 0; position: sticky; top: 0; z-index: 1000;">
+        <div class="container" style="display: flex; align-items: center; width: 100%;">
+            <a href="index.html"><img src="assets/blockchain.png" alt="Logo" style="height: 45px;"></a>
+            <div style="margin-left: auto; display: flex; align-items: center; gap: 30px;">
+                <div class="nav-links" style="display: flex; gap: 20px; align-items: center;">
+                    <a href="index.html" style="text-decoration: none; color: #333; font-weight: 600;">Home</a>
+                    <a href="projects.html" style="text-decoration: none; color: #333; font-weight: 600;">Projects</a>
+                    <a href="resources.html" style="text-decoration: none; color: var(--jmu-purple); font-weight: 800;">Resources</a>
+                    <a href="index.html#team" style="text-decoration: none; color: #333; font-weight: 600;">Leadership</a>
+                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" style="text-decoration: none; color: #333; font-weight: 600;">Join the Club</a>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; border-left: 1px solid #eee; padding-left: 20px;">
+                    <button id="connect-btn" class="btn primary" onclick="connectWallet()" style="padding: 10px 18px; border-radius: 8px; border: none; background: var(--jmu-purple); color: white; cursor: pointer; font-weight: 800;">Member Login</button>
+                    <a href="members.html" id="enter-portal" class="btn outline" style="padding: 10px 18px; border-radius: 8px; border: 2px solid var(--jmu-purple); color: var(--jmu-purple); text-decoration: none; font-weight: 800;">Enter Portal →</a>
+                </div>
             </div>
         </div>
     </nav>
 
-    <header class="hero reveal">
-        <div class="container">
+    <main class="container">
+        <header style="padding: 100px 0 60px; text-align: center;" class="reveal">
             <div class="badge">Knowledge Base</div>
-            <h1>The <span>Library.</span></h1>
-            <p>Curated whitepapers, technical documentation, and research tools for the serious blockchain student.</p>
-        </div>
-    </header>
+            <h1 style="font-size: 3.5rem;">Club <span>Research.</span></h1>
+            <p style="max-width: 700px; margin: 20px auto; color: #666; font-size: 1.1rem;">A repository of our explorations into the intersection of decentralized technology and business logic.</p>
+        </header>
 
-    <section class="section-padding">
-        <div class="container">
-            <div class="section-header reveal">
-                <p class="sub-label">Level 01</p>
-                <h2>The Fundamentals</h2>
-            </div>
-            <div class="pillar-grid">
-                <div class="pillar-card reveal">
-                    <span class="pillar-icon">📜</span>
-                    <h4>Bitcoin Whitepaper</h4>
-                    <p>Satoshi Nakamoto's original 2008 vision for a peer-to-peer electronic cash system.</p>
-                    <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" class="tag" style="text-decoration:none; margin-top:1rem;">Read Paper →</a>
+        <section id="academic" class="research-section reveal">
+            <h2>Academic <span>Literacy</span></h2>
+            <p style="color: #666; margin-bottom: 30px;">Analyzing core blockchain primitives and their economic implications.</p>
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h5>Chain-Based Businesses</h5>
+                    <p>Researching how traditional business models (SaaS, Supply Chain) pivot when moved to a decentralized ledger.</p>
                 </div>
-                <div class="pillar-card reveal">
-                    <span class="pillar-icon">💠</span>
-                    <h4>Ethereum Whitepaper</h4>
-                    <p>Vitalik Buterin's 2013 proposal for a global, decentralized computing platform.</p>
-                    <a href="https://ethereum.org/en/whitepaper/" target="_blank" class="tag" style="text-decoration:none; margin-top:1rem;">Read Paper →</a>
-                </div>
-                <div class="pillar-card reveal">
-                    <span class="pillar-icon">⚖️</span>
-                    <h4>Blockchain Ethics</h4>
-                    <p>A deep dive into the socio-economic impacts of decentralization and privacy.</p>
-                    <span class="tag" style="background:#eee; color:#666;">Coming Soon</span>
+                <div class="concept-card">
+                    <h5>Tokenomics Design</h5>
+                    <p>Evaluating the mathematical models behind sustainable ecosystem rewards and deflationary mechanics.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="impact-section">
-        <div class="container">
-            <div class="section-header reveal">
-                <p class="sub-label">Level 02</p>
-                <h2 style="margin-bottom:2rem;">Technical <span>Toolbox</span></h2>
-            </div>
-            <div class="impact-grid">
-                <div class="impact-card dark reveal">
-                    <div class="tag">Developer</div>
-                    <h4>Solidity Documentation</h4>
-                    <p>The official guide to the primary language used for Ethereum smart contracts.</p>
-                    <a href="https://docs.soliditylang.org/" target="_blank" class="btn primary" style="margin-top:1rem; border:1px solid #444;">Access Docs</a>
+        <section id="industry" class="research-section reveal">
+            <h2>Industry <span>Readiness</span></h2>
+            <p style="color: #666; margin-bottom: 30px;">Mapping technical skills to the evolving Web3 job market.</p>
+            <div class="concept-grid">
+                <div class="concept-card">
+                    <h5>Smart Contract Security</h5>
+                    <p>Internal documentation on preventing reentrancy attacks and optimizing gas efficiency in Solidity.</p>
                 </div>
-                <div class="impact-card light reveal">
-                    <div class="tag">Analytics</div>
-                    <h4>Dune Analytics</h4>
-                    <p>Explore real-time on-chain data and build custom dashboards for market research.</p>
-                    <a href="https://dune.com/home" target="_blank" class="btn outline" style="margin-top:1rem;">Open Terminal</a>
+                <div class="concept-card">
+                    <h5>Market Analysis</h5>
+                    <p>Quantitative research on the correlation between Layer 2 adoption and Ethereum mainnet activity.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <footer class="footer">
-        <p>&copy; 2026 JMU Blockchain Club | Knowledge is Power</p>
+    <footer class="footer" style="text-align: center; padding: 60px 0; border-top: 1px solid #eee;">
+        <p>&copy; 2026 JMU Blockchain Club. Designed by Charles Monfort.</p>
     </footer>
 
+    <script>
+        async function connectWallet() {
+            const btn = document.getElementById('connect-btn');
+            const portal = document.getElementById('enter-portal');
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    btn.innerText = "Connected";
+                    btn.style.background = "#eee"; btn.style.color = "#666"; btn.disabled = true;
+                    portal.style.display = "inline-block";
+                } catch (err) { console.error(err); }
+            } else { alert("MetaMask not found."); }
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
 </body>
 </html>
