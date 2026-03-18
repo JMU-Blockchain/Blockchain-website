@@ -39,15 +39,14 @@
         
         .nav-item { 
             text-decoration: none; 
-            color: #FFFFFF !important; /* Pure White for maximum legibility */
+            color: #FFFFFF !important; 
             font-weight: 800; 
             font-size: 0.85rem; 
             text-transform: uppercase; 
             letter-spacing: 1.5px; 
             transition: 0.3s;
-            opacity: 0.9;
         }
-        .nav-item:hover { color: var(--jmu-gold) !important; opacity: 1; }
+        .nav-item:hover { color: var(--jmu-gold) !important; }
 
         /* --- MARKET TICKER --- */
         .ticker-wrap { width: 100%; overflow: hidden; background: rgba(0,0,0,0.4); border-bottom: 1px solid var(--glass-border); padding: 12px 0; }
@@ -57,36 +56,58 @@
         .ticker-item .down { color: #ef4444; }
         @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- HERO & REVEALS --- */
+        /* --- REVEAL ENGINE --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- HERO --- */
         .hero { min-height: 75vh; display: flex; align-items: center; padding: 100px 0; }
         .hero-content h1 { font-size: 5.5rem; line-height: 0.85; letter-spacing: -5px; font-weight: 800; margin: 0; }
         .hero-content h1 span { color: var(--jmu-gold); text-shadow: 0 0 30px rgba(194, 161, 77, 0.3); }
 
-        /* --- IMPACT/RESEARCH CARDS --- */
-        .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
-        .impact-card { position: relative; overflow: hidden; border-radius: 32px; padding: 60px; transition: 0.5s; border: 1px solid var(--glass-border); text-decoration: none; color: inherit; }
-        .impact-card.dark { background: var(--jmu-purple); border: none; }
+        /* --- PILLARS: INTERACTIVE FIX --- */
+        .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .pillar-card { 
+            background: var(--glass); 
+            backdrop-filter: blur(15px); 
+            border: 1px solid var(--glass-border); 
+            padding: 50px; 
+            border-radius: 32px; 
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+        }
+        .pillar-card:hover { 
+            transform: translateY(-12px); 
+            border-color: var(--jmu-purple); 
+            background: rgba(255,255,255,0.06);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4), 0 0 15px rgba(69, 0, 132, 0.1);
+        }
+        .pillar-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
 
-        /* --- TEAM: 4-OVER-3 ALIGNMENT --- */
+        /* --- RESEARCH CARDS: INTERACTIVE FIX --- */
+        .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
+        .impact-card { 
+            position: relative; overflow: hidden; border-radius: 32px; padding: 60px; 
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: 1px solid var(--glass-border); 
+            text-decoration: none; color: inherit; 
+        }
+        .impact-card.light { background: var(--glass); backdrop-filter: blur(10px); }
+        .impact-card.dark { background: var(--jmu-purple); border: none; }
+        
+        .impact-card:hover { 
+            transform: scale(1.02) translateY(-5px); 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.5); 
+        }
+        .impact-card.light:hover { border-color: var(--jmu-gold); }
+
+        /* --- TEAM: STAGGERED 4-OVER-3 --- */
         .team-flex-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            max-width: 1250px;
-            margin: 0 auto;
+            display: flex; flex-wrap: wrap; justify-content: center;
+            gap: 20px; max-width: 1250px; margin: 0 auto;
         }
         .member-card { 
-            flex: 0 1 calc(24% - 20px);
-            min-width: 260px;
-            background: var(--glass); 
-            border: 1px solid var(--glass-border); 
-            padding: 35px; 
-            border-radius: 24px; 
-            text-align: center; 
-            transition: 0.4s; 
+            flex: 0 1 calc(24% - 20px); min-width: 260px;
+            background: var(--glass); border: 1px solid var(--glass-border); 
+            padding: 35px; border-radius: 24px; text-align: center; transition: 0.4s; 
         }
         .member-card:hover { border-color: var(--jmu-gold); transform: translateY(-8px); background: rgba(255,255,255,0.06); }
         .avatar { width: 70px; height: 70px; background: var(--jmu-purple); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; border: 2px solid var(--glass-border); }
@@ -101,9 +122,7 @@
 
     <nav class="navbar">
         <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <a href="index.html">
-                <img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo">
-            </a>
+            <a href="index.html"><img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo"></a>
             <div style="display: flex; align-items: center; gap: 40px;">
                 <div class="nav-links" style="display: flex; gap: 25px; align-items: center;">
                     <a href="index.html" class="nav-item">Home</a>
@@ -113,8 +132,8 @@
                     <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
                 </div>
                 <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center;">
-                    <button id="connect-btn" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Member Login</button>
-                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem; letter-spacing: 1px;">PORTAL →</a>
+                    <button id="connect-btn" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Member Login</button>
+                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem;">PORTAL →</a>
                 </div>
             </div>
         </div>
@@ -124,7 +143,7 @@
         <div class="ticker">
             <div class="ticker-item">BTC <span>$64,120.44 (+2.1%)</span></div>
             <div class="ticker-item">ETH <span>$3,450.12 (+1.8%)</span></div>
-            <div class="ticker-item">SOL <span class="down">$142.88 (-0.4%)</span></div>
+            <div class="ticker-item">SOL <span style="color:#ef4444;">$142.88 (-0.4%)</span></div>
             <div class="ticker-item">BASE L2 <span style="color: var(--jmu-gold)">CONNECTED</span></div>
             <div class="ticker-item">LINK <span>$18.22 (+4.5%)</span></div>
             <div class="ticker-item">AVAX <span>$34.55 (+0.9%)</span></div>
@@ -154,17 +173,17 @@
                 <h2 style="font-size: 3.5rem; letter-spacing: -2px;">The Three <span>Pillars.</span></h2>
             </div>
             <div class="pillar-grid">
-                <div class="pillar-card reveal" style="background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); padding: 50px; border-radius: 32px;">
+                <div class="pillar-card reveal">
                     <span class="pillar-icon">🌐</span>
                     <h4 style="font-size: 1.6rem; margin-bottom: 15px;">Decentralization</h4>
                     <p style="color: #94a3b8;">Shifting power from central entities to a distributed network where every node has a voice.</p>
                 </div>
-                <div class="pillar-card reveal" style="background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); padding: 50px; border-radius: 32px;">
+                <div class="pillar-card reveal">
                     <span class="pillar-icon">🛡️</span>
                     <h4 style="font-size: 1.6rem; margin-bottom: 15px;">Security</h4>
                     <p style="color: #94a3b8;">Utilizing high-level cryptography to ensure data integrity and user safety across the ledger.</p>
                 </div>
-                <div class="pillar-card reveal" style="background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); padding: 50px; border-radius: 32px;">
+                <div class="pillar-card reveal">
                     <span class="pillar-icon">💎</span>
                     <h4 style="font-size: 1.6rem; margin-bottom: 15px;">Transparency</h4>
                     <p style="color: #94a3b8;">An immutable, public record where every single transaction is verifiable by the community.</p>
@@ -176,7 +195,7 @@
     <section id="research-preview" style="padding: 80px 0;">
         <div class="container">
             <div class="impact-grid">
-                <a href="research.html#academic" class="impact-card light reveal" style="background: var(--glass); backdrop-filter: blur(10px);">
+                <a href="research.html#academic" class="impact-card light reveal">
                     <div style="font-family: 'JetBrains Mono'; color: var(--jmu-gold); margin-bottom: 25px; font-weight: 700;">01 // EDUCATION</div>
                     <h4 style="font-size: 2.2rem; margin-bottom: 20px;">Academic Literacy</h4>
                     <p style="color: #94a3b8; margin-bottom: 35px;">Rigorous workshops and curated assets designed to decode the engine behind decentralized protocols.</p>
@@ -198,7 +217,7 @@
                 <h2 style="font-size: 3.5rem; letter-spacing: -2px;">The <span>Executive Board.</span></h2>
             </div>
             <div class="team-flex-container reveal">
-                <a href="charles.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">P</div><h4>Charles Monfort</h4><p style="color: var(--jmu-gold); font-size: 0.8rem; font-weight: 800; letter-spacing: 1px;">PRESIDENT</p></div></a>
+                <a href="charles.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">P</div><h4>Charles Monfort</h4><p style="color: var(--jmu-gold); font-size: 0.8rem; font-weight: 800;">PRESIDENT</p></div></a>
                 <a href="erik.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">VP</div><h4>Erik Anderson</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800;">VICE PRESIDENT</p></div></a>
                 <a href="owen.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">T</div><h4>Owen Winters</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800;">TREASURER</p></div></a>
                 <a href="robbie.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">S</div><h4>Robbie Karas</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800;">SECRETARY</p></div></a>
