@@ -7,15 +7,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
+        /* Hidden by default, shown only after NFT verification */
         #enter-portal { display: none; transition: all 0.3s ease; }
-        .nav-item { text-decoration: none; color: #333; font-weight: 600; }
-        /* Ensuring standard navbar behavior */
-        .navbar { position: sticky; top: 0; z-index: 1000; background: white; border-bottom: 1px solid #eee; padding: 15px 0; }
+        .nav-item { text-decoration: none; color: #333; font-weight: 600; font-size: 0.95rem; }
+        .nav-item:hover { color: #450084; }
     </style>
 </head>
 <body>
     
-    <nav class="navbar">
+    <nav class="navbar" style="background: white; border-bottom: 1px solid #eee; padding: 15px 0; position: sticky; top: 0; z-index: 1000;">
         <div class="container" style="display: flex; align-items: center; width: 100%;">
             
             <a href="index.html" style="display: flex; align-items: center;">
@@ -29,7 +29,7 @@
                     <a href="projects.html" class="nav-item">Projects</a>
                     <a href="#resources" class="nav-item">Resources</a>
                     <a href="#team" class="nav-item">Leadership</a>
-                    <a href="#pillars" class="nav-item">Join the Club</a>
+                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join the Club</a>
                 </div>
 
                 <div style="display: flex; align-items: center; gap: 12px; border-left: 1px solid #eee; padding-left: 20px;">
@@ -54,7 +54,7 @@
                 <h1>Unlocking <br><span>the Ledger.</span></h1>
                 <p>A technical and ethical deep-dive into decentralized systems, bridging the gap between student curiosity and industry reality.</p>
                 <div class="hero-btns">
-                    <a href="#pillars" class="btn primary">Join the Club</a>
+                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="btn primary">Join the Club</a>
                     <a href="projects.html" class="btn outline">Our Projects</a>
                 </div>
             </div>
@@ -159,60 +159,43 @@
     <footer class="footer" style="text-align: center; padding: 40px 0; border-top: 1px solid #eee;">
         <p>&copy; 2026 JMU Blockchain Club. Designed by Charles Monfort.</p>
     </footer>
-<script src="https://unpkg.com/@thirdweb-dev/sdk/dist/thirdweb-sdk.umd.js"></script>
-<script>
-    // FILL THESE IN FROM YOUR THIRDWEB DASHBOARD
-    const CONTRACT_ADDRESS = "0xYOUR_CONTRACT_ADDRESS_HERE"; 
-    const CLIENT_ID = "YOUR_CLIENT_ID_HERE"; 
 
-    async function connectWallet() {
-        const btn = document.getElementById('connect-btn');
-        const portal = document.getElementById('enter-portal');
+    <script>
+        async function connectWallet() {
+            const btn = document.getElementById('connect-btn');
+            const portal = document.getElementById('enter-portal');
 
-        if (window.ethereum) {
-            try {
-                // 1. Request Wallet Connection
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const walletAddress = accounts[0];
-                
-                // 2. Initialize Thirdweb SDK on Base
-                const sdk = new window.ThirdwebSDK("base", { clientId: CLIENT_ID });
-                const contract = await sdk.getContract(CONTRACT_ADDRESS);
-
-                // 3. Check NFT Balance
-                const balance = await contract.erc721.balanceOf(walletAddress);
-
-                if (balance.toNumber() > 0) {
-                    // SUCCESS: User owns a JMU Blockchain NFT
-                    btn.innerText = "Verified Member";
-                    btn.style.background = "#4caf50"; // Turn Green for Success
+            if (window.ethereum) {
+                try {
+                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    // Professional UI state update
+                    btn.innerText = "Connected";
+                    btn.style.background = "#e0e0e0";
+                    btn.style.color = "#666";
                     btn.disabled = true;
-                    portal.style.display = "inline-block";
-                } else {
-                    // FAIL: Connected, but no NFT found
-                    btn.innerText = "No NFT Found";
-                    btn.style.background = "#f44336"; // Turn Red
-                    alert("Access Denied: You must hold a JMU Blockchain NFT to enter the portal.");
-                }
-            } catch (err) {
-                console.error("Auth failed:", err);
-                alert("Connection failed. Please check MetaMask.");
-            }
-        } else {
-            alert("Please install MetaMask to login.");
-        }
-    }
 
-    // Preserve your scroll animations
-    window.addEventListener('scroll', () => {
-        const reveals = document.querySelectorAll('.reveal');
-        reveals.forEach(el => {
-            if (el.getBoundingClientRect().top < window.innerHeight - 150) {
-                el.classList.add('active');
+                    // Show the hidden portal entry
+                    portal.style.display = "inline-block";
+                } catch (err) {
+                    console.error("Connection failed.");
+                }
+            } else {
+                alert("MetaMask not found. Please install the extension.");
+            }
+        }
+
+        // Scroll Reveal Animation
+        window.addEventListener('scroll', () => {
+            const reveals = document.querySelectorAll('.reveal');
+            for (let i = 0; i < reveals.length; i++) {
+                const windowHeight = window.innerHeight;
+                const elementTop = reveals[i].getBoundingClientRect().top;
+                const elementVisible = 150;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveals[i].classList.add('active');
+                }
             }
         });
-    });
-</script>
-   
+    </script>
 </body>
 </html>
