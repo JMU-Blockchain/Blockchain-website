@@ -18,88 +18,48 @@
             --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        body { 
-            background-color: var(--slate-950); 
-            color: var(--text-main); 
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            margin: 0; line-height: 1.6; overflow-x: hidden;
-        }
+        body { background-color: var(--slate-950); color: var(--text-main); font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; line-height: 1.6; overflow-x: hidden; }
 
         /* --- BACKGROUND ARCHITECTURE --- */
         .bg-animate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1a0033 0%, var(--slate-950) 100%); z-index: -2; }
         .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), linear-gradient(90deg, var(--glass-border) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%); }
 
         /* --- NAVIGATION --- */
-        .navbar { 
-            background: rgba(7, 10, 19, 0.98) !important; 
-            backdrop-filter: blur(25px); 
-            border-bottom: 1px solid var(--glass-border) !important;
-            padding: 15px 0; position: sticky; top: 0; z-index: 1000;
-        }
-        .nav-logo { height: 55px; width: auto; filter: none !important; transition: 0.3s; }
+        .navbar { background: rgba(7, 10, 19, 0.98) !important; backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border) !important; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        .nav-logo { height: 55px; width: auto; filter: none !important; }
         .nav-item { text-decoration: none; color: #FFFFFF !important; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
         .nav-item:hover { color: var(--jmu-gold) !important; }
 
         /* --- ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
         .pulse-dot { width: 10px; height: 10px; background: #22c55e; border-radius: 50%; display: inline-block; margin-right: 12px; box-shadow: 0 0 12px #22c55e; animation: pulse-ring 2s infinite; }
         @keyframes pulse-ring { 0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); } 70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); } 100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
 
-        /* --- DASHBOARD HUB --- */
+        /* --- DASHBOARD --- */
         .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); margin: 40px 0; }
         .dash-item { background: var(--slate-950); padding: 35px; text-align: center; }
         .dash-val { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; color: var(--jmu-gold); font-weight: 700; display: block; }
         .dash-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; }
 
-        /* --- NODE VISUALIZER TERMINAL --- */
-        .terminal-window {
-            background: #000;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            padding: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: #22c55e;
-            height: 300px;
-            overflow: hidden;
-            margin: 40px 0;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-        }
-        .terminal-header {
-            display: flex;
-            gap: 8px;
-            margin-bottom: 15px;
-            border-bottom: 1px solid #333;
-            padding-bottom: 10px;
-        }
-        .dot { width: 10px; height: 10px; border-radius: 50%; }
-        .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
-        .terminal-content { line-height: 1.4; }
+        /* --- NODE TERMINAL --- */
+        .terminal-window { background: #000; border-radius: 12px; border: 1px solid var(--glass-border); padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #22c55e; height: 250px; overflow: hidden; margin: 40px 0; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        .terminal-header { display: flex; gap: 8px; margin-bottom: 15px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .dot { width: 10px; height: 10px; border-radius: 50%; } .red { background: #ff5f56; } .yellow { background: #ffbd2e; } .green { background: #27c93f; }
 
-        /* --- RESEARCH CONTENT --- */
-        .research-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; }
-        .research-card {
-            background: linear-gradient(145deg, var(--slate-900), var(--slate-950));
-            padding: 45px; border-radius: 28px; border: 1px solid rgba(255,255,255,0.05);
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .research-card:hover { transform: translateY(-12px); border-color: var(--jmu-purple); box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
+        /* --- RESEARCH & WHITEPAPER GRIDS --- */
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 25px; }
+        .glass-card { background: linear-gradient(145deg, var(--slate-900), var(--slate-950)); padding: 45px; border-radius: 28px; border: 1px solid rgba(255,255,255,0.05); transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none; color: inherit; }
+        .glass-card:hover { transform: translateY(-12px); border-color: var(--jmu-purple); box-shadow: 0 25px 60px rgba(0,0,0,0.6); }
         .tag { font-family: 'JetBrains Mono', monospace; background: rgba(179, 163, 105, 0.1); color: var(--jmu-gold); padding: 5px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; margin-bottom: 25px; display: inline-block; }
-        .research-card h4 { font-size: 1.6rem; margin-bottom: 18px; color: #fff; }
-        .research-card p { color: var(--text-dim); font-size: 1rem; margin: 0; }
 
         /* --- MOBILE MEDIA QUERIES --- */
         @media (max-width: 768px) {
-            .navbar .container { padding: 0 20px; }
             .nav-links { display: none !important; }
             h1 { font-size: 2.8rem !important; letter-spacing: -2px !important; }
             .dashboard { grid-template-columns: 1fr 1fr !important; }
-            .dash-item { padding: 25px !important; }
-            .research-grid { grid-template-columns: 1fr !important; display: block; }
-            .research-card { width: 100% !important; margin-bottom: 25px; padding: 30px !important; }
-            .container { width: 92% !important; padding: 0 4%; }
+            .grid-layout { grid-template-columns: 1fr !important; display: block; }
+            .glass-card { width: 100% !important; margin-bottom: 25px; padding: 30px !important; box-sizing: border-box; }
         }
 
         #enter-portal { display: none; }
@@ -112,17 +72,16 @@
 
     <nav class="navbar">
         <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <a href="index.html"><img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo"></a>
+            <a href="index.html"><img src="assets/blockchain.png" alt="Logo" class="nav-logo"></a>
             <div style="display: flex; align-items: center; gap: 40px;">
                 <div class="nav-links" style="display: flex; gap: 25px; align-items: center;">
                     <a href="index.html" class="nav-item">Home</a>
                     <a href="projects.html" class="nav-item">Projects</a>
                     <a href="research.html" class="nav-item" style="color: var(--jmu-gold) !important;">Research</a>
                     <a href="index.html#team" class="nav-item">Leadership</a>
-                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
                 </div>
-                <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center;">
-                    <button id="connect-btn" class="btn primary" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Login</button>
+                <div style="border-left: 2px solid var(--glass-border); padding-left: 30px;">
+                    <button id="connect-btn" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Login</button>
                     <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem;">PORTAL →</a>
                 </div>
             </div>
@@ -136,14 +95,14 @@
                 <span style="font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #22c55e; letter-spacing: 2px; font-weight: 700;">BASE L2 PROTOCOL LIVE</span>
             </div>
             <h1 style="font-size: 4.2rem; margin: 0; letter-spacing: -3px; font-weight: 800;">Protocol <span>Research.</span></h1>
-            <p style="max-width: 720px; color: var(--text-dim); font-size: 1.25rem; margin-top: 22px;">Analyzing the economic architecture of decentralized systems and Layer 2 security protocols.</p>
+            <p style="max-width: 720px; color: var(--text-dim); font-size: 1.25rem; margin-top: 22px;">Bridging academic theory and on-chain reality through immutable business logic and economic security analysis.</p>
         </header>
 
         <div class="dashboard reveal">
             <div class="dash-item"><span class="dash-val">2.4s</span><span class="dash-label">Avg Block Time</span></div>
             <div class="dash-item"><span class="dash-val">ERC-721</span><span class="dash-label">Auth Standard</span></div>
-            <div class="dash-item"><span class="dash-val">Base</span><span class="dash-label">Settlement Layer</span></div>
-            <div class="dash-item"><span class="dash-val">0.01%</span><span class="dash-label">Target Gas Fee</span></div>
+            <div class="dash-item"><span class="dash-val">Base</span><span class="dash-label">Network</span></div>
+            <div class="dash-item"><span class="dash-val">0.01%</span><span class="dash-label">Target Gas</span></div>
         </div>
 
         <div class="terminal-window reveal">
@@ -151,43 +110,67 @@
                 <div class="dot red"></div><div class="dot yellow"></div><div class="dot green"></div>
                 <span style="margin-left: 10px; font-size: 0.7rem; color: #666;">base-rpc-node-jmu-mainnet</span>
             </div>
-            <div id="terminal-content" class="terminal-content">
+            <div id="terminal-content" style="line-height: 1.4;">
                 [SYSTEM] Initializing node connection...<br>
-                [SYSTEM] Fetching Base mainnet head: 1248032...<br>
                 [NODE] Connection verified. Streaming transactions...<br>
             </div>
         </div>
 
         <section style="padding: 60px 0;">
             <h2 style="font-size: 2.6rem; margin-bottom: 45px; font-weight: 800;">01. Academic <span>Literacy.</span></h2>
-            <div class="research-grid">
-                <article class="research-card reveal">
+            <div class="grid-layout">
+                <div class="glass-card reveal">
                     <span class="tag">CHAIN-BASED BUSINESS</span>
                     <h4>Automated Revenue Marketplaces</h4>
                     <p>Analysis of <strong>Hyper-Structures</strong>: protocols that run indefinitely without intermediaries. Researching immutable logic for university commerce.</p>
-                </article>
-
-                <article class="research-card reveal">
+                </div>
+                <div class="glass-card reveal">
                     <span class="tag">GOVERNANCE</span>
                     <h4>Quadratic Voting Frameworks</h4>
                     <p>Evaluating mathematical models for fair club governance. Focusing on decentralized power through soul-bound identity tokens.</p>
-                </article>
-
-                <article class="research-card reveal">
+                </div>
+                <div class="glass-card reveal">
                     <span class="tag">TOKENOMICS</span>
                     <h4>Supply Loop Equilibrium</h4>
                     <p>Evaluation of deflationary pressure and liquidity incentives. Studying the "Flywheel Effect" within DeFi ecosystems.</p>
-                </article>
+                </div>
+            </div>
+        </section>
+
+        <section style="padding: 80px 0;">
+            <div class="section-header reveal" style="margin-bottom: 50px;">
+                <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 2px;">THE CANON</p>
+                <h2 style="font-size: 2.6rem; font-weight: 800;">02. Whitepaper <span>Archive.</span></h2>
+                <p style="color: var(--text-dim); margin-top: 15px;">Primary source documents that define the modern decentralized stack.</p>
+            </div>
+            <div class="grid-layout">
+                <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" class="glass-card reveal">
+                    <span class="tag">BTC // 2008</span>
+                    <h4>The Bitcoin Whitepaper</h4>
+                    <p>Satoshi Nakamoto's original proposal for a peer-to-peer electronic cash system. The foundation of the entire ledger industry.</p>
+                    <span style="display: block; margin-top: 20px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">READ SOURCE →</span>
+                </a>
+                <a href="https://ethereum.org/en/whitepaper/" target="_blank" class="glass-card reveal">
+                    <span class="tag">ETH // 2013</span>
+                    <h4>The Ethereum Whitepaper</h4>
+                    <p>Vitalik Buterin's introduction of a next-generation smart contract and decentralized application platform.</p>
+                    <span style="display: block; margin-top: 20px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">READ SOURCE →</span>
+                </a>
+                <a href="https://docs.base.org/" target="_blank" class="glass-card reveal">
+                    <span class="tag">BASE // 2023</span>
+                    <h4>The Base Ecosystem</h4>
+                    <p>Technical documentation for Coinbase's Layer 2 network, focusing on scalability and the transition to the Superchain.</p>
+                    <span style="display: block; margin-top: 20px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">VIEW DOCS →</span>
+                </a>
             </div>
         </section>
     </main>
 
     <footer style="text-align: center; padding: 120px 0; border-top: 1px solid var(--glass-border);">
-        <p style="color: #475569; font-size: 0.75rem; letter-spacing: 2px;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
+        <p style="color: #475569; font-size: 0.75rem; letter-spacing: 2px;">&copy; 2026 JMU BLOCKCHAIN // RESEARCH HUB // FOUNDER CHARLES MONFORT</p>
     </footer>
 
     <script>
-        // Web3 Connection
         async function connectWallet() {
             const btn = document.getElementById('connect-btn');
             const portal = document.getElementById('enter-portal');
@@ -196,29 +179,19 @@
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     btn.innerText = "VERIFIED"; btn.style.background = "#22c55e"; btn.disabled = true;
                     portal.style.display = "inline-block";
-                } catch (err) { console.error("Denied"); }
+                } catch (err) { console.error(err); }
             }
         }
-
-        // TERMINAL LIVE STREAM LOGIC
         const terminal = document.getElementById('terminal-content');
         function addLog() {
             const txHash = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
-            const gas = (Math.random() * (0.005 - 0.001) + 0.001).toFixed(4);
-            const logs = [
-                `[TX] Confirmed: ${txHash} | Gas: ${gas} Gwei`,
-                `[INFO] Block #1248${Math.floor(Math.random()*900+100)} finalized.`,
-                `[MEMPOOL] Pending request from 0x71C...789`,
-                `[SECURITY] Verifying signature for ERC-721 mint...`
-            ];
-            const logEntry = document.createElement('div');
-            logEntry.innerHTML = logs[Math.floor(Math.random() * logs.length)];
-            terminal.appendChild(logEntry);
-            if (terminal.children.length > 10) terminal.removeChild(terminal.firstChild);
+            const logs = [`[TX] Confirmed: ${txHash}`, `[INFO] Block finalized: ${Math.floor(Math.random()*900+100)}`, `[NODE] Syncing head...` ];
+            const entry = document.createElement('div');
+            entry.innerHTML = logs[Math.floor(Math.random() * logs.length)];
+            terminal.appendChild(entry);
+            if (terminal.children.length > 8) terminal.removeChild(terminal.firstChild);
         }
         setInterval(addLog, 2500);
-
-        // Scroll Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
