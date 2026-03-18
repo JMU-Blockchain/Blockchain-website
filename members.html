@@ -3,108 +3,57 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members Only | JMU Blockchain</title>
+    <title>Member Portal | JMU Blockchain</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Hidden by default until blockchain confirms NFT */
-        #protected-content { display: none; }
-        .auth-screen { 
-            height: 80vh; display: flex; flex-direction: column; 
-            justify-content: center; align-items: center; text-align: center; 
+        /* Loading Overlay to prevent content flash before verification */
+        #gatekeeper-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; z-index: 9999; display: flex; 
+            flex-direction: column; align-items: center; justify-content: center;
         }
-        .loader {
-            border: 4px solid #f3f3f3; border-top: 4px solid var(--jmu-purple);
-            border-radius: 50%; width: 40px; height: 40px; animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+        .portal-container { padding: 40px 0; min-height: 80vh; }
+        .resource-card { 
+            background: #f8f9fa; border: 1px solid #eee; padding: 20px; 
+            border-radius: 12px; transition: 0.3s; text-decoration: none; color: inherit;
         }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        .resource-card:hover { transform: translateY(-5px); border-color: #450084; }
     </style>
 </head>
 <body>
 
-    <nav class="navbar">
-        <div class="container nav-flex">
-            <a href="index.html"><img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo"></a>
-            <a href="index.html" class="btn outline">Back to Home</a>
+    <div id="gatekeeper-overlay">
+        <img src="assets/blockchain.png" alt="Loading" style="height: 60px; margin-bottom: 20px;">
+        <h2 style="font-family: 'Plus Jakarta Sans'; color: #450084;">Verifying Membership...</h2>
+        <p>Checking the Base Ledger for your NFT.</p>
+    </div>
+
+    <nav class="navbar" style="background: white; border-bottom: 1px solid #eee; padding: 15px 0;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <a href="index.html"><img src="assets/blockchain.png" alt="Logo" style="height: 40px;"></a>
+            <div style="display: flex; gap: 20px; align-items: center;">
+                <span id="user-address" style="font-size: 0.9rem; color: #666; font-weight: 600;">0x000...0000</span>
+                <a href="index.html" class="btn outline" style="padding: 8px 15px; font-size: 0.8rem;">Logout</a>
+            </div>
         </div>
     </nav>
 
-    <div id="auth-screen" class="container auth-screen">
-        <div class="loader"></div>
-        <h2 id="status-text">Connecting to Ledger...</h2>
-        <p>Checking for JMU Membership NFT</p>
-    </div>
+    <main class="portal-container container">
+        <header style="margin-bottom: 40px;">
+            <div class="badge">SECURE ACCESS</div>
+            <h1 style="font-size: 2.5rem; margin-top: 10px;">Welcome to the <span>Inner Circle.</span></h1>
+            <p>Access exclusive JMU Blockchain Club research, meeting notes, and executive tools.</p>
+        </header>
 
-    <main id="protected-content" class="section-padding">
-        <div class="container">
-            <div class="section-header">
-                <p class="sub-label">Verified Member</p>
-                <h1>Internal <span>Portal.</span></h1>
-            </div>
-            
-            <div class="impact-grid">
-                <div class="impact-card dark">
-                    <div class="tag">Workshop Files</div>
-                    <h4>Q1 Research & Data</h4>
-                    <p>Access the private Google Drive for board-only research papers and technical audits.</p>
-                    <a href="#" class="btn primary">Open Drive</a>
-                </div>
-                <div class="impact-card light">
-                    <div class="tag">Next Meeting</div>
-                    <h4>Board Strategy Session</h4>
-                    <p>April 4th, 2026 @ 6:00 PM | Showker Hall Rm 102</p>
-                </div>
-            </div>
-        </div>
-    </main>
+        <div class="pillar-grid">
+            <a href="#" class="resource-card">
+                <h4>Spring 2026 Research Paper</h4>
+                <p>Internal draft on L2 scaling solutions and their impact on university governance.</p>
+                <span style="color: #450084; font-weight: 800; font-size: 0.8rem;">VIEW PDF →</span>
+            </a>
 
-    <script src="https://unpkg.com/@thirdweb-dev/sdk/dist/thirdweb-sdk.umd.js"></script>
-    <script>
-        async function verifyMembership() {
-            const statusText = document.getElementById("status-text");
-            const CONTRACT_ADDRESS = "YOUR_CONTRACT_ADDRESS_HERE"; // Paste your deployed address
-            const CLIENT_ID = "YOUR_CLIENT_ID_HERE"; // Paste your Client ID
-
-            try {
-                // 1. Check if MetaMask/Wallet is installed
-                if (!window.ethereum) {
-                    statusText.innerText = "Wallet Not Found";
-                    alert("Please install MetaMask or a web3 wallet to enter.");
-                    return;
-                }
-
-                // 2. Initialize SDK
-                const sdk = new window.ThirdwebSDK("base", { clientId: CLIENT_ID });
-                
-                // 3. Request Wallet Address
-                const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                const walletAddress = accounts[0];
-                statusText.innerText = "Verifying Credentials...";
-
-                // 4. Check NFT Balance (Using ERC-721 logic since you deployed an NFT Collection)
-                const contract = await sdk.getContract(CONTRACT_ADDRESS);
-                const balance = await contract.erc721.balanceOf(walletAddress);
-
-                if (balance.toNumber() > 0) {
-                    // SUCCESS
-                    document.getElementById("auth-screen").style.display = "none";
-                    document.getElementById("protected-content").style.display = "block";
-                } else {
-                    // FAIL
-                    alert("Access Denied: You do not hold a JMU Blockchain Membership NFT.");
-                    window.location.href = "index.html";
-                }
-
-            } catch (error) {
-                console.error(error);
-                statusText.innerText = "Error Connecting to Wallet";
-            }
-        }
-
-        // Run when page loads
-        window.onload = verifyMembership;
-    </script>
-
-</body>
-</html>
+            <a href="#" class="resource-card">
+                <h4>Executive Meeting Minutes</h4>
+                <p>Notes from the latest board meeting regarding the JMU Treasury diversification.</p>
+                <span style="color: #4500
