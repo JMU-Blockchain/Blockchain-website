@@ -66,8 +66,13 @@
         .impact-card.dark { background: var(--jmu-purple); border: none; }
         .impact-card:hover { transform: scale(1.02); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
 
-        /* --- TEAM --- */
-        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        /* --- TEAM: CENTERED ALIGNMENT FIX --- */
+        .team-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(220px, 280px)); 
+            gap: 20px; 
+            justify-content: center; /* This centers the bottom row */
+        }
         .member-card { background: var(--glass); border: 1px solid var(--glass-border); padding: 30px; border-radius: 24px; transition: 0.3s; text-align: center; }
         .member-card:hover { border-color: var(--jmu-gold); transform: translateY(-5px); }
         .avatar { width: 70px; height: 70px; background: var(--jmu-purple); border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1.2rem; }
