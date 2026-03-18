@@ -2,58 +2,153 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Member Portal | JMU Blockchain</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Loading Overlay to prevent content flash before verification */
-        #gatekeeper-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; z-index: 9999; display: flex; 
-            flex-direction: column; align-items: center; justify-content: center;
+        :root {
+            --jmu-purple: #450084;
+            --jmu-gold: #C2A14D;
+            --slate-950: #070a13;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
-        .portal-container { padding: 40px 0; min-height: 80vh; }
-        .resource-card { 
-            background: #f8f9fa; border: 1px solid #eee; padding: 20px; 
-            border-radius: 12px; transition: 0.3s; text-decoration: none; color: inherit;
+
+        body { 
+            background-color: var(--slate-950); 
+            color: #f8fafc; 
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            margin: 0; overflow-x: hidden; line-height: 1.6;
         }
-        .resource-card:hover { transform: translateY(-5px); border-color: #450084; }
+
+        /* --- BACKGROUND --- */
+        .bg-animate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1a0033 0%, var(--slate-950) 100%); z-index: -2; }
+        .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), linear-gradient(90deg, var(--glass-border) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%); }
+
+        /* --- NAVIGATION --- */
+        .navbar { background: rgba(7, 10, 19, 0.98) !important; backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border) !important; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        .nav-logo { height: 55px; width: auto; filter: none !important; }
+        .nav-item { text-decoration: none; color: #FFFFFF !important; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; }
+
+        /* --- PORTAL CONTENT --- */
+        .portal-header { padding: 80px 0 40px; text-align: center; }
+        .portal-header h1 { font-size: 3.5rem; letter-spacing: -3px; margin: 0; }
+        
+        /* IDENTITY CARD */
+        .identity-card {
+            background: linear-gradient(135deg, var(--jmu-purple), #2a0052);
+            padding: 40px; border-radius: 24px; border: 1px solid var(--glass-border);
+            max-width: 600px; margin: 0 auto 60px; position: relative; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .identity-card::after { content: "VALIDATED"; position: absolute; top: 20px; right: -30px; background: var(--jmu-gold); color: #000; padding: 5px 40px; transform: rotate(45deg); font-weight: 800; font-size: 0.7rem; }
+
+        .wallet-addr { font-family: 'JetBrains Mono'; color: var(--jmu-gold); font-size: 1.1rem; word-break: break-all; }
+
+        /* REPOSITORY GRID */
+        .repo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; margin-bottom: 100px; }
+        .repo-card {
+            background: var(--glass); backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border); padding: 40px; border-radius: 24px;
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); text-decoration: none; color: inherit;
+        }
+        .repo-card:hover { transform: translateY(-10px); border-color: var(--jmu-gold); background: rgba(255,255,255,0.06); }
+        .repo-icon { font-size: 2.5rem; margin-bottom: 20px; display: block; }
+        .repo-tag { font-family: 'JetBrains Mono'; font-size: 0.7rem; color: var(--jmu-gold); text-transform: uppercase; margin-bottom: 10px; display: block; }
+
+        /* MOBILE MEDIA QUERIES */
+        @media (max-width: 768px) {
+            .nav-links { display: none !important; }
+            .portal-header h1 { font-size: 2.5rem !important; }
+            .identity-card { padding: 25px; margin: 0 15px 40px; }
+            .repo-grid { display: flex; flex-direction: column; padding: 0 15px; }
+            .repo-card { width: 100%; box-sizing: border-box; }
+        }
     </style>
 </head>
 <body>
 
-    <div id="gatekeeper-overlay">
-        <img src="assets/blockchain.png" alt="Loading" style="height: 60px; margin-bottom: 20px;">
-        <h2 style="font-family: 'Plus Jakarta Sans'; color: #450084;">Verifying Membership...</h2>
-        <p>Checking the Base Ledger for your NFT.</p>
-    </div>
+    <div class="bg-animate"></div>
+    <div class="bg-grid"></div>
 
-    <nav class="navbar" style="background: white; border-bottom: 1px solid #eee; padding: 15px 0;">
-        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
-            <a href="index.html"><img src="assets/blockchain.png" alt="Logo" style="height: 40px;"></a>
-            <div style="display: flex; gap: 20px; align-items: center;">
-                <span id="user-address" style="font-size: 0.9rem; color: #666; font-weight: 600;">0x000...0000</span>
-                <a href="index.html" class="btn outline" style="padding: 8px 15px; font-size: 0.8rem;">Logout</a>
+    <nav class="navbar">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <a href="index.html"><img src="assets/blockchain.png" alt="Logo" class="nav-logo"></a>
+            <div class="nav-links" style="display: flex; gap: 25px; align-items: center;">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="projects.html" class="nav-item">Projects</a>
+                <a href="research.html" class="nav-item">Research</a>
+                <a href="index.html#team" class="nav-item">Leadership</a>
+            </div>
+            <div style="border-left: 2px solid var(--glass-border); padding-left: 20px;">
+                <button style="background: transparent; color: #22c55e; border: 1px solid #22c55e; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 0.75rem;">ON-CHAIN AUTH</button>
             </div>
         </div>
     </nav>
 
-    <main class="portal-container container">
-        <header style="margin-bottom: 40px;">
-            <div class="badge">SECURE ACCESS</div>
-            <h1 style="font-size: 2.5rem; margin-top: 10px;">Welcome to the <span>Inner Circle.</span></h1>
-            <p>Access exclusive JMU Blockchain Club research, meeting notes, and executive tools.</p>
+    <main class="container">
+        
+        <header class="portal-header">
+            <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 3px; font-family: 'JetBrains Mono';">CLASSIFIED ACCESS</p>
+            <h1>The Vault<span>.</span></h1>
+            <p style="color: var(--text-dim); margin-top: 15px;">Welcome back, Pioneer. Your Genesis NFT has unlocked the following resources.</p>
         </header>
 
-        <div class="pillar-grid">
-            <a href="#" class="resource-card">
-                <h4>Spring 2026 Research Paper</h4>
-                <p>Internal draft on L2 scaling solutions and their impact on university governance.</p>
-                <span style="color: #450084; font-weight: 800; font-size: 0.8rem;">VIEW PDF →</span>
-            </a>
+        <section class="identity-card">
+            <p style="margin: 0; font-size: 0.75rem; font-weight: 800; opacity: 0.7;">CONNECTED IDENTITY</p>
+            <div class="wallet-addr" id="user-address">0x71C...84B2</div>
+            <div style="display: flex; gap: 20px; margin-top: 25px;">
+                <div><span style="display: block; font-size: 0.6rem; opacity: 0.6;">NETWORK</span><span style="font-weight: 800; font-size: 0.8rem;">BASE MAINNET</span></div>
+                <div><span style="display: block; font-size: 0.6rem; opacity: 0.6;">TIER</span><span style="font-weight: 800; font-size: 0.8rem; color: var(--jmu-gold);">GENESIS HOLDER</span></div>
+            </div>
+        </section>
 
-            <a href="#" class="resource-card">
-                <h4>Executive Meeting Minutes</h4>
-                <p>Notes from the latest board meeting regarding the JMU Treasury diversification.</p>
-                <span style="color: #4500
+        <section style="padding: 40px 0;">
+            <h2 style="font-size: 2rem; margin-bottom: 40px; border-left: 4px solid var(--jmu-gold); padding-left: 20px;">Member <span>Resources.</span></h2>
+            <div class="repo-grid">
+                
+                <a href="#" class="repo-card">
+                    <span class="repo-icon">📂</span>
+                    <span class="repo-tag">Internal Docs</span>
+                    <h4>Club Constitution</h4>
+                    <p>The legal framework and voting rights of the JMU Blockchain executive board.</p>
+                </a>
+
+                <a href="#" class="repo-card">
+                    <span class="repo-icon">🧪</span>
+                    <span class="repo-tag">Beta Access</span>
+                    <h4>Node Scripts</h4>
+                    <p>Exclusive access to Python scripts for local node deployment and mempool monitoring.</p>
+                </a>
+
+                <a href="#" class="repo-card">
+                    <span class="repo-icon">🎓</span>
+                    <span class="repo-tag">Curriculum</span>
+                    <h4>Career Pipeline</h4>
+                    <p>Direct referral links and resume templates for our industry partner networks.</p>
+                </a>
+
+            </div>
+        </section>
+
+    </main>
+
+    <footer style="text-align: center; padding: 100px 0; border-top: 1px solid var(--glass-border);">
+        <p style="color: #475569; font-size: 0.75rem; letter-spacing: 2px;">&copy; 2026 JMU BLOCKCHAIN PORTAL // SECURED BY BASE</p>
+    </footer>
+
+    <script>
+        // Simple address truncation simulation
+        window.onload = async () => {
+            if (window.ethereum) {
+                const accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                if (accounts.length > 0) {
+                    const addr = accounts[0];
+                    document.getElementById('user-address').innerText = addr.substring(0, 6) + "..." + addr.substring(addr.length - 4);
+                }
+            }
+        }
+    </script>
+</body>
+</html>
