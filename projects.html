@@ -3,200 +3,149 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JMU Blockchain | Unlocking the Ledger</title>
+    <title>Projects | JMU Blockchain</title>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        #enter-portal { display: none; transition: all 0.3s ease; }
-        .nav-item { text-decoration: none; color: #333; font-weight: 600; font-size: 0.95rem; transition: 0.2s; }
-        .nav-item:hover { color: #450084; }
+        :root { --jmu-purple: #450084; --jmu-gold: #C2A14D; --slate-950: #070a13; }
         
-        /* Ensures the new Resource buttons feel like part of the original design */
-        .impact-card { transition: transform 0.3s ease, border-color 0.3s ease; border: 1px solid transparent; }
-        .impact-card:hover { transform: translateY(-8px); border-color: #450084; }
+        body { background-color: var(--slate-950); color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; }
+
+        /* --- LOGO & NAV FIX --- */
+        .navbar { 
+            background: rgba(7, 10, 19, 0.95) !important; 
+            backdrop-filter: blur(20px); 
+            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
+            padding: 12px 0;
+            position: sticky; top: 0; z-index: 1000;
+        }
+
+        .nav-logo { 
+            height: 50px; width: auto; display: block;
+            filter: none !important; /* Prevents the logo from turning into a white block */
+            object-fit: contain;
+        }
+
+        .nav-item { 
+            color: #cbd5e1 !important; font-weight: 700 !important; font-size: 0.85rem !important;
+            text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
+        }
+        .nav-item:hover { color: var(--jmu-gold) !important; }
+
+        #enter-portal { display: none; transition: 0.3s; }
+
+        /* --- PROJECT GRID STYLES --- */
+        .projects-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
+            gap: 30px; margin-top: 50px; 
+        }
+
+        .project-card {
+            background: #0f172a; border: 1px solid rgba(255,255,255,0.05);
+            border-radius: 24px; overflow: hidden; transition: 0.4s ease;
+        }
+
+        .project-card:hover { 
+            transform: translateY(-12px); 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border-color: var(--jmu-purple);
+        }
+
+        .project-visual {
+            height: 200px; background: linear-gradient(135deg, var(--jmu-purple) 0%, #2a0052 100%);
+            display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
+        }
+
+        .project-info { padding: 30px; }
+        
+        .status-tag { 
+            display: inline-block; padding: 6px 14px; border-radius: 30px; 
+            font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px;
+        }
+        .status-live { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
+        .status-dev { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
     </style>
 </head>
 <body>
-    
-    <nav class="navbar" style="background: rgba(7, 10, 19, 0.95); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(255,255,255,0.08); padding: 12px 0; position: sticky; top: 0; z-index: 1000;">
-    <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-        
-        <a href="index.html" style="display: flex; align-items: center;">
-            <img src="assets/blockchain.png" alt="JMU Blockchain" style="height: 50px; width: auto; display: block; filter: none !important; object-fit: contain;">
-        </a>
-        
-        <div style="display: flex; align-items: center; gap: 30px;">
-            
-            <div class="nav-links" style="display: flex; gap: 20px; align-items: center;">
-                <a href="index.html" style="text-decoration: none; color: #cbd5e1; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Home</a>
-                <a href="projects.html" style="text-decoration: none; color: #cbd5e1; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Projects</a>
-                <a href="research.html" style="text-decoration: none; color: #cbd5e1; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Research</a>
-                <a href="index.html#team" style="text-decoration: none; color: #cbd5e1; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Leadership</a>
-                <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" style="text-decoration: none; color: #cbd5e1; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px;">Join Group</a>
-            </div>
 
-            <div style="display: flex; align-items: center; gap: 12px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
-                <button id="connect-btn" class="btn primary" onclick="connectWallet()" 
-                        style="padding: 10px 18px; border-radius: 8px; border: none; background: #450084; color: white; cursor: pointer; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">
-                    Member Login
-                </button>
-                
-                <a href="members.html" id="enter-portal" class="btn outline" 
-                   style="display: none; padding: 10px 18px; border-radius: 8px; border: 2px solid #C2A14D; color: #C2A14D; text-decoration: none; font-weight: 800; font-size: 0.8rem; text-transform: uppercase;">
-                    Portal →
-                </a>
-            </div>
-        </div>
-    </div>
-</nav>
-
-    <header class="hero reveal">
-        <div class="container">
-            <div class="hero-content">
-                <div class="badge">EST. 2026</div>
-                <h1>Unlocking <br><span>the Ledger.</span></h1>
-                <p>A technical and ethical deep-dive into decentralized systems, bridging the gap between student curiosity and industry reality.</p>
-                <div class="hero-btns">
-                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="btn primary">Join the Club</a>
-                    <a href="projects.html" class="btn outline">Our Projects</a>
+    <nav class="navbar">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+            <a href="index.html"><img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo"></a>
+            <div style="display: flex; align-items: center; gap: 30px;">
+                <div class="nav-links" style="display: flex; gap: 20px;">
+                    <a href="index.html" class="nav-item">Home</a>
+                    <a href="projects.html" class="nav-item" style="color: var(--jmu-gold) !important;">Projects</a>
+                    <a href="research.html" class="nav-item">Research</a>
+                    <a href="index.html#team" class="nav-item">Leadership</a>
+                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
+                </div>
+                <div style="display: flex; gap: 12px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
+                    <button id="connect-btn" class="btn primary" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 800; cursor: pointer;">Member Login</button>
+                    <a href="members.html" id="enter-portal" class="btn outline" style="border: 1px solid var(--jmu-gold); color: var(--jmu-gold); padding: 10px 18px; border-radius: 8px; text-decoration: none;">Portal →</a>
                 </div>
             </div>
         </div>
-    </header>
+    </nav>
 
-    <section id="pillars" class="section-padding">
-        <div class="container">
-            <div class="section-header reveal">
-                <p class="sub-label">The Foundation</p>
-                <h2>The Three Pillars</h2>
-            </div>
-            <div class="pillar-grid">
-                <div class="pillar-card reveal">
-                    <span class="pillar-icon">🌐</span>
-                    <h4>Decentralization</h4>
-                    <p>Shifting power from central entities to a distributed network where every node has a voice.</p>
+    <main class="container" style="padding: 80px 0;">
+        <header class="reveal" style="text-align: center; margin-bottom: 60px;">
+            <p style="color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem; letter-spacing: 2px;">BUILDING THE FUTURE</p>
+            <h1 style="font-size: 3.5rem; margin-top: 10px;">Club <span>Initiatives.</span></h1>
+            <p style="max-width: 600px; margin: 20px auto; color: #94a3b8;">Tangible development and research projects moving beyond the classroom.</p>
+        </header>
+
+        <div class="projects-grid">
+            <article class="project-card reveal">
+                <div class="project-visual">🗝️</div>
+                <div class="project-info">
+                    <span class="status-tag status-live">Live</span>
+                    <h4>NFT Membership Gateway</h4>
+                    <p>Our primary authentication system. This dApp verifies the Genesis NFT on Base to unlock private club documentation.</p>
                 </div>
-                <div class="pillar-card reveal">
-                    <span class="pillar-icon">🛡️</span>
-                    <h4>Security</h4>
-                    <p>Utilizing high-level cryptography to ensure data integrity and user safety across the ledger.</p>
+            </article>
+
+            <article class="project-card reveal">
+                <div class="project-visual">📚</div>
+                <div class="project-info">
+                    <span class="status-tag status-dev">In Development</span>
+                    <h4>Decentralized Wiki</h4>
+                    <p>A community-curated repository of blockchain research hosted on IPFS for permanent, immutable storage.</p>
                 </div>
-                <div class="pillar-card reveal">
-                    <span class="pillar-icon">💎</span>
-                    <h4>Transparency</h4>
-                    <p>An immutable, public record where every single transaction is verifiable by the community.</p>
+            </article>
+
+            <article class="project-card reveal">
+                <div class="project-visual">🖥️</div>
+                <div class="project-info">
+                    <span class="status-tag status-dev">Research Phase</span>
+                    <h4>Student Node Program</h4>
+                    <p>Evaluating the feasibility of running a local RPC node on campus to support student developers.</p>
                 </div>
-            </div>
+            </article>
         </div>
-    </section>
-
-    <section id="resources" class="impact-section">
-        <div class="container">
-            <div class="section-header reveal" style="text-align: center; margin-bottom: 40px;">
-                <p class="sub-label">Member Assets</p>
-                <h2>Learning Resources</h2>
-            </div>
-            <div class="impact-grid">
-                <a href="resources.html#academic" class="impact-card light reveal" style="text-decoration: none; display: block;">
-                    <div class="tag">Education</div>
-                    <h4>Academic Literacy</h4>
-                    <p>We provide workshops and curated resources to ensure Madison students understand the engine behind the currency.</p>
-                    <span style="display: block; margin-top: 15px; font-weight: 800; color: #450084; font-size: 0.8rem;">EXPLORE RESEARCH →</span>
-                </a>
-                <a href="resources.html#industry" class="impact-card dark reveal" style="text-decoration: none; display: block;">
-                    <div class="tag">Professional</div>
-                    <h4>Industry Readiness</h4>
-                    <p>Connecting students to the global ecosystem through networking, guest speakers, and project builds.</p>
-                    <span style="display: block; margin-top: 15px; font-weight: 800; color: #fff; font-size: 0.8rem;">VIEW PIPELINE →</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <section id="team" class="section-padding bg-dark">
-        <div class="container">
-            <div class="section-header reveal">
-                <p class="sub-label">The Executive Board</p>
-                <h2 class="text-white">Leadership Team</h2>
-            </div>
-            
-            <div class="team-grid">
-                <a href="charles.html" class="member-link reveal">
-                    <div class="member-card president">
-                        <div class="avatar">P</div>
-                        <h4>Charles Monfort</h4>
-                        <p class="role">President & Founder</p>
-                    </div>
-                </a>
-                <a href="erik.html" class="member-link reveal">
-                    <div class="member-card">
-                        <div class="avatar">VP</div>
-                        <h4>Erik Anderson</h4>
-                        <p class="role">Vice President</p>
-                    </div>
-                </a>
-                <a href="owen.html" class="member-link reveal">
-                    <div class="member-card">
-                        <div class="avatar">T</div>
-                        <h4>Owen Winters</h4>
-                        <p class="role">Treasurer</p>
-                    </div>
-                </a>
-            </div>
-
-            <div class="team-grid analyst-row" style="margin-top: 20px;">
-                <a href="robbie.html" class="member-link reveal">
-                    <div class="member-card"><div class="avatar">S</div><h4>Robbie Karas</h4><p class="role">Secretary</p></div>
-                </a>
-                <a href="connor.html" class="member-link reveal">
-                    <div class="member-card"><div class="avatar">NA</div><h4>Connor Adams</h4><p class="role">News Analyst</p></div>
-                </a>
-                <a href="lucas.html" class="member-link reveal">
-                    <div class="member-card"><div class="avatar">MA</div><h4>Lucas Johnson</h4><p class="role">Market Analyst</p></div>
-                </a>
-                <a href="sean.html" class="member-link reveal">
-                    <div class="member-card"><div class="avatar">PR</div><h4>Sean Hallett</h4><p class="role">Professional Relations</p></div>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <footer class="footer" style="text-align: center; padding: 40px 0; border-top: 1px solid #eee;">
-        <p>&copy; 2026 JMU Blockchain Club. Designed by Charles Monfort.</p>
-    </footer>
+    </main>
 
     <script>
         async function connectWallet() {
             const btn = document.getElementById('connect-btn');
             const portal = document.getElementById('enter-portal');
-
             if (window.ethereum) {
                 try {
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    btn.innerText = "Connected";
-                    btn.style.background = "#e0e0e0";
-                    btn.style.color = "#666";
-                    btn.disabled = true;
+                    btn.innerText = "VERIFIED"; btn.style.background = "#22c55e"; btn.disabled = true;
                     portal.style.display = "inline-block";
-                } catch (err) {
-                    console.error("Connection failed.");
-                }
-            } else {
-                alert("MetaMask not found.");
+                } catch (err) { console.error(err); }
             }
         }
 
-        window.addEventListener('scroll', () => {
-            const reveals = document.querySelectorAll('.reveal');
-            for (let i = 0; i < reveals.length; i++) {
-                const windowHeight = window.innerHeight;
-                const elementTop = reveals[i].getBoundingClientRect().top;
-                const elementVisible = 150;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveals[i].classList.add('active');
-                }
-            }
-        });
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
