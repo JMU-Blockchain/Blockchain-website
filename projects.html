@@ -2,99 +2,133 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Projects | JMU Blockchain</title>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        :root { --jmu-purple: #450084; --jmu-gold: #C2A14D; --slate-950: #070a13; }
-        
-        body { background-color: var(--slate-950); color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; }
-
-        /* --- LOGO & NAV FIX --- */
-        .navbar { 
-            background: rgba(7, 10, 19, 0.95) !important; 
-            backdrop-filter: blur(20px); 
-            border-bottom: 1px solid rgba(255,255,255,0.08) !important;
-            padding: 12px 0;
-            position: sticky; top: 0; z-index: 1000;
+        :root {
+            --jmu-purple: #450084;
+            --jmu-gold: #C2A14D;
+            --slate-950: #070a13;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
         }
 
-        .nav-logo { 
-            height: 50px; width: auto; display: block;
-            filter: none !important; /* Prevents the logo from turning into a white block */
-            object-fit: contain;
-        }
+        body { background-color: var(--slate-950); color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; overflow-x: hidden; line-height: 1.6; }
 
-        .nav-item { 
-            color: #cbd5e1 !important; font-weight: 700 !important; font-size: 0.85rem !important;
-            text-transform: uppercase; letter-spacing: 1px; text-decoration: none;
-        }
+        /* --- BACKGROUND ARCHITECTURE --- */
+        .bg-animate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1a0033 0%, var(--slate-950) 100%); z-index: -2; }
+        .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), linear-gradient(90deg, var(--glass-border) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%); }
+
+        /* --- NAVIGATION --- */
+        .navbar { background: rgba(7, 10, 19, 0.98) !important; backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border) !important; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
+        .nav-logo { height: 55px; width: auto; filter: none !important; transition: 0.3s; }
+        .nav-item { text-decoration: none; color: #FFFFFF !important; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
         .nav-item:hover { color: var(--jmu-gold) !important; }
-
-        #enter-portal { display: none; transition: 0.3s; }
 
         /* --- PROJECT GRID STYLES --- */
         .projects-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); 
-            gap: 30px; margin-top: 50px; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 30px; 
+            margin-top: 50px; 
         }
 
         .project-card {
-            background: #0f172a; border: 1px solid rgba(255,255,255,0.05);
-            border-radius: 24px; overflow: hidden; transition: 0.4s ease;
+            background: var(--glass);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--glass-border);
+            border-radius: 32px; 
+            overflow: hidden; 
+            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
         }
 
         .project-card:hover { 
             transform: translateY(-12px); 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 15px rgba(69, 0, 132, 0.1);
             border-color: var(--jmu-purple);
+            background: rgba(255,255,255,0.06);
         }
 
         .project-visual {
-            height: 200px; background: linear-gradient(135deg, var(--jmu-purple) 0%, #2a0052 100%);
-            display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
+            height: 220px; 
+            background: linear-gradient(135deg, var(--jmu-purple) 0%, #1e293b 100%);
+            display: flex; align-items: center; justify-content: center; font-size: 4rem;
+            border-bottom: 1px solid var(--glass-border);
         }
 
-        .project-info { padding: 30px; }
-        
-        .status-tag { 
-            display: inline-block; padding: 6px 14px; border-radius: 30px; 
-            font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px;
-        }
-        .status-live { background: rgba(34, 197, 94, 0.1); color: #22c55e; }
-        .status-dev { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+        .project-info { padding: 40px; }
+        .status-tag { display: inline-block; padding: 6px 16px; border-radius: 30px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 20px; font-family: 'JetBrains Mono'; }
+        .status-live { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
+        .status-dev { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
 
-        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        /* --- ANIMATIONS --- */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* --- MOBILE CAROUSEL LOGIC --- */
+        @media (max-width: 768px) {
+            .nav-links { display: none !important; }
+            header h1 { font-size: 2.8rem !important; letter-spacing: -2px !important; }
+            
+            /* Enable Horizontal Swipe */
+            .projects-grid { 
+                display: flex !important;
+                overflow-x: auto !important;
+                scroll-snap-type: x mandatory !important;
+                gap: 20px !important;
+                padding: 20px 0 40px !important;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            /* Hide Scrollbar for clean look */
+            .projects-grid::-webkit-scrollbar { display: none; }
+
+            .project-card { 
+                flex: 0 0 85% !important; /* Shows a peek of the next card */
+                scroll-snap-align: center !important;
+                margin-bottom: 0 !important;
+            }
+            
+            .project-info { padding: 30px !important; }
+            .container { width: 92% !important; padding: 0 4%; }
+        }
+
+        #enter-portal { display: none; }
     </style>
 </head>
 <body>
 
+    <div class="bg-animate"></div>
+    <div class="bg-grid"></div>
+
     <nav class="navbar">
-        <div class="container" style="display: flex; align-items: center; justify-content: space-between;">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
             <a href="index.html"><img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo"></a>
-            <div style="display: flex; align-items: center; gap: 30px;">
-                <div class="nav-links" style="display: flex; gap: 20px;">
+            <div style="display: flex; align-items: center; gap: 40px;">
+                <div class="nav-links" style="display: flex; gap: 25px; align-items: center;">
                     <a href="index.html" class="nav-item">Home</a>
                     <a href="projects.html" class="nav-item" style="color: var(--jmu-gold) !important;">Projects</a>
                     <a href="research.html" class="nav-item">Research</a>
                     <a href="index.html#team" class="nav-item">Leadership</a>
                     <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
                 </div>
-                <div style="display: flex; gap: 12px; border-left: 1px solid rgba(255,255,255,0.1); padding-left: 20px;">
-                    <button id="connect-btn" class="btn primary" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 10px 18px; border-radius: 8px; font-weight: 800; cursor: pointer;">Member Login</button>
-                    <a href="members.html" id="enter-portal" class="btn outline" style="border: 1px solid var(--jmu-gold); color: var(--jmu-gold); padding: 10px 18px; border-radius: 8px; text-decoration: none;">Portal →</a>
+                <div style="border-left: 2px solid var(--glass-border); padding-left: 20px; display: flex; align-items: center;">
+                    <button id="connect-btn" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.75rem; text-transform: uppercase;">Login</button>
+                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 10px; text-decoration: none; font-weight: 800; font-size: 0.75rem; display: none;">PORTAL →</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="container" style="padding: 80px 0;">
-        <header class="reveal" style="text-align: center; margin-bottom: 60px;">
-            <p style="color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem; letter-spacing: 2px;">BUILDING THE FUTURE</p>
-            <h1 style="font-size: 3.5rem; margin-top: 10px;">Club <span>Initiatives.</span></h1>
-            <p style="max-width: 600px; margin: 20px auto; color: #94a3b8;">Tangible development and research projects moving beyond the classroom.</p>
+    <main class="container" style="padding: 100px 0;">
+        <header class="reveal" style="text-align: center; margin-bottom: 80px;">
+            <p style="color: var(--jmu-gold); font-weight: 800; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;">Building the Future</p>
+            <h1 style="font-size: 4.5rem; margin-top: 15px; letter-spacing: -3px; font-weight: 800;">Club <span>Initiatives.</span></h1>
+            <p style="max-width: 650px; margin: 25px auto; color: #94a3b8; font-size: 1.2rem;">Tangible development and research projects moving beyond the classroom.</p>
         </header>
 
         <div class="projects-grid">
@@ -127,6 +161,10 @@
         </div>
     </main>
 
+    <footer style="text-align: center; padding: 100px 0; border-top: 1px solid var(--glass-border);">
+        <p style="color: #475569; font-size: 0.75rem; letter-spacing: 2px; font-weight: 700;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
+    </footer>
+
     <script>
         async function connectWallet() {
             const btn = document.getElementById('connect-btn');
@@ -136,14 +174,11 @@
                     const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                     btn.innerText = "VERIFIED"; btn.style.background = "#22c55e"; btn.disabled = true;
                     portal.style.display = "inline-block";
-                } catch (err) { console.error(err); }
+                } catch (err) { console.error("Wallet connection failed."); }
             }
         }
-
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
