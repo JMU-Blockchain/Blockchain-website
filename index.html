@@ -10,14 +10,21 @@
 <body>
     
 <nav class="navbar">
-    <div class="container nav-flex">
+    <div class="container" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
         <a href="index.html">
-            <img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo">
+            <img src="assets/blockchain.png" alt="JMU Blockchain" style="height: 50px; width: auto;">
         </a>
-        <div class="nav-links">
-            <a href="index.html" class="nav-item">Home</a>
-            <button id="connect-wallet-btn" class="btn primary">Member Login</button>
-            <a href="members.html" id="portal-btn" class="btn outline" style="display: none;">Enter Portal</a>
+
+        <div style="display: flex; gap: 15px; align-items: center;">
+            <a href="index.html" class="nav-link" style="text-decoration: none; font-weight: 600;">Home</a>
+            
+            <button id="connect-btn" class="btn primary" onclick="connectWallet()">
+                Member Login
+            </button>
+
+            <a href="members.html" id="enter-portal" class="btn outline" style="display: none;">
+                Enter Portal →
+            </a>
         </div>
     </div>
 </nav>
