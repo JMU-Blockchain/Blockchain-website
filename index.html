@@ -26,8 +26,19 @@
         }
 
         /* --- BACKGROUND ARCHITECTURE --- */
-        .bg-animate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1a0033 0%, var(--slate-950) 100%); z-index: -2; }
-        .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), linear-gradient(90deg, var(--glass-border) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%); }
+        .bg-animate { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: radial-gradient(circle at 50% 50%, #1a0033 0%, var(--slate-950) 100%); 
+            z-index: -2; 
+        }
+        .bg-grid { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), 
+                              linear-gradient(90deg, var(--glass-border) 1px, transparent 1px); 
+            background-size: 50px 50px; 
+            z-index: -1; 
+            mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%); 
+        }
 
         /* --- NAVIGATION --- */
         .navbar { 
@@ -38,7 +49,6 @@
             position: sticky; top: 0; z-index: 1000;
         }
         .nav-logo { height: 55px; width: auto; filter: none !important; transition: 0.3s; }
-        
         .nav-item { 
             text-decoration: none; 
             color: #FFFFFF !important; 
@@ -85,7 +95,7 @@
         }
         .pillar-icon { font-size: 3rem; margin-bottom: 20px; display: block; }
 
-        /* --- RESEARCH CARDS --- */
+        /* --- IMPACT CARDS --- */
         .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
         .impact-card { 
             position: relative; overflow: hidden; border-radius: 32px; padding: 60px; 
@@ -114,8 +124,8 @@
             .pillar-grid, .impact-grid, .team-flex-container { display: flex !important; flex-direction: column !important; align-items: center !important; }
             .pillar-card, .impact-card, .member-card { width: 100% !important; max-width: 100% !important; padding: 35px !important; margin-bottom: 20px; box-sizing: border-box; }
             .hero { padding: 60px 0; text-align: left; }
-            #auth-container { flex-direction: column; width: 100%; }
-            #user-email { width: 100% !important; }
+            .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
+            .hero-btns .btn { width: 100%; text-align: center; }
         }
 
         #enter-portal { display: none; }
@@ -137,11 +147,9 @@
                     <a href="#team" class="nav-item">Leadership</a>
                     <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
                 </div>
-                <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center; gap: 10px;" id="auth-container">
-                    <input type="email" id="user-email" placeholder="yourname@dukes.jmu.edu" 
-                           style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white; padding: 12px; border-radius: 12px; font-size: 0.8rem; width: 220px; outline: none;">
-                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Send Link</button>
-                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem; display: none;">PORTAL →</a>
+                <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center;">
+                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Member Login</button>
+                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem;">PORTAL →</a>
                 </div>
             </div>
         </div>
@@ -230,7 +238,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-        import { getAuth, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0",
@@ -244,35 +252,25 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-
-        // Action Settings for the Email
-        const actionCodeSettings = {
-            url: window.location.origin + '/members.html', // Redirects to your portal
-            handleCodeInApp: true,
-        };
+        const provider = new GoogleAuthProvider();
 
         document.getElementById('login-btn').addEventListener('click', async () => {
-            const email = document.getElementById('user-email').value;
-            
-            if (!email.endsWith("@dukes.jmu.edu")) {
-                alert("Restricted: Use your @dukes.jmu.edu outlook email.");
-                return;
-            }
-
             try {
-                await sendSignInLinkToEmail(auth, email, actionCodeSettings);
-                window.localStorage.setItem('emailForSignIn', email);
-                
-                document.getElementById('login-btn').innerText = "LINK SENT";
-                document.getElementById('login-btn').style.background = "#22c55e";
-                alert("Magic Link sent! Check your JMU Outlook inbox.");
-            } catch (error) {
-                console.error("Auth Error:", error);
-                alert("System Error: Ensure this domain is authorized in Firebase Settings.");
-            }
+                const result = await signInWithPopup(auth, provider);
+                if (result.user.email.endsWith("@gmail.com")) {
+                    sessionStorage.setItem('isMember', 'true');
+                    document.getElementById('login-btn').innerText = "VERIFIED";
+                    document.getElementById('login-btn').style.background = "#22c55e";
+                    document.getElementById('enter-portal').style.display = "inline-block";
+                    setTimeout(() => { window.location.href = "members.html"; }, 1000);
+                } else {
+                    alert("Denied: Use a personal @gmail.com account.");
+                    await signOut(auth);
+                }
+            } catch (error) { console.error("Auth Error:", error); }
         });
 
-        // Intersection Observer for Reveal
+        // REVEAL LOGIC
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
