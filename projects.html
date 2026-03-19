@@ -74,7 +74,6 @@
             .nav-links { display: none !important; }
             header h1 { font-size: 2.8rem !important; letter-spacing: -2px !important; }
             
-            /* Enable Horizontal Swipe */
             .projects-grid { 
                 display: flex !important;
                 overflow-x: auto !important;
@@ -84,17 +83,15 @@
                 -webkit-overflow-scrolling: touch;
             }
 
-            /* Hide Scrollbar for clean look */
             .projects-grid::-webkit-scrollbar { display: none; }
 
             .project-card { 
-                flex: 0 0 85% !important; /* Shows a peek of the next card */
+                flex: 0 0 85% !important; 
                 scroll-snap-align: center !important;
                 margin-bottom: 0 !important;
             }
             
             .project-info { padding: 30px !important; }
-            .container { width: 92% !important; padding: 0 4%; }
         }
 
         #enter-portal { display: none; }
@@ -117,14 +114,14 @@
                     <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
                 </div>
                 <div style="border-left: 2px solid var(--glass-border); padding-left: 20px; display: flex; align-items: center;">
-                    <button id="connect-btn" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.75rem; text-transform: uppercase;">Login</button>
+                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.75rem; text-transform: uppercase;">Member Login</button>
                     <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 10px; text-decoration: none; font-weight: 800; font-size: 0.75rem; display: none;">PORTAL →</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="container" style="padding: 100px 0;">
+    <main class="container" style="padding: 100px 0; margin: 0 auto; width: 90%; max-width: 1200px;">
         <header class="reveal" style="text-align: center; margin-bottom: 80px;">
             <p style="color: var(--jmu-gold); font-weight: 800; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;">Building the Future</p>
             <h1 style="font-size: 4.5rem; margin-top: 15px; letter-spacing: -3px; font-weight: 800;">Club <span>Initiatives.</span></h1>
@@ -136,8 +133,8 @@
                 <div class="project-visual">🗝️</div>
                 <div class="project-info">
                     <span class="status-tag status-live">Live</span>
-                    <h4>NFT Membership Gateway</h4>
-                    <p>Our primary authentication system. This dApp verifies the Genesis NFT on Base to unlock private club documentation.</p>
+                    <h4 style="margin: 0 0 15px 0;">Membership Gateway</h4>
+                    <p>Our secure authentication system. Verifies approved Gmail addresses against our Firestore database to unlock the Vault.</p>
                 </div>
             </article>
 
@@ -145,7 +142,7 @@
                 <div class="project-visual">📚</div>
                 <div class="project-info">
                     <span class="status-tag status-dev">In Development</span>
-                    <h4>Decentralized Wiki</h4>
+                    <h4 style="margin: 0 0 15px 0;">Decentralized Wiki</h4>
                     <p>A community-curated repository of blockchain research hosted on IPFS for permanent, immutable storage.</p>
                 </div>
             </article>
@@ -154,7 +151,7 @@
                 <div class="project-visual">🖥️</div>
                 <div class="project-info">
                     <span class="status-tag status-dev">Research Phase</span>
-                    <h4>Student Node Program</h4>
+                    <h4 style="margin: 0 0 15px 0;">Student Node Program</h4>
                     <p>Evaluating the feasibility of running a local RPC node on campus to support student developers.</p>
                 </div>
             </article>
@@ -165,18 +162,54 @@
         <p style="color: #475569; font-size: 0.75rem; letter-spacing: 2px; font-weight: 700;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
     </footer>
 
-    <script>
-        async function connectWallet() {
-            const btn = document.getElementById('connect-btn');
-            const portal = document.getElementById('enter-portal');
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    btn.innerText = "VERIFIED"; btn.style.background = "#22c55e"; btn.disabled = true;
-                    portal.style.display = "inline-block";
-                } catch (err) { console.error("Wallet connection failed."); }
-            }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0",
+            authDomain: "jmu-blockchain-member.firebaseapp.com",
+            projectId: "jmu-blockchain-member",
+            storageBucket: "jmu-blockchain-member.firebasestorage.app",
+            messagingSenderId: "98129620187",
+            appId: "1:98129620187:web:d544b08841092ac497f0fe",
+            measurementId: "G-VPLWE1FYZ4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // PERSISTENCE CHECK: If already logged in
+        if (sessionStorage.getItem('isMember') === 'true') {
+            document.getElementById('login-btn').innerText = "VERIFIED";
+            document.getElementById('login-btn').style.background = "#22c55e";
+            document.getElementById('enter-portal').style.display = "inline-block";
         }
+
+        document.getElementById('login-btn').addEventListener('click', async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const userEmail = result.user.email.toLowerCase().trim();
+
+                const membersRef = collection(db, "approved_members");
+                const q = query(membersRef, where("email", "==", userEmail));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    sessionStorage.setItem('isMember', 'true');
+                    document.getElementById('login-btn').innerText = "VERIFIED";
+                    document.getElementById('login-btn').style.background = "#22c55e";
+                    document.getElementById('enter-portal').style.display = "inline-block";
+                } else {
+                    await signOut(auth);
+                    alert("Access Denied: You are not on the approved member list.");
+                }
+            } catch (error) { console.error("Auth Error:", error); }
+        });
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
