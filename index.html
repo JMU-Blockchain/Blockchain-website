@@ -114,7 +114,8 @@
             .pillar-grid, .impact-grid, .team-flex-container { display: flex !important; flex-direction: column !important; align-items: center !important; }
             .pillar-card, .impact-card, .member-card { width: 100% !important; max-width: 100% !important; padding: 35px !important; margin-bottom: 20px; box-sizing: border-box; }
             .hero { padding: 60px 0; text-align: left; }
-            .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
+            #auth-container { flex-direction: column; width: 100%; }
+            #user-email { width: 100% !important; }
         }
 
         #enter-portal { display: none; }
@@ -136,9 +137,11 @@
                     <a href="#team" class="nav-item">Leadership</a>
                     <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
                 </div>
-                <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center;">
-                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Member Login</button>
-                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem;">PORTAL →</a>
+                <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center; gap: 10px;" id="auth-container">
+                    <input type="email" id="user-email" placeholder="yourname@dukes.jmu.edu" 
+                           style="background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white; padding: 12px; border-radius: 12px; font-size: 0.8rem; width: 220px; outline: none;">
+                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Send Link</button>
+                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem; display: none;">PORTAL →</a>
                 </div>
             </div>
         </div>
@@ -227,7 +230,7 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import { getAuth, sendSignInLinkToEmail } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0",
@@ -241,25 +244,35 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
-        const provider = new GoogleAuthProvider();
-        provider.setCustomParameters({ hd: "dukes.jmu.edu" });
+
+        // Action Settings for the Email
+        const actionCodeSettings = {
+            url: window.location.origin + '/members.html', // Redirects to your portal
+            handleCodeInApp: true,
+        };
 
         document.getElementById('login-btn').addEventListener('click', async () => {
+            const email = document.getElementById('user-email').value;
+            
+            if (!email.endsWith("@dukes.jmu.edu")) {
+                alert("Restricted: Use your @dukes.jmu.edu Outlook email.");
+                return;
+            }
+
             try {
-                const result = await signInWithPopup(auth, provider);
-                if (result.user.email.endsWith("@dukes.jmu.edu")) {
-                    sessionStorage.setItem('isMember', 'true');
-                    document.getElementById('login-btn').innerText = "VERIFIED";
-                    document.getElementById('login-btn').style.background = "#22c55e";
-                    document.getElementById('enter-portal').style.display = "inline-block";
-                    setTimeout(() => { window.location.href = "members.html"; }, 1000);
-                } else {
-                    await signOut(auth);
-                    alert("Access Denied: You must use your @dukes.jmu.edu student email.");
-                }
-            } catch (error) { console.error("Auth Error:", error); }
+                await sendSignInLinkToEmail(auth, email, actionCodeSettings);
+                window.localStorage.setItem('emailForSignIn', email);
+                
+                document.getElementById('login-btn').innerText = "LINK SENT";
+                document.getElementById('login-btn').style.background = "#22c55e";
+                alert("Magic Link sent! Check your JMU Outlook inbox.");
+            } catch (error) {
+                console.error("Auth Error:", error);
+                alert("System Error: Ensure this domain is authorized in Firebase Settings.");
+            }
         });
 
+        // Intersection Observer for Reveal
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
