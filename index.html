@@ -115,7 +115,6 @@
             .pillar-card, .impact-card, .member-card { width: 100% !important; max-width: 100% !important; padding: 35px !important; margin-bottom: 20px; box-sizing: border-box; }
             .hero { padding: 60px 0; text-align: left; }
             .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
-            .hero-btns .btn { width: 100%; text-align: center; box-sizing: border-box; }
         }
 
         #enter-portal { display: none; }
@@ -138,8 +137,8 @@
                     <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
                 </div>
                 <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center;">
-                    <button id="connect-btn" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Login</button>
-                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem; display: none;">PORTAL →</a>
+                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Member Login</button>
+                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem;">PORTAL →</a>
                 </div>
             </div>
         </div>
@@ -179,9 +178,9 @@
                 <h2 style="font-size: 3.5rem; letter-spacing: -2px;">The Three <span>Pillars.</span></h2>
             </div>
             <div class="pillar-grid">
-                <div class="pillar-card reveal"><span>🌐</span><h4>Decentralization</h4><p>Shifting power from central entities to a distributed network.</p></div>
-                <div class="pillar-card reveal"><span>🛡️</span><h4>Security</h4><p>Utilizing high-level cryptography to ensure data integrity.</p></div>
-                <div class="pillar-card reveal"><span>💎</span><h4>Transparency</h4><p>An immutable, public record verifiable by the community.</p></div>
+                <div class="pillar-card reveal"><span class="pillar-icon">🌐</span><h4>Decentralization</h4><p>Shifting power from central entities to a distributed network.</p></div>
+                <div class="pillar-card reveal"><span class="pillar-icon">🛡️</span><h4>Security</h4><p>Utilizing high-level cryptography to ensure data integrity.</p></div>
+                <div class="pillar-card reveal"><span class="pillar-icon">💎</span><h4>Transparency</h4><p>An immutable, public record verifiable by the community.</p></div>
             </div>
         </div>
     </section>
@@ -226,18 +225,41 @@
         <p style="color: #475569; font-size: 0.75rem; letter-spacing: 2px;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
     </footer>
 
-    <script>
-        async function connectWallet() {
-            const btn = document.getElementById('connect-btn');
-            const portal = document.getElementById('enter-portal');
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    btn.innerText = "VERIFIED"; btn.style.background = "#22c55e"; btn.disabled = true;
-                    portal.style.display = "inline-block";
-                } catch (err) { console.error("Denied"); }
-            }
-        }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0",
+            authDomain: "jmu-blockchain-member.firebaseapp.com",
+            projectId: "jmu-blockchain-member",
+            storageBucket: "jmu-blockchain-member.firebasestorage.app",
+            messagingSenderId: "98129620187",
+            appId: "1:98129620187:web:d544b08841092ac497f0fe",
+            measurementId: "G-VPLWE1FYZ4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
+        provider.setCustomParameters({ hd: "dukes.jmu.edu" });
+
+        document.getElementById('login-btn').addEventListener('click', async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                if (result.user.email.endsWith("@dukes.jmu.edu")) {
+                    sessionStorage.setItem('isMember', 'true');
+                    document.getElementById('login-btn').innerText = "VERIFIED";
+                    document.getElementById('login-btn').style.background = "#22c55e";
+                    document.getElementById('enter-portal').style.display = "inline-block";
+                    setTimeout(() => { window.location.href = "members.html"; }, 1000);
+                } else {
+                    await signOut(auth);
+                    alert("Access Denied: You must use your @dukes.jmu.edu student email.");
+                }
+            } catch (error) { console.error("Auth Error:", error); }
+        });
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
