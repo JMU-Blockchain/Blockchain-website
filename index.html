@@ -239,6 +239,7 @@
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0",
@@ -252,22 +253,32 @@
 
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
+        const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
         document.getElementById('login-btn').addEventListener('click', async () => {
             try {
                 const result = await signInWithPopup(auth, provider);
-                if (result.user.email.endsWith("@gmail.com")) {
+                const userEmail = result.user.email;
+
+                // GATEKEEPER QUERY
+                const membersRef = collection(db, "approved_members");
+                const q = query(membersRef, where("email", "==", userEmail));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
                     sessionStorage.setItem('isMember', 'true');
                     document.getElementById('login-btn').innerText = "VERIFIED";
                     document.getElementById('login-btn').style.background = "#22c55e";
                     document.getElementById('enter-portal').style.display = "inline-block";
                     setTimeout(() => { window.location.href = "members.html"; }, 1000);
                 } else {
-                    alert("Denied: Use a personal @gmail.com account.");
                     await signOut(auth);
+                    alert("Access Denied: You are not on the approved member list. Contact Charlie for access.");
                 }
-            } catch (error) { console.error("Auth Error:", error); }
+            } catch (error) { 
+                console.error("Auth Error:", error); 
+            }
         });
 
         // REVEAL LOGIC
