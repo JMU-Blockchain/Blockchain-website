@@ -28,21 +28,21 @@
 
         .portal-layout { display: grid; grid-template-columns: 1fr 350px; gap: 40px; width: 90%; max-width: 1400px; margin: 0 auto; padding-bottom: 100px; }
 
-        /* --- CHAT SIDEBAR --- */
+        /* --- LIVE CHAT SIDEBAR --- */
         .chat-container { 
             background: var(--glass); border: 1px solid var(--glass-border); 
-            border-radius: 24px; height: 600px; display: flex; flex-direction: column; 
+            border-radius: 24px; height: 650px; display: flex; flex-direction: column; 
             position: sticky; top: 120px; backdrop-filter: blur(15px);
         }
-        .chat-header { padding: 20px; border-bottom: 1px solid var(--glass-border); text-align: center; }
+        .chat-header { padding: 20px; border-bottom: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; }
         .chat-messages { flex-grow: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 15px; }
-        .chat-messages::-webkit-scrollbar { width: 5px; }
+        .chat-messages::-webkit-scrollbar { width: 4px; }
         .chat-messages::-webkit-scrollbar-thumb { background: var(--glass-border); border-radius: 10px; }
 
-        .msg { padding: 12px 16px; border-radius: 15px; font-size: 0.85rem; max-width: 85%; }
+        .msg { padding: 12px 16px; border-radius: 15px; font-size: 0.85rem; max-width: 85%; position: relative; }
         .msg.me { align-self: flex-end; background: var(--jmu-purple); color: white; border-bottom-right-radius: 2px; }
         .msg.them { align-self: flex-start; background: rgba(255,255,255,0.05); color: #cbd5e1; border-bottom-left-radius: 2px; }
-        .msg-user { font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--jmu-gold); margin-bottom: 5px; display: block; }
+        .msg-user { font-family: 'JetBrains Mono'; font-size: 0.65rem; color: var(--jmu-gold); margin-bottom: 5px; display: block; font-weight: 700; }
 
         .chat-input-area { padding: 20px; border-top: 1px solid var(--glass-border); display: flex; gap: 10px; }
         .chat-input { flex-grow: 1; background: rgba(0,0,0,0.2); border: 1px solid var(--glass-border); color: white; padding: 10px; border-radius: 8px; outline: none; }
@@ -50,24 +50,27 @@
 
         /* --- VAULT CONTENT AREA --- */
         .vault-main { min-width: 0; }
-        .search-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 15px; border-radius: 15px; color: white; margin-bottom: 30px; outline: none; }
+        .portal-header { padding: 60px 0 30px; }
+        .post-form { background: var(--glass); border: 1px solid var(--glass-border); padding: 25px; border-radius: 24px; margin-bottom: 40px; }
+        .post-form input, .post-form select { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white; padding: 10px; border-radius: 8px; font-family: 'Plus Jakarta Sans'; outline: none; }
+        .post-form select option { background: #1a1a1a; color: white; } /* DROPDOWN VISIBILITY FIX */
+        
+        .search-input { width: 100%; background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); padding: 15px; border-radius: 15px; color: white; margin-bottom: 25px; outline: none; transition: 0.3s; }
+        .search-input:focus { border-color: var(--jmu-gold); background: rgba(255,255,255,0.08); }
+
         .filter-bar { display: flex; gap: 10px; margin-bottom: 30px; flex-wrap: wrap; }
-        .filter-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #94a3b8; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; }
+        .filter-btn { background: var(--glass); border: 1px solid var(--glass-border); color: #94a3b8; padding: 8px 18px; border-radius: 20px; cursor: pointer; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; transition: 0.3s; }
         .filter-btn.active { background: var(--jmu-purple); color: white; border-color: var(--jmu-gold); }
 
-        .post-form { background: var(--glass); border: 1px solid var(--glass-border); padding: 25px; border-radius: 24px; margin-bottom: 40px; }
-        .post-form input, .post-form select { background: rgba(255,255,255,0.05); border: 1px solid var(--glass-border); color: white; padding: 10px; border-radius: 8px; font-family: 'Plus Jakarta Sans'; margin-bottom: 10px; }
-        .post-form select option { background: #1a1a1a; color: white; }
-        
         .repo-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .repo-card { background: var(--glass); border: 1px solid var(--glass-border); padding: 25px; border-radius: 20px; transition: 0.3s; position: relative; text-decoration: none; color: inherit; }
-        .repo-card:hover { transform: translateY(-5px); border-color: var(--jmu-gold); }
+        .repo-card { background: var(--glass); backdrop-filter: blur(10px); border: 1px solid var(--glass-border); padding: 25px; border-radius: 20px; transition: 0.3s; position: relative; }
+        .repo-card:hover { transform: translateY(-5px); border-color: var(--jmu-gold); background: rgba(255,255,255,0.06); }
         .repo-tag { font-family: 'JetBrains Mono'; font-size: 0.6rem; color: var(--jmu-gold); text-transform: uppercase; margin-bottom: 10px; display: block; }
         
-        .delete-btn { position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; width: 20px; height: 20px; border-radius: 4px; cursor: pointer; font-size: 12px; display: none; }
+        .delete-btn { position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; border: none; width: 22px; height: 22px; border-radius: 4px; cursor: pointer; font-size: 14px; display: none; z-index: 5; }
         .logout-btn { background: transparent; color: #ef4444; border: 1px solid #ef4444; padding: 10px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; }
 
-        @media (max-width: 1000px) { .portal-layout { grid-template-columns: 1fr; } .chat-container { position: static; height: 400px; order: -1; } .nav-links { display: none !important; } }
+        @media (max-width: 1100px) { .portal-layout { grid-template-columns: 1fr; } .chat-container { position: static; height: 450px; order: -1; } .nav-links { display: none !important; } }
     </style>
 </head>
 <body>
@@ -87,27 +90,26 @@
     </nav>
 
     <div class="portal-layout">
-        
         <main class="vault-main">
-            <header class="portal-header" style="text-align: left;">
-                <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 3px; font-family: 'JetBrains Mono';">CLASSIFIED LEDGER</p>
-                <h1 style="font-size: 3rem;">The Vault<span>.</span></h1>
+            <header class="portal-header">
+                <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 3px; font-family: 'JetBrains Mono'; margin-bottom: 10px;">AUTHORIZED SESSION</p>
+                <h1 style="font-size: 3.5rem; margin: 0;">The Vault<span>.</span></h1>
             </header>
 
             <section class="post-form">
-                <div style="display: flex; flex-wrap: wrap; gap: 10px;">
-                    <input type="text" id="post-title" placeholder="Resource Title" style="flex: 2;">
-                    <input type="text" id="post-link" placeholder="URL (https://...)" style="flex: 2;">
-                    <select id="post-category" style="flex: 1;">
+                <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+                    <input type="text" id="post-title" placeholder="Resource Title" style="flex: 2; min-width: 200px;">
+                    <input type="text" id="post-link" placeholder="Link (https://...)" style="flex: 2; min-width: 200px;">
+                    <select id="post-category" style="flex: 1; min-width: 150px;">
                         <option value="Internal Docs">Internal Docs</option>
                         <option value="Research">Research</option>
                         <option value="Beta Access">Beta Access</option>
                     </select>
-                    <button class="post-btn" id="submit-post" style="flex: 0.5;">POST</button>
+                    <button class="post-btn" id="submit-post" style="flex: 0.5; min-width: 100px;">POST</button>
                 </div>
             </section>
 
-            <input type="text" id="vault-search" class="search-input" placeholder="Search the ledger...">
+            <input type="text" id="vault-search" class="search-input" placeholder="Search resources by title...">
 
             <div class="filter-bar">
                 <button class="filter-btn active" id="filter-All">All</button>
@@ -121,7 +123,8 @@
 
         <aside class="chat-container">
             <div class="chat-header">
-                <span style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: #22c55e;">● LIVE CHAT</span>
+                <span style="font-family: 'JetBrains Mono'; font-size: 0.7rem; color: #22c55e; font-weight: 800;">● LIVE CHAT</span>
+                <button id="admin-wipe-chat" style="display:none; background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px solid #ef4444; font-size: 0.6rem; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-weight: 800;">WIPE</button>
             </div>
             <div class="chat-messages" id="chat-messages"></div>
             <div class="chat-input-area">
@@ -129,58 +132,72 @@
                 <button class="send-btn" id="send-chat">↑</button>
             </div>
         </aside>
-
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
-        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, deleteDoc, doc, limit } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+        import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, deleteDoc, doc, writeBatch, getDocs, limit } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
         const firebaseConfig = { apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0", authDomain: "jmu-blockchain-member.firebaseapp.com", projectId: "jmu-blockchain-member", storageBucket: "jmu-blockchain-member.firebasestorage.app", messagingSenderId: "98129620187", appId: "1:98129620187:web:d544b08841092ac497f0fe", measurementId: "G-VPLWE1FYZ4" };
         const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app);
 
+        const PRESIDENT_EMAIL = "charliemonfort17@gmail.com";
         let currentFilter = "All";
         let searchQuery = "";
         let allData = [];
 
         onAuthStateChanged(auth, (user) => {
-            if (!user && sessionStorage.getItem('isMember') !== 'true') window.location.href = "index.html";
+            if (!user && sessionStorage.getItem('isMember') !== 'true') {
+                window.location.href = "index.html";
+            } else if (user) {
+                if (user.email === PRESIDENT_EMAIL) document.getElementById('admin-wipe-chat').style.display = "block";
+            }
         });
 
-        /* --- CHAT LOGIC --- */
+        /* --- CHAT ENGINE --- */
         const chatInput = document.getElementById('chat-input');
-        const sendChat = document.getElementById('send-chat');
         const chatBox = document.getElementById('chat-messages');
 
         const sendMsg = async () => {
             if (chatInput.value.trim() !== "") {
-                await addDoc(collection(db, "club_chat"), {
-                    text: chatInput.value,
-                    user: auth.currentUser.email,
-                    timestamp: serverTimestamp()
-                });
+                await addDoc(collection(db, "club_chat"), { text: chatInput.value, user: auth.currentUser.email, timestamp: serverTimestamp() });
                 chatInput.value = "";
             }
         };
-        sendChat.onclick = sendMsg;
+        document.getElementById('send-chat').onclick = sendMsg;
         chatInput.onkeypress = (e) => { if(e.key === 'Enter') sendMsg(); };
 
-        const chatQ = query(collection(db, "club_chat"), orderBy("timestamp", "asc"), limit(50));
+        document.getElementById('admin-wipe-chat').onclick = async () => {
+            if (confirm("Permanently zero the chat ledger?")) {
+                const snap = await getDocs(collection(db, "club_chat"));
+                const batch = writeBatch(db);
+                snap.forEach(d => batch.delete(d.ref));
+                await batch.commit();
+            }
+        };
+
+        const chatQ = query(collection(db, "club_chat"), orderBy("timestamp", "asc"), limit(60));
         onSnapshot(chatQ, (snapshot) => {
             chatBox.innerHTML = "";
             snapshot.forEach(d => {
                 const data = d.data();
+                const isPresident = data.user === PRESIDENT_EMAIL;
                 const isMe = auth.currentUser && data.user === auth.currentUser.email;
                 const div = document.createElement('div');
                 div.className = `msg ${isMe ? 'me' : 'them'}`;
-                div.innerHTML = `<span class="msg-user">${data.user.split('@')[0]}</span>${data.text}`;
+                if (isPresident) {
+                    div.style.borderLeft = "3px solid var(--jmu-gold)";
+                    div.style.background = "rgba(194, 161, 77, 0.1)";
+                }
+                const tag = isPresident ? `<span style="color:var(--jmu-gold); font-size:0.6rem; margin-left:5px;">[PRESIDENT]</span>` : "";
+                div.innerHTML = `<span class="msg-user">${data.user.split('@')[0]}${tag}</span>${data.text}`;
                 chatBox.appendChild(div);
             });
             chatBox.scrollTop = chatBox.scrollHeight;
         });
 
-        /* --- REPOSITORY LOGIC --- */
+        /* --- REPO ENGINE --- */
         document.getElementById('submit-post').onclick = async () => {
             const title = document.getElementById('post-title').value;
             const link = document.getElementById('post-link').value;
@@ -191,8 +208,8 @@
             }
         };
 
-        const q = query(collection(db, "vault_content"), orderBy("timestamp", "desc"));
-        onSnapshot(q, (snapshot) => {
+        const vaultQ = query(collection(db, "vault_content"), orderBy("timestamp", "desc"));
+        onSnapshot(vaultQ, (snapshot) => {
             allData = [];
             snapshot.forEach(doc => allData.push({ id: doc.id, ...doc.data() }));
             renderGrid();
@@ -214,17 +231,21 @@
             grid.innerHTML = "";
             const filtered = allData.filter(d => (currentFilter === "All" || d.category === currentFilter) && d.title.toLowerCase().includes(searchQuery));
             filtered.forEach(data => {
-                const isAdmin = auth.currentUser && auth.currentUser.email === "charliemonfort17@gmail.com";
+                const isAdmin = auth.currentUser && auth.currentUser.email === PRESIDENT_EMAIL;
                 const card = document.createElement('div');
                 card.className = 'repo-card';
                 card.innerHTML = `
                     <button class="delete-btn" style="${isAdmin ? 'display:block' : 'display:none'}">×</button>
                     <a href="${data.link}" target="_blank" style="text-decoration:none; color:inherit;">
                         <span class="repo-tag">${data.category}</span>
-                        <h4 style="margin: 0;">${data.title}</h4>
+                        <h4 style="margin: 0; font-size:1.1rem;">${data.title}</h4>
+                        <p style="font-size:0.75rem; color:#64748b; margin-top:8px;">Entry by ${data.author.split('@')[0]}</p>
                     </a>
                 `;
-                card.querySelector('.delete-btn').onclick = async () => { if(confirm("Delete?")) await deleteDoc(doc(db, "vault_content", data.id)); };
+                card.querySelector('.delete-btn').onclick = async (e) => {
+                    e.preventDefault();
+                    if(confirm("Delete entry?")) await deleteDoc(doc(db, "vault_content", data.id));
+                };
                 grid.appendChild(card);
             });
         }
