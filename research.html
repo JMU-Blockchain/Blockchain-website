@@ -67,7 +67,7 @@
         .glass-card h4 { font-size: 1.6rem; margin-bottom: 18px; color: #fff; }
         .glass-card p { color: var(--text-dim); font-size: 1rem; margin: 0; }
 
-        /* --- MOBILE MEDIA QUERIES: FIXED WHITEPAPER BLOCK ISSUE --- */
+        /* --- MOBILE MEDIA QUERIES --- */
         @media (max-width: 768px) {
             .navbar .container { padding: 0 20px; }
             .nav-links { display: none !important; }
@@ -76,7 +76,6 @@
             .dash-item { padding: 25px !important; }
             .dash-val { font-size: 1.4rem !important; }
             
-            /* FIX: Use Flex for Mobile stack instead of display:block */
             .grid-layout { 
                 display: flex !important;
                 flex-direction: column !important;
@@ -86,9 +85,8 @@
                 width: 100% !important; 
                 padding: 30px !important; 
                 box-sizing: border-box; 
-                margin: 0 !important; /* Ensures no weird offsets */
+                margin: 0 !important;
             }
-            .container { width: 92% !important; padding: 0 4%; }
         }
 
         #enter-portal { display: none; }
@@ -111,14 +109,14 @@
                     <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
                 </div>
                 <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center;">
-                    <button id="connect-btn" class="btn primary" onclick="connectWallet()" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Login</button>
-                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem;">PORTAL →</a>
+                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Member Login</button>
+                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem; display: none;">PORTAL →</a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <main class="container">
+    <main class="container" style="width: 90%; max-width: 1200px; margin: 0 auto;">
         <header style="padding: 110px 0 60px;" class="reveal">
             <div style="display: flex; align-items: center; margin-bottom: 20px;">
                 <span class="pulse-dot"></span>
@@ -152,17 +150,17 @@
                 <div class="glass-card reveal">
                     <span class="tag">CHAIN-BASED BUSINESS</span>
                     <h4>Automated Revenue Marketplaces</h4>
-                    <p>Analysis of <strong>Hyper-Structures</strong>: protocols that run indefinitely without intermediaries. Researching immutable logic for university commerce.</p>
+                    <p>Analysis of <strong>Hyper-Structures</strong>: protocols that run indefinitely without intermediaries.</p>
                 </div>
                 <div class="glass-card reveal">
                     <span class="tag">GOVERNANCE</span>
                     <h4>Quadratic Voting Frameworks</h4>
-                    <p>Evaluating mathematical models for fair club governance. Focusing on decentralized power through soul-bound identity tokens.</p>
+                    <p>Evaluating mathematical models for fair club governance and soul-bound identity tokens.</p>
                 </div>
                 <div class="glass-card reveal">
                     <span class="tag">TOKENOMICS</span>
                     <h4>Supply Loop Equilibrium</h4>
-                    <p>Evaluation of deflationary pressure and liquidity incentives. Studying the "Flywheel Effect" within DeFi ecosystems.</p>
+                    <p>Evaluation of deflationary pressure and liquidity incentives within DeFi ecosystems.</p>
                 </div>
             </div>
         </section>
@@ -176,19 +174,19 @@
                 <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" class="glass-card reveal">
                     <span class="tag">BTC // 2008</span>
                     <h4>The Bitcoin Whitepaper</h4>
-                    <p>Satoshi Nakamoto's original proposal for a peer-to-peer electronic cash system. The foundation of the ledger industry.</p>
+                    <p>Satoshi Nakamoto's original proposal for a peer-to-peer electronic cash system.</p>
                     <span style="display: block; margin-top: 20px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">READ SOURCE →</span>
                 </a>
                 <a href="https://ethereum.org/en/whitepaper/" target="_blank" class="glass-card reveal">
                     <span class="tag">ETH // 2013</span>
                     <h4>The Ethereum Whitepaper</h4>
-                    <p>Vitalik Buterin's introduction of a next-generation smart contract and decentralized application platform.</p>
+                    <p>Vitalik Buterin's introduction of a next-generation smart contract platform.</p>
                     <span style="display: block; margin-top: 20px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">READ SOURCE →</span>
                 </a>
                 <a href="https://docs.base.org/" target="_blank" class="glass-card reveal">
                     <span class="tag">BASE // 2023</span>
                     <h4>The Base Ecosystem</h4>
-                    <p>Technical documentation for Coinbase's Layer 2 network, focusing on scalability and the transition to the Superchain.</p>
+                    <p>Technical documentation for Coinbase's Layer 2 network and the Superchain transition.</p>
                     <span style="display: block; margin-top: 20px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">VIEW DOCS →</span>
                 </a>
             </div>
@@ -196,21 +194,58 @@
     </main>
 
     <footer style="text-align: center; padding: 120px 0; border-top: 1px solid var(--glass-border);">
-        <p style="color: #475569; font-size: 0.8rem; letter-spacing: 2px;">&copy; 2026 JMU BLOCKCHAIN // RESEARCH HUB // FOUNDER CHARLES MONFORT</p>
+        <p style="color: #475569; font-size: 0.8rem; letter-spacing: 2px;">&copy; 2026 JMU BLOCKCHAIN // RESEARCH HUB</p>
     </footer>
 
-    <script>
-        async function connectWallet() {
-            const btn = document.getElementById('connect-btn');
-            const portal = document.getElementById('enter-portal');
-            if (window.ethereum) {
-                try {
-                    const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-                    btn.innerText = "VERIFIED"; btn.style.background = "#22c55e"; btn.disabled = true;
-                    portal.style.display = "inline-block";
-                } catch (err) { console.error("Connection failed."); }
-            }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0",
+            authDomain: "jmu-blockchain-member.firebaseapp.com",
+            projectId: "jmu-blockchain-member",
+            storageBucket: "jmu-blockchain-member.firebasestorage.app",
+            messagingSenderId: "98129620187",
+            appId: "1:98129620187:web:d544b08841092ac497f0fe",
+            measurementId: "G-VPLWE1FYZ4"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const db = getFirestore(app);
+        const provider = new GoogleAuthProvider();
+
+        // PERSISTENCE CHECK
+        if (sessionStorage.getItem('isMember') === 'true') {
+            document.getElementById('login-btn').innerText = "VERIFIED";
+            document.getElementById('login-btn').style.background = "#22c55e";
+            document.getElementById('enter-portal').style.display = "inline-block";
         }
+
+        document.getElementById('login-btn').addEventListener('click', async () => {
+            try {
+                const result = await signInWithPopup(auth, provider);
+                const userEmail = result.user.email.toLowerCase().trim();
+
+                const membersRef = collection(db, "approved_members");
+                const q = query(membersRef, where("email", "==", userEmail));
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) {
+                    sessionStorage.setItem('isMember', 'true');
+                    document.getElementById('login-btn').innerText = "VERIFIED";
+                    document.getElementById('login-btn').style.background = "#22c55e";
+                    document.getElementById('enter-portal').style.display = "inline-block";
+                } else {
+                    await signOut(auth);
+                    alert("Access Denied: You are not on the approved member list.");
+                }
+            } catch (error) { console.error("Auth Error:", error); }
+        });
+
+        // TERMINAL LOGIC
         const terminal = document.getElementById('terminal-content');
         function addLog() {
             const txHash = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
@@ -220,6 +255,8 @@
             if (terminal.children.length > 8) terminal.removeChild(terminal.firstChild);
         }
         setInterval(addLog, 2500);
+
+        // REVEAL LOGIC
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
