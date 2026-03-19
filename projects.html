@@ -17,203 +17,171 @@
 
         body { background-color: var(--slate-950); color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; overflow-x: hidden; line-height: 1.6; }
 
-        /* --- BACKGROUND ARCHITECTURE --- */
         .bg-animate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1a0033 0%, var(--slate-950) 100%); z-index: -2; }
         .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), linear-gradient(90deg, var(--glass-border) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%); }
 
-        /* --- NAVIGATION --- */
         .navbar { background: rgba(7, 10, 19, 0.98) !important; backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border) !important; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
-        .nav-logo { height: 55px; width: auto; filter: none !important; transition: 0.3s; }
+        .nav-logo { height: 55px; width: auto; transition: 0.3s; }
+        .nav-links { display: flex; gap: 30px; align-items: center; justify-content: center; flex-grow: 1; }
         .nav-item { text-decoration: none; color: #FFFFFF !important; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
         .nav-item:hover { color: var(--jmu-gold) !important; }
 
-        /* --- PROJECT GRID STYLES --- */
-        .projects-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
-            gap: 30px; 
-            margin-top: 50px; 
-        }
+        .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; margin-top: 50px; }
+        .project-card { background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--glass-border); border-radius: 32px; overflow: hidden; transition: 0.4s; display: flex; flex-direction: column; }
+        .project-card:hover { transform: translateY(-12px); border-color: var(--jmu-purple); background: rgba(255,255,255,0.06); }
+        .project-visual { height: 200px; background: linear-gradient(135deg, var(--jmu-purple) 0%, #1e293b 100%); display: flex; align-items: center; justify-content: center; font-size: 3.5rem; border-bottom: 1px solid var(--glass-border); }
 
-        .project-card {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 32px; 
-            overflow: hidden; 
-            transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            display: flex;
-            flex-direction: column;
-        }
+        .project-info { padding: 35px; }
+        .status-tag { display: inline-block; padding: 6px 14px; border-radius: 30px; font-size: 0.65rem; font-weight: 800; text-transform: uppercase; margin-bottom: 15px; font-family: 'JetBrains Mono'; border: 1px solid currentColor; }
+        .status-live { color: #22c55e; background: rgba(34, 197, 94, 0.1); }
+        .status-active { color: #3b82f6; background: rgba(59, 130, 246, 0.1); }
+        .status-workshop { color: var(--jmu-gold); background: rgba(194, 161, 77, 0.1); }
 
-        .project-card:hover { 
-            transform: translateY(-12px); 
-            box-shadow: 0 25px 50px rgba(0,0,0,0.5), 0 0 15px rgba(69, 0, 132, 0.1);
-            border-color: var(--jmu-purple);
-            background: rgba(255,255,255,0.06);
-        }
+        /* --- TECH STACK BAR --- */
+        .tech-bar { display: flex; justify-content: center; gap: 40px; padding: 40px 0; border-top: 1px solid var(--glass-border); border-bottom: 1px solid var(--glass-border); margin: 80px 0; flex-wrap: wrap; }
+        .tech-item { font-family: 'JetBrains Mono'; font-weight: 700; color: #64748b; font-size: 0.9rem; text-transform: uppercase; }
 
-        .project-visual {
-            height: 220px; 
-            background: linear-gradient(135deg, var(--jmu-purple) 0%, #1e293b 100%);
-            display: flex; align-items: center; justify-content: center; font-size: 4rem;
-            border-bottom: 1px solid var(--glass-border);
-        }
+        /* --- LEDGER TABLE --- */
+        .ledger-container { background: var(--glass); border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden; margin-top: 40px; }
+        .ledger-table { width: 100%; border-collapse: collapse; text-align: left; }
+        .ledger-table th { background: rgba(255,255,255,0.05); padding: 20px; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: var(--jmu-gold); }
+        .ledger-table td { padding: 20px; border-top: 1px solid var(--glass-border); font-size: 0.9rem; }
 
-        .project-info { padding: 40px; }
-        .status-tag { display: inline-block; padding: 6px 16px; border-radius: 30px; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; margin-bottom: 20px; font-family: 'JetBrains Mono'; }
-        .status-live { background: rgba(34, 197, 94, 0.15); color: #22c55e; border: 1px solid rgba(34, 197, 94, 0.3); }
-        .status-dev { background: rgba(59, 130, 246, 0.15); color: #3b82f6; border: 1px solid rgba(59, 130, 246, 0.3); }
-
-        /* --- ANIMATIONS --- */
-        .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
+        .reveal { opacity: 0; transform: translateY(40px); transition: 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
 
-        /* --- MOBILE CAROUSEL LOGIC --- */
-        @media (max-width: 768px) {
-            .nav-links { display: none !important; }
-            header h1 { font-size: 2.8rem !important; letter-spacing: -2px !important; }
-            
-            .projects-grid { 
-                display: flex !important;
-                overflow-x: auto !important;
-                scroll-snap-type: x mandatory !important;
-                gap: 20px !important;
-                padding: 20px 0 40px !important;
-                -webkit-overflow-scrolling: touch;
-            }
-
-            .projects-grid::-webkit-scrollbar { display: none; }
-
-            .project-card { 
-                flex: 0 0 85% !important; 
-                scroll-snap-align: center !important;
-                margin-bottom: 0 !important;
-            }
-            
-            .project-info { padding: 30px !important; }
-        }
-
-        #enter-portal { display: none; }
+        @media (max-width: 768px) { .nav-links { display: none !important; } .ledger-table th:nth-child(3), .ledger-table td:nth-child(3) { display: none; } }
     </style>
 </head>
 <body>
-
-    <div class="bg-animate"></div>
-    <div class="bg-grid"></div>
+    <div class="bg-animate"></div><div class="bg-grid"></div>
 
     <nav class="navbar">
-        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-            <a href="index.html"><img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo"></a>
-            <div style="display: flex; align-items: center; gap: 40px;">
-                <div class="nav-links" style="display: flex; gap: 25px; align-items: center;">
-                    <a href="index.html" class="nav-item">Home</a>
-                    <a href="projects.html" class="nav-item" style="color: var(--jmu-gold) !important;">Projects</a>
-                    <a href="research.html" class="nav-item">Research</a>
-                    <a href="index.html#team" class="nav-item">Leadership</a>
-                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
-                </div>
-                <div style="border-left: 2px solid var(--glass-border); padding-left: 20px; display: flex; align-items: center;">
-                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.75rem; text-transform: uppercase;">Member Login</button>
-                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 10px; text-decoration: none; font-weight: 800; font-size: 0.75rem; display: none;">PORTAL →</a>
-                </div>
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 90%; max-width: 1400px; margin: 0 auto;">
+            <a href="index.html"><img src="assets/blockchain.png" alt="Logo" class="nav-logo"></a>
+            <div class="nav-links">
+                <a href="index.html" class="nav-item">Home</a>
+                <a href="projects.html" class="nav-item" style="color: var(--jmu-gold) !important;">Projects</a>
+                <a href="research.html" class="nav-item">Research</a>
+                <a href="index.html#team" class="nav-item">Leadership</a>
+            </div>
+            <div style="border-left: 2px solid var(--glass-border); padding-left: 20px;">
+                <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.75rem; text-transform: uppercase;">Member Login</button>
             </div>
         </div>
     </nav>
 
-    <main class="container" style="padding: 100px 0; margin: 0 auto; width: 90%; max-width: 1200px;">
+    <main class="container" style="padding: 80px 0; margin: 0 auto; width: 90%; max-width: 1200px;">
         <header class="reveal" style="text-align: center; margin-bottom: 80px;">
-            <p style="color: var(--jmu-gold); font-weight: 800; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase;">Building the Future</p>
-            <h1 style="font-size: 4.5rem; margin-top: 15px; letter-spacing: -3px; font-weight: 800;">Club <span>Initiatives.</span></h1>
-            <p style="max-width: 650px; margin: 25px auto; color: #94a3b8; font-size: 1.2rem;">Tangible development and research projects moving beyond the classroom.</p>
+            <p style="color: var(--jmu-gold); font-weight: 800; font-size: 0.8rem; letter-spacing: 4px; text-transform: uppercase; font-family: 'JetBrains Mono';">Portfolio of Excellence</p>
+            <h1 style="font-size: 4.5rem; margin-top: 15px; letter-spacing: -3px; font-weight: 800;">Strategic <span>Initiatives.</span></h1>
+            <p style="max-width: 650px; margin: 25px auto; color: #94a3b8; font-size: 1.2rem;">From professional identity to protocol participation, we build beyond the theoretical.</p>
         </header>
 
         <div class="projects-grid">
             <article class="project-card reveal">
+                <div class="project-visual">💼</div>
+                <div class="project-info">
+                    <span class="status-tag status-workshop">Active Workshop</span>
+                    <h4 style="margin: 0 0 15px 0; font-size: 1.5rem;">Web3 Professional Branding</h4>
+                    <p style="color: #94a3b8;">Transforming digital identities for the trustless economy. We optimize member LinkedIn profiles specifically for Blockchain analytics and DeFi recruiters.</p>
+                </div>
+            </article>
+
+            <article class="project-card reveal">
+                <div class="project-visual">🗳️</div>
+                <div class="project-info">
+                    <span class="status-tag status-active">Governance Lab</span>
+                    <h4 style="margin: 0 0 15px 0; font-size: 1.5rem;">DAO Governance Participation</h4>
+                    <p style="color: #94a3b8;">Active research and voting on Snapshot.org for major protocols. We analyze and discuss live proposals to understand protocol management in real-time.</p>
+                </div>
+            </article>
+
+            <article class="project-card reveal">
                 <div class="project-visual">🗝️</div>
                 <div class="project-info">
-                    <span class="status-tag status-live">Live</span>
-                    <h4 style="margin: 0 0 15px 0;">Membership Gateway</h4>
-                    <p>Our secure authentication system. Verifies approved Gmail addresses against our Firestore database to unlock the Vault.</p>
-                </div>
-            </article>
-
-            <article class="project-card reveal">
-                <div class="project-visual">📚</div>
-                <div class="project-info">
-                    <span class="status-tag status-dev">In Development</span>
-                    <h4 style="margin: 0 0 15px 0;">Decentralized Wiki</h4>
-                    <p>A community-curated repository of blockchain research hosted on IPFS for permanent, immutable storage.</p>
-                </div>
-            </article>
-
-            <article class="project-card reveal">
-                <div class="project-visual">🖥️</div>
-                <div class="project-info">
-                    <span class="status-tag status-dev">Research Phase</span>
-                    <h4 style="margin: 0 0 15px 0;">Student Node Program</h4>
-                    <p>Evaluating the feasibility of running a local RPC node on campus to support student developers.</p>
+                    <span class="status-tag status-live">Live Protocol</span>
+                    <h4 style="margin: 0 0 15px 0; font-size: 1.5rem;">The Vault Access System</h4>
+                    <p style="color: #94a3b8;">A secure, Firestore-backed authentication gateway providing members with encrypted access to club resources, repositories, and live chat.</p>
                 </div>
             </article>
         </div>
+
+        <section class="tech-bar reveal">
+            <div class="tech-item">Python / SQL</div>
+            <div class="tech-item">Firebase / Firestore</div>
+            <div class="tech-item">DAO Governance</div>
+            <div class="tech-item">On-Chain Analytics</div>
+        </section>
+
+        <section class="reveal">
+            <h2 style="font-size: 2.2rem; margin-bottom: 30px; letter-spacing: -1px;">Active Project <span>Ledger.</span></h2>
+            <div class="ledger-container">
+                <table class="ledger-table">
+                    <thead>
+                        <tr>
+                            <th>Initiative</th>
+                            <th>Status</th>
+                            <th>Primary Stack</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>LinkedIn Identity Audit</td>
+                            <td><span style="color: var(--jmu-gold)">● In Progress</span></td>
+                            <td>Career Development</td>
+                        </tr>
+                        <tr>
+                            <td>Uniswap Governance Review</td>
+                            <td><span style="color: #3b82f6">● Researching</span></td>
+                            <td>Governance / Tally</td>
+                        </tr>
+                        <tr>
+                            <td>Syllabus-to-LLM Extraction</td>
+                            <td><span style="color: #22c55e">● Completed</span></td>
+                            <td>Python / AI</td>
+                        </tr>
+                        <tr>
+                            <td>Node Deployment Feasibility</td>
+                            <td><span style="color: #94a3b8">● Q4 Roadmap</span></td>
+                            <td>Hardware / RPC</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </main>
 
-    <footer style="text-align: center; padding: 100px 0; border-top: 1px solid var(--glass-border);">
-        <p style="color: #475569; font-size: 0.75rem; letter-spacing: 2px; font-weight: 700;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
+    <footer style="text-align: center; padding: 80px 0; border-top: 1px solid var(--glass-border);">
+        <p style="color: #475569; font-size: 0.75rem; letter-spacing: 2px;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-        import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
         import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0",
-            authDomain: "jmu-blockchain-member.firebaseapp.com",
-            projectId: "jmu-blockchain-member",
-            storageBucket: "jmu-blockchain-member.firebasestorage.app",
-            messagingSenderId: "98129620187",
-            appId: "1:98129620187:web:d544b08841092ac497f0fe",
-            measurementId: "G-VPLWE1FYZ4"
-        };
+        const firebaseConfig = { apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0", authDomain: "jmu-blockchain-member.firebaseapp.com", projectId: "jmu-blockchain-member", storageBucket: "jmu-blockchain-member.firebasestorage.app", messagingSenderId: "98129620187", appId: "1:98129620187:web:d544b08841092ac497f0fe", measurementId: "G-VPLWE1FYZ4" };
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app); const provider = new GoogleAuthProvider();
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
-
-        // PERSISTENCE CHECK: If already logged in
         if (sessionStorage.getItem('isMember') === 'true') {
             document.getElementById('login-btn').innerText = "VERIFIED";
             document.getElementById('login-btn').style.background = "#22c55e";
-            document.getElementById('enter-portal').style.display = "inline-block";
         }
 
-        document.getElementById('login-btn').addEventListener('click', async () => {
+        document.getElementById('login-btn').onclick = async () => {
             try {
-                const result = await signInWithPopup(auth, provider);
-                const userEmail = result.user.email.toLowerCase().trim();
-
-                const membersRef = collection(db, "approved_members");
-                const q = query(membersRef, where("email", "==", userEmail));
-                const querySnapshot = await getDocs(q);
-
-                if (!querySnapshot.empty) {
+                const res = await signInWithPopup(auth, provider);
+                const qS = await getDocs(query(collection(db, "approved_members"), where("email", "==", res.user.email.toLowerCase().trim())));
+                if (!qS.empty) {
                     sessionStorage.setItem('isMember', 'true');
-                    document.getElementById('login-btn').innerText = "VERIFIED";
-                    document.getElementById('login-btn').style.background = "#22c55e";
-                    document.getElementById('enter-portal').style.display = "inline-block";
-                } else {
-                    await signOut(auth);
-                    alert("Access Denied: You are not on the approved member list.");
-                }
-            } catch (error) { console.error("Auth Error:", error); }
-        });
+                    location.reload();
+                } else { alert("Access Denied."); }
+            } catch (e) { console.error(e); }
+        };
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        const obs = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); }); }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
     </script>
 </body>
 </html>
