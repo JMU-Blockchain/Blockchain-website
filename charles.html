@@ -14,18 +14,48 @@
             --glass: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.1);
         }
-        body { background-color: var(--slate-950); color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; overflow-x: hidden; line-height: 1.6; }
+
+        body { 
+            background-color: var(--slate-950); 
+            color: #f8fafc; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            margin: 0; 
+            overflow-x: hidden; 
+            line-height: 1.6; 
+        }
+
+        /* --- BACKGROUND ARCHITECTURE --- */
         .bg-animate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1a0033 0%, var(--slate-950) 100%); z-index: -2; }
         .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), linear-gradient(90deg, var(--glass-border) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%); }
+
+        /* --- NAVIGATION --- */
         .navbar { background: rgba(7, 10, 19, 0.98) !important; backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border) !important; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
         .nav-logo { height: 55px; width: auto; filter: none !important; transition: 0.3s; }
         .nav-item { text-decoration: none; color: #FFFFFF !important; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
         .nav-item:hover { color: var(--jmu-gold) !important; }
+
+        /* --- BIO SECTION --- */
+        .bio-container { max-width: 1000px; margin: 80px auto; padding: 0 20px; text-align: center; }
+        .bio-avatar { width: 140px; height: 140px; background: var(--jmu-purple); border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; font-weight: 800; border: 4px solid var(--jmu-gold); box-shadow: 0 0 30px rgba(69, 0, 132, 0.4); }
+        .role-tag { font-family: 'JetBrains Mono'; color: var(--jmu-gold); letter-spacing: 4px; font-weight: 700; margin-bottom: 15px; display: block; }
+        
+        .linkedin-btn { 
+            display: inline-flex; align-items: center; gap: 10px; background: #0077b5; color: white; 
+            text-decoration: none; padding: 12px 25px; border-radius: 30px; font-weight: 800; 
+            font-size: 0.9rem; margin-top: 25px; transition: 0.3s; 
+        }
+        .linkedin-btn:hover { transform: scale(1.05); background: #00a0dc; }
+
+        /* --- SMART STATS GRID --- */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 60px; }
+        .stat-card { background: var(--glass); border: 1px solid var(--glass-border); padding: 30px; border-radius: 24px; text-align: left; transition: 0.3s; }
+        .stat-card:hover { border-color: var(--jmu-gold); background: rgba(255,255,255,0.06); }
+        .stat-icon { color: var(--jmu-gold); font-size: 1.5rem; margin-bottom: 15px; display: block; }
+
+        /* --- ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        .bio-container { max-width: 900px; margin: 100px auto; padding: 0 20px; text-align: center; }
-        .bio-avatar { width: 120px; height: 120px; background: var(--jmu-purple); border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 3rem; font-weight: 800; border: 3px solid var(--jmu-gold); }
-        .role-tag { font-family: 'JetBrains Mono'; color: var(--jmu-gold); letter-spacing: 4px; font-weight: 700; margin-bottom: 15px; display: block; }
+
         @media (max-width: 768px) { .nav-links { display: none !important; } }
         #enter-portal { display: none; }
     </style>
@@ -33,6 +63,7 @@
 <body>
     <div class="bg-animate"></div>
     <div class="bg-grid"></div>
+
     <nav class="navbar">
         <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
             <a href="index.html"><img src="assets/blockchain.png" alt="Logo" class="nav-logo"></a>
@@ -50,26 +81,67 @@
             </div>
         </div>
     </nav>
+
     <main class="bio-container reveal">
         <div class="bio-avatar">P</div>
-        <span class="role-tag">PRESIDENT</span>
-        <h1 style="font-size: 3.5rem; margin: 0;">Charles Monfort</h1>
-        <p style="color: #94a3b8; font-size: 1.2rem; margin-top: 30px;">Leading the strategic vision and institutional growth of the JMU Blockchain Club. Charles focuses on bridging the gap between business analytics and decentralized protocols.</p>
+        <span class="role-tag">PRESIDENT & FOUNDER</span>
+        <h1 style="font-size: 4rem; margin: 0; letter-spacing: -2px;">Charles Monfort</h1>
+        <p style="color: #94a3b8; font-size: 1.25rem; margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">
+            Architecting decentralized ecosystems at James Madison University. Specializing in the intersection of 
+            <span style="color: #fff; font-weight: 700;">Business Analytics</span> and <span style="color: #fff; font-weight: 700;">On-Chain Governance</span>.
+        </p>
+
+        <a href="https://www.linkedin.com/in/charlie-monfort-8639772ba/" target="_blank" class="linkedin-btn">
+            Connect on LinkedIn
+        </a>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <span class="stat-icon">📊</span>
+                <h4 style="margin: 0; font-size: 1.2rem;">Strategic Vision</h4>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 10px;">Developing the roadmap for JMU's first student-led blockchain validator initiative.</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">💻</span>
+                <h4 style="margin: 0; font-size: 1.2rem;">Full-Stack Analytics</h4>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 10px;">Utilizing Python and SQL to decode protocol performance and liquidity trends.</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🛡️</span>
+                <h4 style="margin: 0; font-size: 1.2rem;">Security & Trust</h4>
+                <p style="color: #64748b; font-size: 0.9rem; margin-top: 10px;">Advocating for self-sovereign identity and immutable ledger transparency.</p>
+            </div>
+        </div>
     </main>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
         import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-        const firebaseConfig = { apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0", authDomain: "jmu-blockchain-member.firebaseapp.com", projectId: "jmu-blockchain-member", storageBucket: "jmu-blockchain-member.firebasestorage.app", messagingSenderId: "98129620187", appId: "1:98129620187:web:d544b08841092ac497f0fe", measurementId: "G-VPLWE1FYZ4" };
+
+        const firebaseConfig = { 
+            apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0", 
+            authDomain: "jmu-blockchain-member.firebaseapp.com", 
+            projectId: "jmu-blockchain-member", 
+            storageBucket: "jmu-blockchain-member.firebasestorage.app", 
+            messagingSenderId: "98129620187", 
+            appId: "1:98129620187:web:d544b08841092ac497f0fe", 
+            measurementId: "G-VPLWE1FYZ4" 
+        };
+
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
+
+        // Persistence Check
         if (sessionStorage.getItem('isMember') === 'true') {
-            document.getElementById('login-btn').innerText = "VERIFIED";
-            document.getElementById('login-btn').style.background = "#22c55e";
+            const loginBtn = document.getElementById('login-btn');
+            loginBtn.innerText = "VERIFIED";
+            loginBtn.style.background = "#22c55e";
             document.getElementById('enter-portal').style.display = "inline-block";
         }
+
         document.getElementById('login-btn').addEventListener('click', async () => {
             try {
                 const result = await signInWithPopup(auth, provider);
@@ -77,6 +149,7 @@
                 const membersRef = collection(db, "approved_members");
                 const q = query(membersRef, where("email", "==", userEmail));
                 const querySnapshot = await getDocs(q);
+
                 if (!querySnapshot.empty) {
                     sessionStorage.setItem('isMember', 'true');
                     document.getElementById('login-btn').innerText = "VERIFIED";
@@ -86,8 +159,12 @@
                     await signOut(auth);
                     alert("Access Denied: You are not on the approved member list.");
                 }
-            } catch (error) { console.error(error); }
+            } catch (error) { 
+                console.error("Auth Error:", error); 
+                alert("Login failed. Check console for details.");
+            }
         });
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
