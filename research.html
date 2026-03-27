@@ -68,8 +68,8 @@
         .glass-card h4 { font-size: 1.6rem; margin-bottom: 18px; color: #fff; line-height: 1.2; }
         .glass-card p { color: var(--text-dim); font-size: 1rem; margin: 0; flex-grow: 1; }
         
-        /* Member specific tags */
-        .member-tag { background: rgba(69, 0, 132, 0.2); color: #d8b4fe; }
+        /* Research specific tags */
+        .research-tag { background: rgba(69, 0, 132, 0.2); color: #d8b4fe; }
 
         /* --- MOBILE MEDIA QUERIES --- */
         @media (max-width: 768px) {
@@ -183,21 +183,21 @@
 
         <section style="padding: 80px 0;">
             <div class="section-header reveal" style="margin-bottom: 50px;">
-                <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 2px;">ORIGINAL THOUGHT</p>
-                <h2 style="font-size: 2.6rem; font-weight: 800;">02. Member <span>Spotlight.</span></h2>
+                <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 2px;">CURRENT INITIATIVES</p>
+                <h2 style="font-size: 2.6rem; font-weight: 800;">02. Active <span>Investigations.</span></h2>
             </div>
             <div class="grid-layout">
-                <a href="#" class="glass-card reveal">
-                    <span class="tag member-tag">ERIK ANDERSON // VP</span>
-                    <h4>An Analysis of Layer 2 Rollup Architectures</h4>
-                    <p>A comparative breakdown of Optimistic vs. Zero-Knowledge rollups and their implications for mainnet scaling.</p>
-                    <span style="display: block; margin-top: 25px; color: #d8b4fe; font-weight: 800; font-size: 0.75rem;">READ PAPER →</span>
+                <a href="https://l2beat.com/scaling/summary" target="_blank" class="glass-card reveal">
+                    <span class="tag research-tag">SCALING ARCHITECTURE</span>
+                    <h4>Layer 2 Rollup Metrics</h4>
+                    <p>A comparative breakdown of Optimistic vs. Zero-Knowledge rollups, actively monitoring Total Value Locked (TVL) and risk profiles across the ecosystem.</p>
+                    <span style="display: block; margin-top: 25px; color: #d8b4fe; font-weight: 800; font-size: 0.75rem;">VIEW L2BEAT DATA →</span>
                 </a>
-                <a href="#" class="glass-card reveal">
-                    <span class="tag member-tag">LUCAS JOHNSON // ANALYST</span>
-                    <h4>The Impact of EIP-4844 on Base Ecosystem TVL</h4>
-                    <p>Examining how "Proto-Danksharding" catalyzed transaction volume across the Superchain network.</p>
-                    <span style="display: block; margin-top: 25px; color: #d8b4fe; font-weight: 800; font-size: 0.75rem;">READ PAPER →</span>
+                <a href="https://www.arkhamintelligence.com/" target="_blank" class="glass-card reveal">
+                    <span class="tag research-tag">ON-CHAIN INTELLIGENCE</span>
+                    <h4>Entity Identification & Tracking</h4>
+                    <p>Mapping the crypto-financial landscape by utilizing Deanonymization tools to trace institutional fund flows and monitor high-profile exchange wallets.</p>
+                    <span style="display: block; margin-top: 25px; color: #d8b4fe; font-weight: 800; font-size: 0.75rem;">EXPLORE ARKHAM →</span>
                 </a>
             </div>
         </section>
@@ -264,23 +264,20 @@
         fetchEthPrice();
         setInterval(fetchEthPrice, 60000);
 
-        // Network Gas Simulator (to avoid rate limits on free API keys)
+        // Network Gas Simulator
         function simulateGas() {
             const ethGasElement = document.getElementById('eth-gas');
             const baseGasElement = document.getElementById('base-gas');
             
-            // Random walk simulation for ETH (12 to 25 Gwei)
             let currentEth = parseFloat(ethGasElement.innerText);
             let nextEth = currentEth + (Math.random() * 2 - 1);
             if(nextEth < 10) nextEth = 10; if(nextEth > 35) nextEth = 35;
             
-            // Random walk simulation for Base (0.001 to 0.005 Gwei)
             let nextBase = (Math.random() * (0.005 - 0.001) + 0.001);
 
             ethGasElement.innerText = nextEth.toFixed(1);
             baseGasElement.innerText = nextBase.toFixed(3);
 
-            // Flash effect
             ethGasElement.classList.add('update');
             baseGasElement.classList.add('update');
             setTimeout(() => {
@@ -288,7 +285,7 @@
                 baseGasElement.classList.remove('update');
             }, 500);
         }
-        setInterval(simulateGas, 7000); // Update gas every 7 seconds
+        setInterval(simulateGas, 7000);
 
         // GATEKEEPER LOGIN
         if (sessionStorage.getItem('isMember') === 'true') {
