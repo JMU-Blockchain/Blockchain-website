@@ -73,9 +73,24 @@
         .reveal.active { opacity: 1; transform: translateY(0); }
 
         /* --- HERO --- */
-        .hero { min-height: 75vh; display: flex; align-items: center; padding: 100px 0; }
+        .hero { min-height: 75vh; display: flex; align-items: center; padding: 100px 0 60px 0; }
         .hero-content h1 { font-size: 5.5rem; line-height: 0.85; letter-spacing: -5px; font-weight: 800; margin: 0; }
         .hero-content h1 span { color: var(--jmu-gold); text-shadow: 0 0 30px rgba(194, 161, 77, 0.3); }
+        .typing-cursor { display: inline-block; width: 10px; height: 1.2rem; background-color: var(--jmu-gold); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 5px; }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+
+        /* --- MEETING BANNER --- */
+        .next-block-banner {
+            background: rgba(194, 161, 77, 0.08); 
+            border-top: 1px solid rgba(194, 161, 77, 0.3); 
+            border-bottom: 1px solid rgba(194, 161, 77, 0.3); 
+            padding: 15px 0; 
+            text-align: center; 
+            font-family: 'JetBrains Mono'; 
+            font-size: 0.9rem;
+            backdrop-filter: blur(10px);
+            margin-bottom: 60px;
+        }
 
         /* --- PILLARS --- */
         .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -125,6 +140,8 @@
             .pillar-card, .impact-card, .member-card { width: 100% !important; max-width: 100% !important; padding: 35px !important; margin-bottom: 20px; box-sizing: border-box; }
             .hero { padding: 60px 0; text-align: left; }
             .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
+            .hero-btns .btn { width: 100%; text-align: center; }
+            .next-block-banner { font-size: 0.75rem; padding: 15px 10px; }
         }
 
         #enter-portal { display: none; }
@@ -136,11 +153,11 @@
     <div class="bg-grid"></div>
 
     <nav class="navbar">
-        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 1400px; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
             <a href="index.html"><img src="assets/blockchain.png" alt="JMU Blockchain" class="nav-logo"></a>
             <div style="display: flex; align-items: center; gap: 40px;">
                 <div class="nav-links" style="display: flex; gap: 25px; align-items: center;">
-                    <a href="index.html" class="nav-item">Home</a>
+                    <a href="index.html" class="nav-item" style="color: var(--jmu-gold) !important;">Home</a>
                     <a href="projects.html" class="nav-item">Projects</a>
                     <a href="research.html" class="nav-item">Research</a>
                     <a href="#team" class="nav-item">Leadership</a>
@@ -155,48 +172,57 @@
     </nav>
 
     <div class="ticker-wrap">
-        <div class="ticker">
-            <div class="ticker-item">BTC <span>$64,120.44 (+2.1%)</span></div>
-            <div class="ticker-item">ETH <span>$3,450.12 (+1.8%)</span></div>
-            <div class="ticker-item">SOL <span class="down">$142.88 (-0.4%)</span></div>
+        <div class="ticker" id="live-ticker">
+            <div class="ticker-item">BTC <span id="tick-btc">Fetching...</span></div>
+            <div class="ticker-item">ETH <span id="tick-eth">Fetching...</span></div>
+            <div class="ticker-item">SOL <span id="tick-sol">Fetching...</span></div>
             <div class="ticker-item">BASE L2 <span style="color: var(--jmu-gold)">CONNECTED</span></div>
-            <div class="ticker-item">LINK <span>$18.22 (+4.5%)</span></div>
-            <div class="ticker-item">AVAX <span>$34.55 (+0.9%)</span></div>
-            <div class="ticker-item">BTC <span>$64,120.44 (+2.1%)</span></div>
-            <div class="ticker-item">ETH <span>$3,450.12 (+1.8%)</span></div>
+            <div class="ticker-item">LINK <span id="tick-link">Fetching...</span></div>
+            <div class="ticker-item">AVAX <span id="tick-avax">Fetching...</span></div>
+            <div class="ticker-item">BTC <span id="tick-btc-2">Fetching...</span></div>
+            <div class="ticker-item">ETH <span id="tick-eth-2">Fetching...</span></div>
         </div>
     </div>
 
     <header class="hero">
-        <div class="container reveal">
+        <div class="container reveal" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
             <div class="hero-content">
                 <div style="font-family: 'JetBrains Mono'; color: var(--jmu-gold); margin-bottom: 25px; font-weight: 700; letter-spacing: 5px;">ESTABLISHED 2026</div>
                 <h1>Unlocking <br><span>the Ledger.</span></h1>
-                <p style="max-width: 700px; font-size: 1.35rem; color: #94a3b8; line-height: 1.6; margin-bottom: 45px;">A technical deep-dive into decentralized systems, bridging the gap between student curiosity and industry-grade reality.</p>
+                
+                <p style="max-width: 700px; font-size: 1.35rem; color: #94a3b8; line-height: 1.6; margin-bottom: 45px; min-height: 65px;">
+                    <span id="typing-text"></span><span class="typing-cursor"></span>
+                </p>
+
                 <div class="hero-btns" style="display: flex; gap: 20px;">
-                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" style="background: var(--jmu-purple); padding: 20px 40px; border-radius: 14px; font-weight: 800; text-decoration: none; color: white;">Join Group</a>
-                    <a href="projects.html" style="border: 2px solid var(--glass-border); padding: 20px 40px; border-radius: 14px; font-weight: 800; text-decoration: none; color: white; backdrop-filter: blur(10px);">Our Projects</a>
+                    <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" style="background: var(--jmu-purple); padding: 20px 40px; border-radius: 14px; font-weight: 800; text-decoration: none; color: white; display: inline-block;">Join Group</a>
+                    <a href="projects.html" style="border: 2px solid var(--glass-border); padding: 20px 40px; border-radius: 14px; font-weight: 800; text-decoration: none; color: white; backdrop-filter: blur(10px); display: inline-block;">Our Projects</a>
                 </div>
             </div>
         </div>
     </header>
 
-    <section id="pillar-highlights" style="padding: 100px 0;">
-        <div class="container">
+    <div class="next-block-banner reveal">
+        <span style="color: var(--jmu-gold); font-weight: 800; margin-right: 15px;">GATHERING //</span> 
+        Next Meeting: Thursday @ 7:00 PM EST | Hartman Hall Room 2021 | Topic: Node Deployment & Analysis
+    </div>
+
+    <section id="pillar-highlights" style="padding: 60px 0 100px 0;">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
             <div class="section-header reveal" style="margin-bottom: 80px;">
                 <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 2px; text-transform: uppercase;">Foundation</p>
-                <h2 style="font-size: 3.5rem; letter-spacing: -2px;">The Three <span>Pillars.</span></h2>
+                <h2 style="font-size: 3.5rem; letter-spacing: -2px; margin-top: 10px;">The Three <span>Pillars.</span></h2>
             </div>
             <div class="pillar-grid">
-                <div class="pillar-card reveal"><span class="pillar-icon">🌐</span><h4>Decentralization</h4><p>Shifting power from central entities to a distributed network.</p></div>
-                <div class="pillar-card reveal"><span class="pillar-icon">🛡️</span><h4>Security</h4><p>Utilizing high-level cryptography to ensure data integrity.</p></div>
-                <div class="pillar-card reveal"><span class="pillar-icon">💎</span><h4>Transparency</h4><p>An immutable, public record verifiable by the community.</p></div>
+                <div class="pillar-card reveal"><span class="pillar-icon">🌐</span><h4 style="font-size: 1.4rem; margin-bottom: 10px;">Decentralization</h4><p style="color: #94a3b8;">Shifting power from central entities to a distributed network.</p></div>
+                <div class="pillar-card reveal"><span class="pillar-icon">🛡️</span><h4 style="font-size: 1.4rem; margin-bottom: 10px;">Security</h4><p style="color: #94a3b8;">Utilizing high-level cryptography to ensure data integrity.</p></div>
+                <div class="pillar-card reveal"><span class="pillar-icon">💎</span><h4 style="font-size: 1.4rem; margin-bottom: 10px;">Transparency</h4><p style="color: #94a3b8;">An immutable, public record verifiable by the community.</p></div>
             </div>
         </div>
     </section>
 
     <section id="research-preview" style="padding: 80px 0;">
-        <div class="container">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
             <div class="impact-grid">
                 <a href="research.html#academic" class="impact-card light reveal">
                     <div style="font-family: 'JetBrains Mono'; color: var(--jmu-gold); margin-bottom: 25px; font-weight: 700;">01 // EDUCATION</div>
@@ -215,24 +241,35 @@
     </section>
 
     <section id="team" style="padding: 100px 0;">
-        <div class="container">
+        <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
             <div class="section-header reveal" style="text-align: center; margin-bottom: 80px;">
                 <h2 style="font-size: 3.5rem; letter-spacing: -2px;">Executive <span>Board.</span></h2>
             </div>
             <div class="team-flex-container reveal">
-                <a href="charles.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">P</div><h4>Charles Monfort</h4><p style="color: var(--jmu-gold); font-size: 0.8rem; font-weight: 800;">PRESIDENT</p></div></a>
-                <a href="erik.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">VP</div><h4>Erik Anderson</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800;">VICE PRESIDENT</p></div></a>
-                <a href="owen.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">T</div><h4>Owen Winters</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800;">TREASURER</p></div></a>
-                <a href="robbie.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">S</div><h4>Robbie Karas</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800;">SECRETARY</p></div></a>
-                <a href="connor.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">NA</div><h4>Connor Adams</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800;">NEWS ANALYST</p></div></a>
-                <a href="lucas.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">MA</div><h4>Lucas Johnson</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800;">MARKET ANALYST</p></div></a>
-                <a href="sean.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">PR</div><h4>Sean Hallett</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800;">RELATIONS</p></div></a>
+                <a href="charles.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">P</div><h4 style="margin: 0 0 5px 0;">Charles Monfort</h4><p style="color: var(--jmu-gold); font-size: 0.8rem; font-weight: 800; margin: 0;">PRESIDENT</p></div></a>
+                <a href="erik.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">VP</div><h4 style="margin: 0 0 5px 0;">Erik Anderson</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800; margin: 0;">VICE PRESIDENT</p></div></a>
+                <a href="owen.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">T</div><h4 style="margin: 0 0 5px 0;">Owen Winters</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800; margin: 0;">TREASURER</p></div></a>
+                <a href="robbie.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">S</div><h4 style="margin: 0 0 5px 0;">Robbie Karas</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800; margin: 0;">SECRETARY</p></div></a>
+                <a href="connor.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">NA</div><h4 style="margin: 0 0 5px 0;">Connor Adams</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800; margin: 0;">NEWS ANALYST</p></div></a>
+                <a href="lucas.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">MA</div><h4 style="margin: 0 0 5px 0;">Lucas Johnson</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800; margin: 0;">MARKET ANALYST</p></div></a>
+                <a href="sean.html" style="text-decoration: none; color: inherit;"><div class="member-card"><div class="avatar">PR</div><h4 style="margin: 0 0 5px 0;">Sean Hallett</h4><p style="color: #94a3b8; font-size: 0.8rem; font-weight: 800; margin: 0;">RELATIONS</p></div></a>
             </div>
         </div>
     </section>
 
-    <footer style="text-align: center; padding: 120px 0; border-top: 1px solid var(--glass-border);">
-        <p style="color: #475569; font-size: 0.75rem; letter-spacing: 2px;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
+    <footer style="background: rgba(0,0,0,0.4); padding: 80px 0 40px 0; border-top: 1px solid var(--glass-border); margin-top: 50px;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; max-width: 1200px; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
+            <div style="flex: 1; min-width: 250px;">
+                <img src="assets/blockchain.png" alt="JMU Blockchain" style="height: 45px; filter: grayscale(100%) brightness(1.5); opacity: 0.6;">
+                <p style="color: #475569; font-size: 0.85rem; margin-top: 15px; font-weight: 600;">Bridging JMU talent to the decentralized web.</p>
+                <p style="color: #475569; font-size: 0.75rem; letter-spacing: 1px; margin-top: 5px;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
+            </div>
+            <div style="display: flex; gap: 25px; flex-wrap: wrap;">
+                <a href="https://www.linkedin.com/company/jmu-blockchain/posts/?feedView=all" target="_blank" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.color='var(--jmu-gold)'" onmouseout="this.style.color='#94a3b8'">LINKEDIN</a>
+                <a href="https://github.com/JMU-Blockchain/Blockchain-website" target="_blank" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.color='var(--jmu-gold)'" onmouseout="this.style.color='#94a3b8'">GITHUB</a>
+                <a href="mailto:blockchainjmu@gmail.com" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.color='var(--jmu-gold)'" onmouseout="this.style.color='#94a3b8'">CONTACT</a>
+            </div>
+        </div>
     </footer>
 
     <script type="module">
@@ -255,19 +292,65 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // PERSISTENCE CHECK: Runs on page load to see if user is already logged in
+        // LIVE BINANCE API TICKER LOGIC
+        async function fetchPrices() {
+            try {
+                // Fetching live 24hr ticker data from Binance API (No API key required)
+                const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=["BTCUSDT","ETHUSDT","SOLUSDT","LINKUSDT","AVAXUSDT"]');
+                const data = await res.json();
+                
+                const formatPrice = (price) => '$' + parseFloat(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+                const formatChange = (change) => {
+                    const val = parseFloat(change);
+                    return val >= 0 ? `<span style="color: #22c55e; margin-left: 8px; font-weight: 700;">(+${val.toFixed(2)}%)</span>` : `<span style="color: #ef4444; margin-left: 8px; font-weight: 700;">(${val.toFixed(2)}%)</span>`;
+                };
+
+                data.forEach(coin => {
+                    let id = coin.symbol.replace('USDT', '').toLowerCase();
+                    // Target both the primary and the duplicated scroll elements
+                    let elements = document.querySelectorAll(`#tick-${id}, #tick-${id}-2`);
+                    elements.forEach(el => {
+                        el.innerHTML = `${formatPrice(coin.lastPrice)} ${formatChange(coin.priceChangePercent)}`;
+                    });
+                });
+            } catch (error) { 
+                console.error("Live Ticker API Error:", error); 
+            }
+        }
+        
+        // Initialize Ticker and set 30-second refresh interval
+        fetchPrices();
+        setInterval(fetchPrices, 30000);
+
+        // TERMINAL TYPING EFFECT LOGIC
+        const typeText = "A technical deep-dive into decentralized systems, bridging the gap between student curiosity and industry-grade reality.";
+        const typingElement = document.getElementById("typing-text");
+        let charIndex = 0;
+        
+        function typeWriter() {
+            if (charIndex < typeText.length) {
+                typingElement.innerHTML += typeText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 25); // Typing speed in milliseconds
+            }
+        }
+        // Start typing slightly after page load for effect
+        setTimeout(typeWriter, 400);
+
+        // PERSISTENCE CHECK
         if (sessionStorage.getItem('isMember') === 'true') {
             document.getElementById('login-btn').innerText = "VERIFIED";
             document.getElementById('login-btn').style.background = "#22c55e";
             document.getElementById('enter-portal').style.display = "inline-block";
         }
 
+        // SANITIZED GATEKEEPER LOGIN
         document.getElementById('login-btn').addEventListener('click', async () => {
             try {
                 const result = await signInWithPopup(auth, provider);
-                const userEmail = result.user.email;
+                // Sanitation: Lowercase and trim spaces to prevent false rejections
+                const userEmail = result.user.email.toLowerCase().trim();
 
-                // GATEKEEPER QUERY
                 const membersRef = collection(db, "approved_members");
                 const q = query(membersRef, where("email", "==", userEmail));
                 const querySnapshot = await getDocs(q);
@@ -287,7 +370,7 @@
             }
         });
 
-        // REVEAL LOGIC
+        // REVEAL ANIMATION LOGIC
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
