@@ -46,8 +46,9 @@
         /* --- DASHBOARD HUB --- */
         .dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1px; background: rgba(255,255,255,0.1); border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,0.1); margin: 40px 0; }
         .dash-item { background: var(--slate-950); padding: 35px; text-align: center; }
-        .dash-val { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; color: var(--jmu-gold); font-weight: 700; display: block; }
-        .dash-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; }
+        .dash-val { font-family: 'JetBrains Mono', monospace; font-size: 1.8rem; color: var(--jmu-gold); font-weight: 700; display: block; transition: color 0.3s; }
+        .dash-val.update { color: #22c55e; }
+        .dash-label { font-size: 0.7rem; color: #64748b; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; margin-top: 5px; display: block; }
 
         /* --- LIVE NODE VISUALIZER --- */
         .terminal-window { background: #000; border-radius: 12px; border: 1px solid var(--glass-border); padding: 20px; font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; color: #22c55e; height: 280px; overflow: hidden; margin: 40px 0; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
@@ -63,9 +64,12 @@
             text-decoration: none; color: inherit; display: flex; flex-direction: column;
         }
         .glass-card:hover { transform: translateY(-12px); border-color: var(--jmu-purple); box-shadow: 0 25px 60px rgba(0,0,0,0.6), 0 0 15px rgba(69, 0, 132, 0.2); }
-        .tag { font-family: 'JetBrains Mono', monospace; background: rgba(179, 163, 105, 0.1); color: var(--jmu-gold); padding: 5px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; margin-bottom: 25px; display: inline-block; width: fit-content; }
-        .glass-card h4 { font-size: 1.6rem; margin-bottom: 18px; color: #fff; }
-        .glass-card p { color: var(--text-dim); font-size: 1rem; margin: 0; }
+        .tag { font-family: 'JetBrains Mono', monospace; background: rgba(179, 163, 105, 0.1); color: var(--jmu-gold); padding: 5px 14px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; margin-bottom: 25px; display: inline-block; width: fit-content; text-transform: uppercase; }
+        .glass-card h4 { font-size: 1.6rem; margin-bottom: 18px; color: #fff; line-height: 1.2; }
+        .glass-card p { color: var(--text-dim); font-size: 1rem; margin: 0; flex-grow: 1; }
+        
+        /* Member specific tags */
+        .member-tag { background: rgba(69, 0, 132, 0.2); color: #d8b4fe; }
 
         /* --- MOBILE MEDIA QUERIES --- */
         @media (max-width: 768px) {
@@ -98,7 +102,7 @@
     <div class="bg-grid"></div>
 
     <nav class="navbar">
-        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 90%; max-width: 1400px; margin: 0 auto;">
             <a href="index.html"><img src="assets/blockchain.png" alt="Logo" class="nav-logo"></a>
             <div style="display: flex; align-items: center; gap: 40px;">
                 <div class="nav-links" style="display: flex; gap: 25px; align-items: center;">
@@ -108,29 +112,41 @@
                     <a href="index.html#team" class="nav-item">Leadership</a>
                     <a href="https://groupme.com/join_group/113070600/Z50nIRYN" target="_blank" class="nav-item">Join Group</a>
                 </div>
-                <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center;">
-                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Member Login</button>
-                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem; display: none;">PORTAL →</a>
+                <div style="border-left: 2px solid var(--glass-border); padding-left: 20px; display: flex; align-items: center;">
+                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 20px; border-radius: 10px; font-weight: 800; cursor: pointer; font-size: 0.75rem; text-transform: uppercase;">Member Login</button>
+                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 10px; text-decoration: none; font-weight: 800; font-size: 0.75rem;">PORTAL →</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <main class="container" style="width: 90%; max-width: 1200px; margin: 0 auto;">
-        <header style="padding: 110px 0 60px;" class="reveal">
+        <header style="padding: 110px 0 40px;" class="reveal">
             <div style="display: flex; align-items: center; margin-bottom: 20px;">
                 <span class="pulse-dot"></span>
-                <span style="font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #22c55e; letter-spacing: 2px; font-weight: 700;">BASE L2 PROTOCOL LIVE</span>
+                <span style="font-family: 'JetBrains Mono'; font-size: 0.75rem; color: #22c55e; letter-spacing: 2px; font-weight: 700;">NETWORK MONITOR LIVE</span>
             </div>
             <h1 style="font-size: 4.2rem; margin: 0; letter-spacing: -3px; font-weight: 800;">Protocol <span>Research.</span></h1>
-            <p style="max-width: 720px; color: var(--text-dim); font-size: 1.25rem; margin-top: 22px;">Bridging academic theory and on-chain reality through immutable business logic and economic security analysis.</p>
+            <p style="max-width: 720px; color: var(--text-dim); font-size: 1.25rem; margin-top: 22px;">Bridging academic theory and on-chain reality through forensics, smart contract analysis, and macro-economics.</p>
         </header>
 
         <div class="dashboard reveal">
-            <div class="dash-item"><span class="dash-val">2.4s</span><span class="dash-label">Avg Block Time</span></div>
-            <div class="dash-item"><span class="dash-val">ERC-721</span><span class="dash-label">Auth Standard</span></div>
-            <div class="dash-item"><span class="dash-val">Base</span><span class="dash-label">Settlement Layer</span></div>
-            <div class="dash-item"><span class="dash-val">0.01%</span><span class="dash-label">Target Gas Fee</span></div>
+            <div class="dash-item">
+                <span class="dash-val" id="eth-price">Loading...</span>
+                <span class="dash-label">Ethereum (USD)</span>
+            </div>
+            <div class="dash-item">
+                <span class="dash-val" id="eth-gas">15.4</span>
+                <span class="dash-label">ETH Gas (Gwei)</span>
+            </div>
+            <div class="dash-item">
+                <span class="dash-val" id="base-gas">0.002</span>
+                <span class="dash-label">Base L2 Gas (Gwei)</span>
+            </div>
+            <div class="dash-item">
+                <span class="dash-val">2.0s</span>
+                <span class="dash-label">L2 Block Time</span>
+            </div>
         </div>
 
         <div class="terminal-window reveal">
@@ -140,61 +156,93 @@
             </div>
             <div id="terminal-content" style="line-height: 1.4;">
                 [SYSTEM] Initializing node connection...<br>
-                [NODE] Connection verified. Streaming transactions...<br>
+                [NODE] Connection verified. Streaming mempool...<br>
             </div>
         </div>
 
         <section style="padding: 60px 0;">
-            <h2 style="font-size: 2.6rem; margin-bottom: 45px; font-weight: 800;">01. Academic <span>Literacy.</span></h2>
+            <h2 style="font-size: 2.6rem; margin-bottom: 45px; font-weight: 800;">01. Division <span>Focus.</span></h2>
             <div class="grid-layout">
                 <div class="glass-card reveal">
-                    <span class="tag">CHAIN-BASED BUSINESS</span>
-                    <h4>Automated Revenue Marketplaces</h4>
-                    <p>Analysis of <strong>Hyper-Structures</strong>: protocols that run indefinitely without intermediaries.</p>
+                    <span class="tag">DATA ANALYTICS</span>
+                    <h4>On-Chain Forensics</h4>
+                    <p>Utilizing tools like Dune Analytics and Arkham to track treasury flows, map wallet clusters, and analyze protocol revenue models.</p>
                 </div>
                 <div class="glass-card reveal">
-                    <span class="tag">GOVERNANCE</span>
-                    <h4>Quadratic Voting Frameworks</h4>
-                    <p>Evaluating mathematical models for fair club governance and soul-bound identity tokens.</p>
+                    <span class="tag">DEFI AUDITS</span>
+                    <h4>Protocol Case Studies</h4>
+                    <p>Deep diving into blue-chip protocols (Uniswap, Aave) to understand liquidity pools, risk management, and exploit vulnerabilities.</p>
                 </div>
                 <div class="glass-card reveal">
-                    <span class="tag">TOKENOMICS</span>
-                    <h4>Supply Loop Equilibrium</h4>
-                    <p>Evaluation of deflationary pressure and liquidity incentives within DeFi ecosystems.</p>
+                    <span class="tag">TRAD-FI CROSSOVER</span>
+                    <h4>Macro-Crypto Economics</h4>
+                    <p>Bridging traditional finance and digital assets by researching ETF market impacts, stablecoin regulations, and monetary policy shifts.</p>
                 </div>
             </div>
         </section>
 
         <section style="padding: 80px 0;">
             <div class="section-header reveal" style="margin-bottom: 50px;">
-                <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 2px;">THE CANON</p>
-                <h2 style="font-size: 2.6rem; font-weight: 800;">02. Whitepaper <span>Archive.</span></h2>
+                <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 2px;">ORIGINAL THOUGHT</p>
+                <h2 style="font-size: 2.6rem; font-weight: 800;">02. Member <span>Spotlight.</span></h2>
+            </div>
+            <div class="grid-layout">
+                <a href="#" class="glass-card reveal">
+                    <span class="tag member-tag">ERIK ANDERSON // VP</span>
+                    <h4>An Analysis of Layer 2 Rollup Architectures</h4>
+                    <p>A comparative breakdown of Optimistic vs. Zero-Knowledge rollups and their implications for mainnet scaling.</p>
+                    <span style="display: block; margin-top: 25px; color: #d8b4fe; font-weight: 800; font-size: 0.75rem;">READ PAPER →</span>
+                </a>
+                <a href="#" class="glass-card reveal">
+                    <span class="tag member-tag">LUCAS JOHNSON // ANALYST</span>
+                    <h4>The Impact of EIP-4844 on Base Ecosystem TVL</h4>
+                    <p>Examining how "Proto-Danksharding" catalyzed transaction volume across the Superchain network.</p>
+                    <span style="display: block; margin-top: 25px; color: #d8b4fe; font-weight: 800; font-size: 0.75rem;">READ PAPER →</span>
+                </a>
+            </div>
+        </section>
+
+        <section style="padding: 80px 0 100px 0;">
+            <div class="section-header reveal" style="margin-bottom: 50px;">
+                <p style="color: var(--jmu-gold); font-weight: 800; letter-spacing: 2px;">FOUNDATIONAL TEXTS</p>
+                <h2 style="font-size: 2.6rem; font-weight: 800;">03. The <span>Canon.</span></h2>
             </div>
             <div class="grid-layout">
                 <a href="https://bitcoin.org/bitcoin.pdf" target="_blank" class="glass-card reveal">
                     <span class="tag">BTC // 2008</span>
                     <h4>The Bitcoin Whitepaper</h4>
                     <p>Satoshi Nakamoto's original proposal for a peer-to-peer electronic cash system.</p>
-                    <span style="display: block; margin-top: 20px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">READ SOURCE →</span>
+                    <span style="display: block; margin-top: 25px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">READ SOURCE →</span>
                 </a>
                 <a href="https://ethereum.org/en/whitepaper/" target="_blank" class="glass-card reveal">
                     <span class="tag">ETH // 2013</span>
                     <h4>The Ethereum Whitepaper</h4>
                     <p>Vitalik Buterin's introduction of a next-generation smart contract platform.</p>
-                    <span style="display: block; margin-top: 20px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">READ SOURCE →</span>
+                    <span style="display: block; margin-top: 25px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">READ SOURCE →</span>
                 </a>
                 <a href="https://docs.base.org/" target="_blank" class="glass-card reveal">
                     <span class="tag">BASE // 2023</span>
                     <h4>The Base Ecosystem</h4>
                     <p>Technical documentation for Coinbase's Layer 2 network and the Superchain transition.</p>
-                    <span style="display: block; margin-top: 20px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">VIEW DOCS →</span>
+                    <span style="display: block; margin-top: 25px; color: var(--jmu-gold); font-weight: 800; font-size: 0.75rem;">VIEW DOCS →</span>
                 </a>
             </div>
         </section>
     </main>
 
-    <footer style="text-align: center; padding: 120px 0; border-top: 1px solid var(--glass-border);">
-        <p style="color: #475569; font-size: 0.8rem; letter-spacing: 2px;">&copy; 2026 JMU BLOCKCHAIN // RESEARCH HUB</p>
+    <footer style="background: rgba(0,0,0,0.4); padding: 80px 0 40px 0; border-top: 1px solid var(--glass-border);">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; width: 90%; max-width: 1400px; margin: 0 auto;">
+            <div style="flex: 1; min-width: 250px;">
+                <img src="assets/blockchain.png" alt="JMU Blockchain" style="height: 45px; filter: grayscale(100%) brightness(1.5); opacity: 0.6;">
+                <p style="color: #475569; font-size: 0.85rem; margin-top: 15px; font-weight: 600;">Bridging JMU talent to the decentralized web.</p>
+                <p style="color: #475569; font-size: 0.75rem; letter-spacing: 1px; margin-top: 5px;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
+            </div>
+            <div style="display: flex; gap: 25px; flex-wrap: wrap;">
+                <a href="https://www.linkedin.com/company/jmu-blockchain/posts/?feedView=all" target="_blank" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.color='var(--jmu-gold)'" onmouseout="this.style.color='#94a3b8'">LINKEDIN</a>
+                <a href="https://github.com/JMU-Blockchain/Blockchain-website" target="_blank" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.color='var(--jmu-gold)'" onmouseout="this.style.color='#94a3b8'">GITHUB</a>
+                <a href="mailto:blockchainjmu@gmail.com" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.color='var(--jmu-gold)'" onmouseout="this.style.color='#94a3b8'">CONTACT</a>
+            </div>
+        </div>
     </footer>
 
     <script type="module">
@@ -202,22 +250,47 @@
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
         import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0",
-            authDomain: "jmu-blockchain-member.firebaseapp.com",
-            projectId: "jmu-blockchain-member",
-            storageBucket: "jmu-blockchain-member.firebasestorage.app",
-            messagingSenderId: "98129620187",
-            appId: "1:98129620187:web:d544b08841092ac497f0fe",
-            measurementId: "G-VPLWE1FYZ4"
-        };
+        const firebaseConfig = { apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0", authDomain: "jmu-blockchain-member.firebaseapp.com", projectId: "jmu-blockchain-member", storageBucket: "jmu-blockchain-member.firebasestorage.app", messagingSenderId: "98129620187", appId: "1:98129620187:web:d544b08841092ac497f0fe", measurementId: "G-VPLWE1FYZ4" };
+        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app); const provider = new GoogleAuthProvider();
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-        const db = getFirestore(app);
-        const provider = new GoogleAuthProvider();
+        // LIVE DASHBOARD DATA & SIMULATION
+        async function fetchEthPrice() {
+            try {
+                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd');
+                const data = await res.json();
+                document.getElementById('eth-price').innerText = '$' + data.ethereum.usd.toLocaleString();
+            } catch (e) { console.error("API Error", e); }
+        }
+        fetchEthPrice();
+        setInterval(fetchEthPrice, 60000);
 
-        // PERSISTENCE CHECK
+        // Network Gas Simulator (to avoid rate limits on free API keys)
+        function simulateGas() {
+            const ethGasElement = document.getElementById('eth-gas');
+            const baseGasElement = document.getElementById('base-gas');
+            
+            // Random walk simulation for ETH (12 to 25 Gwei)
+            let currentEth = parseFloat(ethGasElement.innerText);
+            let nextEth = currentEth + (Math.random() * 2 - 1);
+            if(nextEth < 10) nextEth = 10; if(nextEth > 35) nextEth = 35;
+            
+            // Random walk simulation for Base (0.001 to 0.005 Gwei)
+            let nextBase = (Math.random() * (0.005 - 0.001) + 0.001);
+
+            ethGasElement.innerText = nextEth.toFixed(1);
+            baseGasElement.innerText = nextBase.toFixed(3);
+
+            // Flash effect
+            ethGasElement.classList.add('update');
+            baseGasElement.classList.add('update');
+            setTimeout(() => {
+                ethGasElement.classList.remove('update');
+                baseGasElement.classList.remove('update');
+            }, 500);
+        }
+        setInterval(simulateGas, 7000); // Update gas every 7 seconds
+
+        // GATEKEEPER LOGIN
         if (sessionStorage.getItem('isMember') === 'true') {
             document.getElementById('login-btn').innerText = "VERIFIED";
             document.getElementById('login-btn').style.background = "#22c55e";
@@ -228,16 +301,11 @@
             try {
                 const result = await signInWithPopup(auth, provider);
                 const userEmail = result.user.email.toLowerCase().trim();
+                const qS = await getDocs(query(collection(db, "approved_members"), where("email", "==", userEmail)));
 
-                const membersRef = collection(db, "approved_members");
-                const q = query(membersRef, where("email", "==", userEmail));
-                const querySnapshot = await getDocs(q);
-
-                if (!querySnapshot.empty) {
+                if (!qS.empty) {
                     sessionStorage.setItem('isMember', 'true');
-                    document.getElementById('login-btn').innerText = "VERIFIED";
-                    document.getElementById('login-btn').style.background = "#22c55e";
-                    document.getElementById('enter-portal').style.display = "inline-block";
+                    location.reload();
                 } else {
                     await signOut(auth);
                     alert("Access Denied: You are not on the approved member list.");
@@ -250,7 +318,7 @@
         function addLog() {
             const txHash = "0x" + Math.random().toString(16).slice(2, 10) + "..." + Math.random().toString(16).slice(2, 6);
             const entry = document.createElement('div');
-            entry.innerHTML = `[TX] Confirmed: ${txHash}`;
+            entry.innerHTML = `[TX] Confirmed: <a href="https://basescan.org/" target="_blank" style="color:#22c55e;">${txHash}</a>`;
             terminal.appendChild(entry);
             if (terminal.children.length > 8) terminal.removeChild(terminal.firstChild);
         }
