@@ -79,19 +79,6 @@
         .typing-cursor { display: inline-block; width: 10px; height: 1.2rem; background-color: var(--jmu-gold); animation: blink 1s step-end infinite; vertical-align: middle; margin-left: 5px; }
         @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
 
-        /* --- MEETING BANNER --- */
-        .next-block-banner {
-            background: rgba(194, 161, 77, 0.08); 
-            border-top: 1px solid rgba(194, 161, 77, 0.3); 
-            border-bottom: 1px solid rgba(194, 161, 77, 0.3); 
-            padding: 15px 0; 
-            text-align: center; 
-            font-family: 'JetBrains Mono'; 
-            font-size: 0.9rem;
-            backdrop-filter: blur(10px);
-            margin-bottom: 60px;
-        }
-
         /* --- PILLARS --- */
         .pillar-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .pillar-card { 
@@ -141,7 +128,6 @@
             .hero { padding: 60px 0; text-align: left; }
             .hero-btns { flex-direction: column; width: 100%; gap: 15px; }
             .hero-btns .btn { width: 100%; text-align: center; }
-            .next-block-banner { font-size: 0.75rem; padding: 15px 10px; }
         }
 
         #enter-portal { display: none; }
@@ -173,14 +159,14 @@
 
     <div class="ticker-wrap">
         <div class="ticker" id="live-ticker">
-            <div class="ticker-item">BTC <span id="tick-btc">Fetching...</span></div>
-            <div class="ticker-item">ETH <span id="tick-eth">Fetching...</span></div>
-            <div class="ticker-item">SOL <span id="tick-sol">Fetching...</span></div>
+            <div class="ticker-item">BTC <span id="tick-btc">Loading...</span></div>
+            <div class="ticker-item">ETH <span id="tick-eth">Loading...</span></div>
+            <div class="ticker-item">SOL <span id="tick-sol">Loading...</span></div>
             <div class="ticker-item">BASE L2 <span style="color: var(--jmu-gold)">CONNECTED</span></div>
-            <div class="ticker-item">LINK <span id="tick-link">Fetching...</span></div>
-            <div class="ticker-item">AVAX <span id="tick-avax">Fetching...</span></div>
-            <div class="ticker-item">BTC <span id="tick-btc-2">Fetching...</span></div>
-            <div class="ticker-item">ETH <span id="tick-eth-2">Fetching...</span></div>
+            <div class="ticker-item">LINK <span id="tick-link">Loading...</span></div>
+            <div class="ticker-item">AVAX <span id="tick-avax">Loading...</span></div>
+            <div class="ticker-item">BTC <span id="tick-btc-2">Loading...</span></div>
+            <div class="ticker-item">ETH <span id="tick-eth-2">Loading...</span></div>
         </div>
     </div>
 
@@ -201,11 +187,6 @@
             </div>
         </div>
     </header>
-
-    <div class="next-block-banner reveal">
-        <span style="color: var(--jmu-gold); font-weight: 800; margin-right: 15px;">GATHERING //</span> 
-        Next Meeting: Thursday @ 7:00 PM EST | Hartman Hall Room 2021 | Topic: Node Deployment & Analysis
-    </div>
 
     <section id="pillar-highlights" style="padding: 60px 0 100px 0;">
         <div class="container" style="max-width: 1200px; margin: 0 auto; padding: 0 20px; box-sizing: border-box;">
@@ -292,11 +273,11 @@
         const db = getFirestore(app);
         const provider = new GoogleAuthProvider();
 
-        // LIVE BINANCE API TICKER LOGIC
+        // US-FRIENDLY LIVE COINGECKO API TICKER LOGIC
         async function fetchPrices() {
             try {
-                // Fetching live 24hr ticker data from Binance API (No API key required)
-                const res = await fetch('https://api.binance.com/api/v3/ticker/24hr?symbols=["BTCUSDT","ETHUSDT","SOLUSDT","LINKUSDT","AVAXUSDT"]');
+                // Fetching from CoinGecko to bypass US IP geo-blocking issues with Binance
+                const res = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,chainlink,avalanche-2&vs_currencies=usd&include_24hr_change=true');
                 const data = await res.json();
                 
                 const formatPrice = (price) => '$' + parseFloat(price).toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
@@ -305,22 +286,35 @@
                     return val >= 0 ? `<span style="color: #22c55e; margin-left: 8px; font-weight: 700;">(+${val.toFixed(2)}%)</span>` : `<span style="color: #ef4444; margin-left: 8px; font-weight: 700;">(${val.toFixed(2)}%)</span>`;
                 };
 
-                data.forEach(coin => {
-                    let id = coin.symbol.replace('USDT', '').toLowerCase();
-                    // Target both the primary and the duplicated scroll elements
-                    let elements = document.querySelectorAll(`#tick-${id}, #tick-${id}-2`);
-                    elements.forEach(el => {
-                        el.innerHTML = `${formatPrice(coin.lastPrice)} ${formatChange(coin.priceChangePercent)}`;
-                    });
-                });
+                const coinMap = {
+                    'bitcoin': 'btc',
+                    'ethereum': 'eth',
+                    'solana': 'sol',
+                    'chainlink': 'link',
+                    'avalanche-2': 'avax'
+                };
+
+                for (const [coinId, symbolId] of Object.entries(coinMap)) {
+                    if(data[coinId]) {
+                        const price = data[coinId].usd;
+                        const change = data[coinId].usd_24h_change;
+                        let elements = document.querySelectorAll(`#tick-${symbolId}, #tick-${symbolId}-2`);
+                        elements.forEach(el => {
+                            el.innerHTML = `${formatPrice(price)} ${formatChange(change)}`;
+                        });
+                    }
+                }
             } catch (error) { 
                 console.error("Live Ticker API Error:", error); 
+                document.querySelectorAll('.ticker-item span').forEach(el => {
+                    if(el.innerText === 'Loading...') el.innerText = 'Unavailable';
+                });
             }
         }
         
-        // Initialize Ticker and set 30-second refresh interval
+        // Initialize Ticker and set 60-second refresh interval
         fetchPrices();
-        setInterval(fetchPrices, 30000);
+        setInterval(fetchPrices, 60000);
 
         // TERMINAL TYPING EFFECT LOGIC
         const typeText = "A technical deep-dive into decentralized systems, bridging the gap between student curiosity and industry-grade reality.";
