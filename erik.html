@@ -7,53 +7,181 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <style>
-        :root { --jmu-purple: #450084; --jmu-gold: #C2A14D; --slate-950: #070a13; --glass: rgba(255, 255, 255, 0.03); --glass-border: rgba(255, 255, 255, 0.1); }
-        body { background-color: var(--slate-950); color: #f8fafc; font-family: 'Plus Jakarta Sans', sans-serif; margin: 0; overflow-x: hidden; line-height: 1.6; }
+        :root {
+            --jmu-purple: #450084;
+            --jmu-gold: #C2A14D;
+            --slate-950: #070a13;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        body { 
+            background-color: var(--slate-950); 
+            color: #f8fafc; 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            margin: 0; 
+            overflow-x: hidden; 
+            line-height: 1.6; 
+        }
+
+        /* --- BACKGROUND ARCHITECTURE --- */
         .bg-animate { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 50% 50%, #1a0033 0%, var(--slate-950) 100%); z-index: -2; }
         .bg-grid { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: linear-gradient(var(--glass-border) 1px, transparent 1px), linear-gradient(90deg, var(--glass-border) 1px, transparent 1px); background-size: 50px 50px; z-index: -1; mask-image: radial-gradient(circle at 50% 50%, black, transparent 80%); }
+
+        /* --- NAVIGATION --- */
         .navbar { background: rgba(7, 10, 19, 0.98) !important; backdrop-filter: blur(25px); border-bottom: 1px solid var(--glass-border) !important; padding: 15px 0; position: sticky; top: 0; z-index: 1000; }
         .nav-logo { height: 55px; width: auto; filter: none !important; transition: 0.3s; }
         .nav-item { text-decoration: none; color: #FFFFFF !important; font-weight: 800; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
         .nav-item:hover { color: var(--jmu-gold) !important; }
+
+        /* --- BIO SECTION --- */
         .bio-container { max-width: 1000px; margin: 80px auto; padding: 0 20px; text-align: center; }
-        .bio-avatar { width: 140px; height: 140px; background: var(--jmu-purple); border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; font-weight: 800; border: 4px solid var(--jmu-gold); box-shadow: 0 0 30px rgba(69, 0, 132, 0.4); }
+        .bio-avatar { width: 140px; height: 140px; background: linear-gradient(135deg, var(--jmu-purple), #1a0033); border-radius: 50%; margin: 0 auto 30px; display: flex; align-items: center; justify-content: center; font-size: 3.5rem; font-weight: 800; border: 4px solid var(--jmu-gold); box-shadow: 0 0 30px rgba(69, 0, 132, 0.4); }
         .role-tag { font-family: 'JetBrains Mono'; color: var(--jmu-gold); letter-spacing: 4px; font-weight: 700; margin-bottom: 15px; display: block; }
+        
+        .linkedin-btn { 
+            display: inline-flex; align-items: center; gap: 10px; background: #0077b5; color: white; 
+            text-decoration: none; padding: 12px 25px; border-radius: 30px; font-weight: 800; 
+            font-size: 0.9rem; margin-top: 25px; transition: 0.3s; 
+        }
+        .linkedin-btn:hover { transform: scale(1.05); background: #00a0dc; box-shadow: 0 10px 20px rgba(0, 119, 181, 0.3); }
+
+        /* --- SMART STATS GRID --- */
         .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-top: 60px; }
-        .stat-card { background: var(--glass); border: 1px solid var(--glass-border); padding: 30px; border-radius: 24px; text-align: left; transition: 0.3s; }
+        .stat-card { background: var(--glass); border: 1px solid var(--glass-border); padding: 35px; border-radius: 24px; text-align: left; transition: 0.4s; position: relative; overflow: hidden; }
+        .stat-card::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--jmu-purple); transition: 0.4s; }
+        .stat-card:hover { border-color: var(--jmu-gold); background: rgba(255,255,255,0.06); transform: translateY(-5px); }
+        .stat-card:hover::before { background: var(--jmu-gold); }
+        .stat-icon { color: var(--jmu-gold); font-size: 1.8rem; margin-bottom: 15px; display: block; }
+
+        /* --- ANIMATIONS --- */
         .reveal { opacity: 0; transform: translateY(40px); transition: all 1.2s cubic-bezier(0.19, 1, 0.22, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-        @media (max-width: 768px) { .nav-links { display: none !important; } }
+
+        @media (max-width: 768px) { .nav-links { display: none !important; } .bio-container h1 { font-size: 3.2rem !important; letter-spacing: -2px !important; } }
         #enter-portal { display: none; }
     </style>
 </head>
 <body>
-    <div class="bg-animate"></div><div class="bg-grid"></div>
-    <nav class="navbar"><div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 100%;"><a href="index.html"><img src="assets/blockchain.png" alt="Logo" class="nav-logo"></a><div style="display: flex; align-items: center; gap: 40px;"><div class="nav-links" style="display: flex; gap: 25px; align-items: center;"><a href="index.html" class="nav-item">Home</a><a href="projects.html" class="nav-item">Projects</a><a href="research.html" class="nav-item">Research</a><a href="index.html#team" class="nav-item">Leadership</a></div><div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center;"><button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Member Login</button><a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem;">PORTAL →</a></div></div></div></nav>
+    <div class="bg-animate"></div>
+    <div class="bg-grid"></div>
+
+    <nav class="navbar">
+        <div class="container" style="display: flex; align-items: center; justify-content: space-between; width: 90%; max-width: 1400px; margin: 0 auto;">
+            <a href="index.html"><img src="assets/blockchain.png" alt="Logo" class="nav-logo"></a>
+            <div style="display: flex; align-items: center; gap: 40px;">
+                <div class="nav-links" style="display: flex; gap: 25px; align-items: center;">
+                    <a href="index.html" class="nav-item">Home</a>
+                    <a href="projects.html" class="nav-item">Projects</a>
+                    <a href="research.html" class="nav-item">Research</a>
+                    <a href="index.html#team" class="nav-item">Leadership</a>
+                </div>
+                <div style="border-left: 2px solid var(--glass-border); padding-left: 30px; display: flex; align-items: center;">
+                    <button id="login-btn" style="background: var(--jmu-purple); color: white; border: none; padding: 12px 24px; border-radius: 12px; font-weight: 800; cursor: pointer; font-size: 0.8rem; text-transform: uppercase;">Member Login</button>
+                    <a href="members.html" id="enter-portal" style="color: var(--jmu-gold); margin-left: 15px; text-decoration: none; font-weight: 800; font-size: 0.8rem;">PORTAL →</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <main class="bio-container reveal">
         <div class="bio-avatar">VP</div>
         <span class="role-tag">VICE PRESIDENT</span>
-        <h1 style="font-size: 4rem; margin: 0; letter-spacing: -2px;">Erik Anderson</h1>
-        <p style="color: #94a3b8; font-size: 1.25rem; margin-top: 30px; max-width: 700px; margin-left: auto; margin-right: auto;">Driving internal operations and member development. Erik scales the club's infrastructure to meet the demands of a growing decentralized community.</p>
+        <h1 style="font-size: 4.5rem; margin: 0; letter-spacing: -2px;">Erik Anderson</h1>
+        <p style="color: #94a3b8; font-size: 1.25rem; margin-top: 25px; max-width: 750px; margin-left: auto; margin-right: auto;">
+            Driving internal operations and member development. Erik scales the club's infrastructure to meet the demands of a growing decentralized community.
+        </p>
+
+        <a href="https://www.linkedin.com/in/erikandersonr/" target="_blank" class="linkedin-btn">
+            Connect on LinkedIn
+        </a>
+
         <div class="stats-grid">
-            <div class="stat-card"><span style="color:var(--jmu-gold); font-size:1.5rem;">⚙️</span><h4 style="margin:10px 0;">Operational Logic</h4><p style="color:#64748b; font-size:0.9rem;">Streamlining project management through distributed coordination tools.</p></div>
-            <div class="stat-card"><span style="color:var(--jmu-gold); font-size:1.5rem;">👥</span><h4 style="margin:10px 0;">Member Onboarding</h4><p style="color:#64748b; font-size:0.9rem;">Building the "Genesis Batch" of student researchers through targeted workshops.</p></div>
-            <div class="stat-card"><span style="color:var(--jmu-gold); font-size:1.5rem;">📡</span><h4 style="margin:10px 0;">Internal Scaling</h4><p style="color:#64748b; font-size:0.9rem;">Optimizing club communications via secure, encrypted channels.</p></div>
+            <div class="stat-card">
+                <span class="stat-icon">⚙️</span>
+                <h4 style="margin: 0; font-size: 1.3rem;">Operational Logic</h4>
+                <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 10px;">Streamlining project management and organizational flow through distributed coordination tools.</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">👥</span>
+                <h4 style="margin: 0; font-size: 1.3rem;">Member Onboarding</h4>
+                <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 10px;">Building the foundational cohorts of student researchers through targeted educational workshops.</p>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">📡</span>
+                <h4 style="margin: 0; font-size: 1.3rem;">Internal Scaling</h4>
+                <p style="color: #94a3b8; font-size: 0.95rem; margin-top: 10px;">Optimizing club communications and ensuring technical systems can handle increasing network traffic.</p>
+            </div>
         </div>
     </main>
+
+    <footer style="background: rgba(0,0,0,0.4); padding: 80px 0 40px 0; border-top: 1px solid var(--glass-border); margin-top: 60px;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 30px; width: 90%; max-width: 1400px; margin: 0 auto;">
+            <div style="flex: 1; min-width: 250px;">
+                <img src="assets/blockchain.png" alt="JMU Blockchain" style="height: 45px; filter: grayscale(100%) brightness(1.5); opacity: 0.6;">
+                <p style="color: #475569; font-size: 0.85rem; margin-top: 15px; font-weight: 600;">Bridging JMU talent to the decentralized web.</p>
+                <p style="color: #475569; font-size: 0.75rem; letter-spacing: 1px; margin-top: 5px;">&copy; 2026 JMU BLOCKCHAIN CLUB</p>
+            </div>
+            <div style="display: flex; gap: 25px; flex-wrap: wrap;">
+                <a href="https://www.linkedin.com/company/jmu-blockchain/posts/?feedView=all" target="_blank" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.color='var(--jmu-gold)'" onmouseout="this.style.color='#94a3b8'">LINKEDIN</a>
+                <a href="https://github.com/JMU-Blockchain/Blockchain-website" target="_blank" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.color='var(--jmu-gold)'" onmouseout="this.style.color='#94a3b8'">GITHUB</a>
+                <a href="mailto:blockchainjmu@gmail.com" style="color: #94a3b8; text-decoration: none; font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; transition: 0.3s;" onmouseover="this.style.color='var(--jmu-gold)'" onmouseout="this.style.color='#94a3b8'">CONTACT</a>
+            </div>
+        </div>
+    </footer>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getAuth, signInWithPopup, GoogleAuthProvider, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
         import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-firestore.js";
-        const firebaseConfig = { apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0", authDomain: "jmu-blockchain-member.firebaseapp.com", projectId: "jmu-blockchain-member", storageBucket: "jmu-blockchain-member.firebasestorage.app", messagingSenderId: "98129620187", appId: "1:98129620187:web:d544b08841092ac497f0fe", measurementId: "G-VPLWE1FYZ4" };
-        const app = initializeApp(firebaseConfig); const auth = getAuth(app); const db = getFirestore(app); const provider = new GoogleAuthProvider();
-        if (sessionStorage.getItem('isMember') === 'true') { document.getElementById('login-btn').innerText = "VERIFIED"; document.getElementById('login-btn').style.background = "#22c55e"; document.getElementById('enter-portal').style.display = "inline-block"; }
+
+        const firebaseConfig = { 
+            apiKey: "AIzaSyBfORDp5vNAT6gHFrtmgywJ9wong1bAuo0", 
+            authDomain: "jmu-blockchain-member.firebaseapp.com", 
+            projectId: "jmu-blockchain-member", 
+            storageBucket: "jmu-blockchain-member.firebasestorage.app", 
+            messagingSenderId: "98129620187", 
+            appId: "1:98129620187:web:d544b08841092ac497f0fe", 
+            measurementId: "G-VPLWE1FYZ4" 
+        };
+
+        const app = initializeApp(firebaseConfig); 
+        const auth = getAuth(app); 
+        const db = getFirestore(app); 
+        const provider = new GoogleAuthProvider();
+
+        if (sessionStorage.getItem('isMember') === 'true') { 
+            const loginBtn = document.getElementById('login-btn');
+            loginBtn.innerText = "VERIFIED"; 
+            loginBtn.style.background = "#22c55e"; 
+            document.getElementById('enter-portal').style.display = "inline-block"; 
+        }
+
         document.getElementById('login-btn').addEventListener('click', async () => {
-            try { const result = await signInWithPopup(auth, provider); const userEmail = result.user.email; const membersRef = collection(db, "approved_members"); const q = query(membersRef, where("email", "==", userEmail)); const querySnapshot = await getDocs(q);
-                if (!querySnapshot.empty) { sessionStorage.setItem('isMember', 'true'); document.getElementById('login-btn').innerText = "VERIFIED"; document.getElementById('login-btn').style.background = "#22c55e"; document.getElementById('enter-portal').style.display = "inline-block"; }
-                else { await signOut(auth); alert("Access Denied."); }
-            } catch (error) { console.error(error); }
+            try { 
+                const result = await signInWithPopup(auth, provider); 
+                const userEmail = result.user.email.toLowerCase().trim(); 
+                const membersRef = collection(db, "approved_members"); 
+                const q = query(membersRef, where("email", "==", userEmail)); 
+                const querySnapshot = await getDocs(q);
+
+                if (!querySnapshot.empty) { 
+                    sessionStorage.setItem('isMember', 'true'); 
+                    document.getElementById('login-btn').innerText = "VERIFIED"; 
+                    document.getElementById('login-btn').style.background = "#22c55e"; 
+                    document.getElementById('enter-portal').style.display = "inline-block"; 
+                } else { 
+                    await signOut(auth); 
+                    alert("Access Denied: You are not on the approved member list."); 
+                }
+            } catch (error) { 
+                console.error("Auth Error:", error); 
+            }
         });
-        const observer = new IntersectionObserver((entries) => { entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); }, { threshold: 0.1 });
+
+        const observer = new IntersectionObserver((entries) => { 
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); }); 
+        }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
